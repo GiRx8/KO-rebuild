@@ -58,6 +58,7 @@ assets/client/
 !assets/Client/
 !assets/Client/**
 assets/Client/KnightOnLine.exe
+assets/Client/webui_console.log
 
 # Do not ignore CMakeLists.txt
 !CMakeLists.txt

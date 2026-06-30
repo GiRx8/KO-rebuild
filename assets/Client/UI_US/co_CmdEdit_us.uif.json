@@ -1,0 +1,682 @@
+{
+    "type": "BASE",
+    "name": "",
+    "unknown_version_val": 1,
+    "children": [
+        {
+            "type": "IMAGE",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "",
+            "region": {
+                "left": 0,
+                "top": 0,
+                "right": 33,
+                "bottom": 74
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "texture_file": "ui_us\\ui_curtail_us.dxt",
+            "uv_rect": {
+                "left": 0.662109375,
+                "top": 0.71484375,
+                "right": 0.7265625,
+                "bottom": 0.859375
+            },
+            "anim_frame": 30.0
+        },
+        {
+            "type": "IMAGE",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "",
+            "region": {
+                "left": 32,
+                "top": 0,
+                "right": 205,
+                "bottom": 75
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "texture_file": "ui_us\\ui_curtail_us.dxt",
+            "uv_rect": {
+                "left": 0.662109375,
+                "top": 0.564453125,
+                "right": 1.0,
+                "bottom": 0.7109375
+            },
+            "anim_frame": 30.0
+        },
+        {
+            "type": "IMAGE",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "",
+            "region": {
+                "left": 205,
+                "top": 0,
+                "right": 378,
+                "bottom": 75
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "texture_file": "ui_us\\ui_curtail_us.dxt",
+            "uv_rect": {
+                "left": 0.662109375,
+                "top": 0.416015625,
+                "right": 1.0,
+                "bottom": 0.5625
+            },
+            "anim_frame": 30.0
+        },
+        {
+            "type": "EDIT",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 14,
+                        "top": 11,
+                        "right": 367,
+                        "bottom": 29
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_curtail_us.dxt",
+                    "uv_rect": {
+                        "left": 0.86328125,
+                        "top": 0.369140625,
+                        "right": 0.890625,
+                        "bottom": 0.400390625
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "STRING",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 14,
+                        "top": 11,
+                        "right": 367,
+                        "bottom": 29
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 1048576,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "font_name": "Arial",
+                    "font_height": 10,
+                    "font_flags": 0,
+                    "color": 4294967295,
+                    "text": "",
+                    "line_spacing": 0
+                }
+            ],
+            "id": "edit_cmd",
+            "region": {
+                "left": 14,
+                "top": 11,
+                "right": 367,
+                "bottom": 29
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "sound_click": "",
+            "sound_typing": ""
+        },
+        {
+            "type": "BUTTON",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 206,
+                        "top": 39,
+                        "right": 277,
+                        "bottom": 64
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_curtail_us.dxt",
+                    "uv_rect": {
+                        "left": 0.73046875,
+                        "top": 0.712890625,
+                        "right": 0.87109375,
+                        "bottom": 0.76171875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 206,
+                        "top": 39,
+                        "right": 277,
+                        "bottom": 64
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_curtail_us.dxt",
+                    "uv_rect": {
+                        "left": 0.73046875,
+                        "top": 0.76171875,
+                        "right": 0.87109375,
+                        "bottom": 0.810546875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 206,
+                        "top": 39,
+                        "right": 277,
+                        "bottom": 64
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 2,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_curtail_us.dxt",
+                    "uv_rect": {
+                        "left": 0.73046875,
+                        "top": 0.810546875,
+                        "right": 0.87109375,
+                        "bottom": 0.859375
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 206,
+                        "top": 39,
+                        "right": 277,
+                        "bottom": 64
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 3,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_curtail_us.dxt",
+                    "uv_rect": {
+                        "left": 0.73046875,
+                        "top": 0.712890625,
+                        "right": 0.87109375,
+                        "bottom": 0.76171875
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "btn_ok",
+            "region": {
+                "left": 206,
+                "top": 39,
+                "right": 277,
+                "bottom": 64
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 65536,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "click_rect": {
+                "left": 206,
+                "top": 39,
+                "right": 277,
+                "bottom": 64
+            },
+            "sound_on": "",
+            "sound_click": ""
+        },
+        {
+            "type": "BUTTON",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 294,
+                        "top": 39,
+                        "right": 365,
+                        "bottom": 64
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 3,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_curtail_us.dxt",
+                    "uv_rect": {
+                        "left": 0.73046875,
+                        "top": 0.712890625,
+                        "right": 0.87109375,
+                        "bottom": 0.76171875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 294,
+                        "top": 39,
+                        "right": 365,
+                        "bottom": 64
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 2,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_curtail_us.dxt",
+                    "uv_rect": {
+                        "left": 0.73046875,
+                        "top": 0.810546875,
+                        "right": 0.87109375,
+                        "bottom": 0.859375
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 294,
+                        "top": 39,
+                        "right": 365,
+                        "bottom": 64
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_curtail_us.dxt",
+                    "uv_rect": {
+                        "left": 0.73046875,
+                        "top": 0.76171875,
+                        "right": 0.87109375,
+                        "bottom": 0.810546875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 294,
+                        "top": 39,
+                        "right": 365,
+                        "bottom": 64
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_curtail_us.dxt",
+                    "uv_rect": {
+                        "left": 0.73046875,
+                        "top": 0.712890625,
+                        "right": 0.87109375,
+                        "bottom": 0.76171875
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "btn_cancel",
+            "region": {
+                "left": 294,
+                "top": 39,
+                "right": 365,
+                "bottom": 64
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 65536,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "click_rect": {
+                "left": 294,
+                "top": 39,
+                "right": 365,
+                "bottom": 64
+            },
+            "sound_on": "",
+            "sound_click": ""
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "",
+            "region": {
+                "left": 208,
+                "top": 44,
+                "right": 276,
+                "bottom": 62
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 76546048,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 11,
+            "font_flags": 1,
+            "color": 4278190080,
+            "text": "O K",
+            "line_spacing": 0
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "",
+            "region": {
+                "left": 207,
+                "top": 43,
+                "right": 275,
+                "bottom": 61
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 76546048,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 11,
+            "font_flags": 1,
+            "color": 4294173110,
+            "text": "O K",
+            "line_spacing": 0
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "",
+            "region": {
+                "left": 298,
+                "top": 44,
+                "right": 366,
+                "bottom": 62
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 76546048,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 11,
+            "font_flags": 1,
+            "color": 4278190080,
+            "text": "Close",
+            "line_spacing": 0
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "",
+            "region": {
+                "left": 297,
+                "top": 43,
+                "right": 365,
+                "bottom": 61
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 76546048,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 11,
+            "font_flags": 1,
+            "color": 4294173110,
+            "text": "Close",
+            "line_spacing": 0
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "Text_cmd",
+            "region": {
+                "left": 17,
+                "top": 43,
+                "right": 182,
+                "bottom": 60
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 76546048,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 10,
+            "font_flags": 1,
+            "color": 4286643968,
+            "text": "/Command",
+            "line_spacing": 0
+        }
+    ],
+    "id": "",
+    "region": {
+        "left": 0,
+        "top": 0,
+        "right": 379,
+        "bottom": 75
+    },
+    "movable": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+    },
+    "style": 0,
+    "reserved": 0,
+    "tooltip": "",
+    "open_sound": "",
+    "close_sound": ""
+}

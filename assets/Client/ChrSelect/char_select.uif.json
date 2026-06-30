@@ -1,0 +1,669 @@
+{
+    "type": "BASE",
+    "name": "",
+    "unknown_version_val": 0,
+    "children": [
+        {
+            "type": "BUTTON",
+            "name": "",
+            "unknown_version_val": 0,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 588,
+                        "top": 680,
+                        "right": 632,
+                        "bottom": 700
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.712890625,
+                        "top": 0.025390625,
+                        "right": 0.798828125,
+                        "bottom": 0.064453125
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 588,
+                        "top": 680,
+                        "right": 632,
+                        "bottom": 700
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.884765625,
+                        "top": 0.025390625,
+                        "right": 0.970703125,
+                        "bottom": 0.064453125
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 588,
+                        "top": 680,
+                        "right": 632,
+                        "bottom": 700
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 2,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.798828125,
+                        "top": 0.025390625,
+                        "right": 0.884765625,
+                        "bottom": 0.064453125
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 588,
+                        "top": 680,
+                        "right": 632,
+                        "bottom": 700
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 3,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.7109375,
+                        "top": 0.025390625,
+                        "right": 0.796875,
+                        "bottom": 0.064453125
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "bt_right",
+            "region": {
+                "left": 588,
+                "top": 680,
+                "right": 632,
+                "bottom": 700
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 65536,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "click_rect": {
+                "left": 588,
+                "top": 680,
+                "right": 632,
+                "bottom": 700
+            },
+            "sound_on": "",
+            "sound_click": ""
+        },
+        {
+            "type": "BUTTON",
+            "name": "",
+            "unknown_version_val": 0,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 399,
+                        "top": 680,
+                        "right": 442,
+                        "bottom": 700
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.712890625,
+                        "top": 0.06640625,
+                        "right": 0.796875,
+                        "bottom": 0.10546875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 399,
+                        "top": 680,
+                        "right": 442,
+                        "bottom": 700
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.884765625,
+                        "top": 0.06640625,
+                        "right": 0.96875,
+                        "bottom": 0.10546875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 399,
+                        "top": 680,
+                        "right": 442,
+                        "bottom": 700
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 2,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.798828125,
+                        "top": 0.06640625,
+                        "right": 0.8828125,
+                        "bottom": 0.10546875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 399,
+                        "top": 680,
+                        "right": 442,
+                        "bottom": 700
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 3,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.712890625,
+                        "top": 0.06640625,
+                        "right": 0.796875,
+                        "bottom": 0.10546875
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "bt_left",
+            "region": {
+                "left": 399,
+                "top": 680,
+                "right": 442,
+                "bottom": 700
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 65536,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "click_rect": {
+                "left": 399,
+                "top": 680,
+                "right": 442,
+                "bottom": 700
+            },
+            "sound_on": "",
+            "sound_click": ""
+        },
+        {
+            "type": "BUTTON",
+            "name": "",
+            "unknown_version_val": 0,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 469,
+                        "top": 22,
+                        "right": 564,
+                        "bottom": 42
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.794921875,
+                        "top": 0.189453125,
+                        "right": 0.98046875,
+                        "bottom": 0.228515625
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 469,
+                        "top": 22,
+                        "right": 564,
+                        "bottom": 42
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.794921875,
+                        "top": 0.107421875,
+                        "right": 0.98046875,
+                        "bottom": 0.146484375
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 469,
+                        "top": 22,
+                        "right": 564,
+                        "bottom": 42
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 2,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.794921875,
+                        "top": 0.1484375,
+                        "right": 0.98046875,
+                        "bottom": 0.1875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 469,
+                        "top": 22,
+                        "right": 564,
+                        "bottom": 42
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 3,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.794921875,
+                        "top": 0.189453125,
+                        "right": 0.98046875,
+                        "bottom": 0.228515625
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "bt_delete",
+            "region": {
+                "left": 469,
+                "top": 22,
+                "right": 564,
+                "bottom": 42
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 65536,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "click_rect": {
+                "left": 469,
+                "top": 22,
+                "right": 564,
+                "bottom": 42
+            },
+            "sound_on": "",
+            "sound_click": ""
+        },
+        {
+            "type": "BUTTON",
+            "name": "",
+            "unknown_version_val": 0,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 469,
+                        "top": 680,
+                        "right": 564,
+                        "bottom": 701
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.794921875,
+                        "top": 0.3125,
+                        "right": 0.98046875,
+                        "bottom": 0.353515625
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 469,
+                        "top": 680,
+                        "right": 564,
+                        "bottom": 701
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.794921875,
+                        "top": 0.228515625,
+                        "right": 0.98046875,
+                        "bottom": 0.271484375
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 469,
+                        "top": 680,
+                        "right": 564,
+                        "bottom": 701
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 2,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.794921875,
+                        "top": 0.271484375,
+                        "right": 0.98046875,
+                        "bottom": 0.3125
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 0,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 469,
+                        "top": 680,
+                        "right": 564,
+                        "bottom": 701
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 3,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui\\·Î±×ÀÎÈ­¸é¹öÆ°.tga",
+                    "uv_rect": {
+                        "left": 0.794921875,
+                        "top": 0.3125,
+                        "right": 0.98046875,
+                        "bottom": 0.353515625
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "bt_exit",
+            "region": {
+                "left": 469,
+                "top": 680,
+                "right": 564,
+                "bottom": 701
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 65536,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "click_rect": {
+                "left": 469,
+                "top": 680,
+                "right": 564,
+                "bottom": 701
+            },
+            "sound_on": "",
+            "sound_click": ""
+        }
+    ],
+    "id": "",
+    "region": {
+        "left": 0,
+        "top": 0,
+        "right": 1024,
+        "bottom": 768
+    },
+    "movable": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+    },
+    "style": 0,
+    "reserved": 0,
+    "tooltip": "",
+    "open_sound": "",
+    "close_sound": ""
+}

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knight Online - Rich Fantasy UI Mockup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=MedievalSharp&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background: #0d0f12 url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+            background-size: cover;
+            font-family: 'Montserrat', sans-serif;
+            color: #e0d5c1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* Overlay shadow to darken the background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 100%);
+            z-index: 0;
+        }
+
+        /* ====== ADVANCED FANTASY PANEL CONTAINER ====== */
+        .fantasy-wnd {
+            position: relative;
+            width: 320px;
+            height: 520px;
+            background: linear-gradient(180deg, rgba(26, 20, 16, 0.96) 0%, rgba(15, 12, 10, 0.98) 100%);
+            border: 3px double #aa7c11;
+            box-shadow: 
+                0 20px 50px rgba(0,0,0,0.9), 
+                inset 0 0 30px rgba(170, 124, 17, 0.15),
+                0 0 15px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            padding: 18px;
+            z-index: 10;
+        }
+
+        /* Corner Brackets / Filigree */
+        .fantasy-wnd::before, .fantasy-wnd::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ffd700;
+            pointer-events: none;
+        }
+        /* Top-Left Corner Bracket */
+        .fantasy-wnd::before {
+            top: 4px;
+            left: 4px;
+            border-right: none;
+            border-bottom: none;
+            box-shadow: -2px -2px 6px rgba(255, 215, 0, 0.3);
+        }
+        /* Bottom-Right Corner Bracket */
+        .fantasy-wnd::after {
+            bottom: 4px;
+            right: 4px;
+            border-left: none;
+            border-top: none;
+            box-shadow: 2px 2px 6px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Additional Brackets for Top-Right & Bottom-Left */
+        .corner-extra-tr, .corner-extra-bl {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ffd700;
+            pointer-events: none;
+        }
+        .corner-extra-tr {
+            top: 4px;
+            right: 4px;
+            border-left: none;
+            border-bottom: none;
+            box-shadow: 2px -2px 6px rgba(255, 215, 0, 0.3);
+        }
+        .corner-extra-bl {
+            bottom: 4px;
+            left: 4px;
+            border-right: none;
+            border-top: none;
+            box-shadow: -2px 2px 6px rgba(255, 215, 0, 0.3);
+        }
+
+        /* 3D Metal Rivets */
+        .rivet {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #ffe699 0%, #aa7c11 60%, #4a3403 100%);
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.4);
+        }
+        .rivet-tl { top: 12px; left: 12px; }
+        .rivet-tr { top: 12px; right: 12px; }
+        .rivet-bl { bottom: 12px; left: 12px; }
+        .rivet-br { bottom: 12px; right: 12px; }
+
+        /* Window Header Decorative Plate */
+        .wnd-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            height: 40px;
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, transparent, #aa7c11 30%, #ffd700 50%, #aa7c11 70%, transparent) 1;
+            margin-bottom: 12px;
+        }
+
+        .wnd-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 13px;
+            font-weight: 900;
+            color: #ffd700;
+            text-align: center;
+            width: 100%;
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.5), 0 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 1.5px;
+        }
+
+        .wnd-close {
+            position: absolute;
+            right: 2px;
+            top: 6px;
+            color: rgba(255, 215, 0, 0.6);
+            cursor: pointer;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .wnd-close:hover {
+            color: #ff453a;
+            transform: scale(1.15);
+            text-shadow: 0 0 8px rgba(255, 69, 58, 0.6);
+        }
+
+        /* ====== FANTASY TABS BAR ====== */
+        .tabs-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 10px;
+            font-weight: bold;
+            color: #ffd700;
+            background: linear-gradient(180deg, rgba(60, 48, 36, 0.8) 0%, rgba(30, 24, 18, 0.9) 100%);
+            border: 1px solid #aa7c11;
+            border-bottom: 3px solid #aa7c11;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .tab-btn:hover {
+            background: linear-gradient(180deg, rgba(80, 65, 50, 0.9) 0%, rgba(45, 36, 27, 0.95) 100%);
+            border-color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+        }
+
+        .tab-btn.active {
+            color: #ffffff;
+            background: linear-gradient(180deg, #aa7c11 0%, #7c5806 100%);
+            border-color: #ffd700;
+            border-bottom-color: #ffd700;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+        }
+
+        /* ====== SCROLLABLE CONTENT AREA ====== */
+        .tab-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tab-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .tab-content::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.25);
+            border-radius: 4px;
+        }
+        .tab-content::-webkit-scrollbar-thumb {
+            background: #aa7c11;
+            border: 1px solid #ffd700;
+            border-radius: 4px;
+        }
+
+        /* ====== DECORATIVE FANTASY SECTION CARD ====== */
+        .fantasy-section {
+            background: linear-gradient(135deg, rgba(38, 28, 20, 0.6) 0%, rgba(20, 15, 12, 0.8) 100%);
+            border: 1.5px solid rgba(170, 124, 17, 0.3);
+            border-radius: 6px;
+            padding: 10px 12px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .section-header {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 11px;
+            font-weight: bold;
+            color: #ffd700;
+            border-bottom: 1px solid rgba(170, 124, 17, 0.2);
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Profile Summary details style */
+        .profile-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+        }
+
+        .profile-label {
+            color: rgba(224, 213, 193, 0.6);
+            font-weight: 600;
+        }
+
+        .profile-val {
+            color: #ffffff;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* Attribute point distribution rows with gold buttons */
+        .stat-dist-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10.5px;
+            height: 24px;
+        }
+
+        .stat-btn-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-val-bonus {
+            color: #30d158;
+            font-weight: 800;
+            font-size: 9px;
+        }
+
+        .stat-up-btn {
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(180deg, #ffd700 0%, #aa7c11 100%);
+            border: 1px solid #ffe699;
+            border-radius: 3px;
+            color: #302100;
+            font-family: 'MedievalSharp', cursive;
+            font-weight: 900;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            transition: all 0.15s ease;
+        }
+
+        .stat-up-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+        }
+
+        /* ====== PROGRESS/EXPERIENCE METER ====== */
+        .meter-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .meter-label-wrap {
+            display: flex;
+            justify-content: space-between;
+            font-size: 8px;
+            color: rgba(255,255,255,0.4);
+            font-weight: bold;
+        }
+
+        .meter-bar {
+            height: 8px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(170,124,17,0.4);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #aa7c11 0%, #ffd700 50%, #aa7c11 100%);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+            width: 45%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* ====== EQUIPMENT GRID & SLOTS ====== */
+        .equip-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            justify-items: center;
+            margin-top: 6px;
+        }
+
+        .equip-slot {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(20, 16, 12, 0.9) 0%, rgba(10, 8, 6, 0.95) 100%);
+            border: 1.5px solid #aa7c11;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
+            border-radius: 6px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .equip-slot:hover {
+            border-color: #ffd700;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Label inside equip slot */
+        .equip-slot::after {
+            content: attr(data-slot-name);
+            position: absolute;
+            bottom: 2px;
+            left: 0; right: 0;
+            text-align: center;
+            font-size: 7px;
+            color: rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* Glowing rare items mockup */
+        .equip-slot.legendary {
+            border-color: #ffae00;
+            box-shadow: 0 0 12px rgba(255, 174, 0, 0.4), inset 0 0 8px rgba(255, 174, 0, 0.3);
+        }
+        .equip-slot.legendary::before {
+            content: '⚔️';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            text-shadow: 0 0 10px rgba(255, 174, 0, 0.8);
+        }
+
+        .equip-slot.epic {
+            border-color: #a335ee;
+            box-shadow: 0 0 12px rgba(163, 53, 238, 0.4), inset 0 0 8px rgba(163, 53, 238, 0.3);
+        }
+        .equip-slot.epic::before {
+            content: '🛡️';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            text-shadow: 0 0 10px rgba(163, 53, 238, 0.8);
+        }
+
+        /* ====== INVENTORY GRID ====== */
+        .bag-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .bag-slot {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, rgba(20, 16, 12, 0.9) 0%, rgba(10, 8, 6, 0.95) 100%);
+            border: 1.2px solid rgba(170, 124, 17, 0.5);
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.9);
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .bag-slot:hover {
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .bag-slot.rare {
+            border-color: #0070dd;
+            box-shadow: inset 0 0 6px rgba(0, 112, 221, 0.3);
+        }
+        .bag-slot.rare::before {
+            content: '🧪';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .bag-slot.quest-item {
+            border-color: #ffd700;
+            box-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
+        }
+        .bag-slot.quest-item::before {
+            content: '📜';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        /* ====== GOLD FOLLOWER DRAWER ====== */
+        .gold-drawer {
+            height: 34px;
+            background: linear-gradient(180deg, rgba(30, 24, 18, 0.9) 0%, rgba(15, 12, 9, 0.95) 100%);
+            border-top: 2px solid #aa7c11;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
+        }
+
+        .gold-title {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 10px;
+            color: rgba(224, 213, 193, 0.5);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .gold-amount {
+            font-weight: 800;
+            color: #ffae00;
+            font-size: 11px;
+            text-shadow: 0 0 6px rgba(255, 174, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ====== CLAN/FRIENDS FANTASY GRID ====== */
+        .clan-member-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(170, 124, 17, 0.2);
+            border-radius: 4px;
+            font-size: 10px;
+        }
+
+        .clan-member-row:hover {
+            border-color: rgba(170, 124, 17, 0.5);
+            background: rgba(255, 215, 0, 0.02);
+        }
+
+        .member-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .member-name-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .online-glow {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #30d158;
+            box-shadow: 0 0 6px #30d158;
+        }
+
+        .member-name {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .member-job {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 8.5px;
+        }
+
+        .member-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .action-icon {
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(170, 124, 17, 0.4);
+            border-radius: 3px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 9px;
+        }
+
+        .action-icon:hover {
+            background: #aa7c11;
+            color: #ffffff;
+            border-color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- WINDOW 1: CHARACTER STATS & EQUIPMENT -->
+    <div class="fantasy-wnd">
+        <!-- Corner decorations -->
+        <div class="corner-extra-tr"></div>
+        <div class="corner-extra-bl"></div>
+        
+        <!-- Metal Rivets -->
+        <div class="rivet rivet-tl"></div>
+        <div class="rivet rivet-tr"></div>
+        <div class="rivet rivet-bl"></div>
+        <div class="rivet rivet-br"></div>
+
+        <div class="wnd-header">
+            <span class="wnd-title">👤 Hero Profile</span>
+            <div class="wnd-close">✕</div>
+        </div>
+
+        <div class="tabs-bar">
+            <div class="tab-btn active">Stats</div>
+            <div class="tab-btn">Quests</div>
+            <div class="tab-btn">Friends</div>
+        </div>
+
+        <div class="tab-content">
+            <!-- Summary Info -->
+            <div class="fantasy-section">
+                <div class="profile-row">
+                    <span class="profile-label">Class</span>
+                    <span class="profile-val" style="color: #ffae00;">Shadow Assassin</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">Race</span>
+                    <span class="profile-val">Tuarek</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">Nation</span>
+                    <span class="profile-val">Karus Alliance</span>
+                </div>
+                
+                <!-- Experience bar -->
+                <div class="meter-container">
+                    <div class="meter-label-wrap">
+                        <span>Experience Points</span>
+                        <span>45,280,000 / 100,000,000 (45.28%)</span>
+                    </div>
+                    <div class="meter-bar">
+                        <div class="meter-fill" style="width: 45.28%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attributes points section -->
+            <div class="fantasy-section">
+                <div class="section-header">Attributes <span>(12 points available)</span></div>
+                
+                <div class="stat-dist-row">
+                    <span class="profile-label">Strength</span>
+                    <div class="stat-btn-wrap">
+                        <span class="profile-val">120</span>
+                        <span class="stat-val-bonus">(+15)</span>
+                        <div class="stat-up-btn">+</div>
+                    </div>
+                </div>
+                <div class="stat-dist-row">
+                    <span class="profile-label">Health Points</span>
+                    <div class="stat-btn-wrap">
+                        <span class="profile-val">90</span>
+                        <span class="stat-val-bonus">(+5)</span>
+                        <div class="stat-up-btn">+</div>
+                    </div>
+                </div>
+                <div class="stat-dist-row">
+                    <span class="profile-label">Dexterity</span>
+                    <div class="stat-btn-wrap">
+                        <span class="profile-val">185</span>
+                        <span class="stat-val-bonus" style="color: #30d158;">(+45)</span>
+                        <div class="stat-up-btn">+</div>
+                    </div>
+                </div>
+                <div class="stat-dist-row">
+                    <span class="profile-label">Intelligence</span>
+                    <div class="stat-btn-wrap">
+                        <span class="profile-val">50</span>
+                        <span class="stat-val-bonus"></span>
+                        <div class="stat-up-btn">+</div>
+                    </div>
+                </div>
+                <div class="stat-dist-row">
+                    <span class="profile-label">Magic Points</span>
+                    <div class="stat-btn-wrap">
+                        <span class="profile-val">50</span>
+                        <span class="stat-val-bonus"></span>
+                        <div class="stat-up-btn">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Equipment Section mockup -->
+            <div class="fantasy-section">
+                <div class="section-header">Equipped Gear</div>
+                <div class="equip-grid">
+                    <div class="equip-slot legendary" data-slot-name="Weapon"></div>
+                    <div class="equip-slot epic" data-slot-name="Armor"></div>
+                    <div class="equip-slot" data-slot-name="Ring"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WINDOW 2: BAG INVENTORY & CLAN -->
+    <div class="fantasy-wnd">
+        <!-- Corner decorations -->
+        <div class="corner-extra-tr"></div>
+        <div class="corner-extra-bl"></div>
+
+        <!-- Metal Rivets -->
+        <div class="rivet rivet-tl"></div>
+        <div class="rivet rivet-tr"></div>
+        <div class="rivet rivet-bl"></div>
+        <div class="rivet rivet-br"></div>
+
+        <div class="wnd-header">
+            <span class="wnd-title">🎒 Vault & Clan</span>
+            <div class="wnd-close">✕</div>
+        </div>
+
+        <div class="tabs-bar">
+            <div class="tab-btn">Inventory</div>
+            <div class="tab-btn active">Clan</div>
+        </div>
+
+        <div class="tab-content">
+            <!-- Clan Header Summary -->
+            <div class="fantasy-section">
+                <div class="profile-row">
+                    <span class="profile-label">Knights Guild</span>
+                    <span class="profile-val" style="color: #ffd700; font-weight: 800;">Moradon_Knights</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">Hierarchy Rank</span>
+                    <span class="profile-val">Grade 1 / Rank 4</span>
+                </div>
+            </div>
+
+            <!-- Clan control actions bar -->
+            <div style="display: flex; gap: 6px;">
+                <button class="clan-action-btn primary" style="flex: 1; height: 26px; border: 1px solid #aa7c11; border-radius: 4px; background: rgba(0,0,0,0.3); font-family: 'MedievalSharp', cursive; font-size: 9px; color: #ffd700; cursor: pointer;">🔄 Refresh</button>
+                <button class="clan-action-btn accent" style="flex: 1; height: 26px; border: 1px solid #ffd700; border-radius: 4px; background: linear-gradient(180deg, #aa7c11 0%, #7c5806 100%); font-family: 'MedievalSharp', cursive; font-size: 9px; color: #ffffff; cursor: pointer;">➕ Invite selected</button>
+            </div>
+
+            <!-- Clan roster list -->
+            <div class="fantasy-section" style="flex: 1;">
+                <div class="section-header">Alliance Roster (Online)</div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <!-- Roster Row 1 -->
+                    <div class="clan-member-row">
+                        <div class="member-info">
+                            <div class="member-name-wrap">
+                                <div class="online-glow"></div>
+                                <span class="member-name">Grand_Archon</span>
+                            </div>
+                            <span class="member-job">Lv 80 Blade Knight (Leader)</span>
+                        </div>
+                        <div class="member-actions">
+                            <div class="action-icon" title="Private Message">💬</div>
+                            <div class="action-icon kick" title="Expel from guild" style="color: #ff453a;">✕</div>
+                        </div>
+                    </div>
+
+                    <!-- Roster Row 2 -->
+                    <div class="clan-member-row">
+                        <div class="member-info">
+                            <div class="member-name-wrap">
+                                <div class="online-glow"></div>
+                                <span class="member-name">Spell Weaver</span>
+                            </div>
+                            <span class="member-job">Lv 78 Fire Arch Mage (Vice Chief)</span>
+                        </div>
+                        <div class="member-actions">
+                            <div class="action-icon" title="Private Message">💬</div>
+                            <div class="action-icon kick" title="Expel from guild" style="color: #ff453a;">✕</div>
+                        </div>
+                    </div>
+
+                    <!-- Roster Row 3 -->
+                    <div class="clan-member-row">
+                        <div class="member-info">
+                            <div class="member-name-wrap">
+                                <div class="online-glow"></div>
+                                <span class="member-name">AxeMaster</span>
+                            </div>
+                            <span class="member-job">Lv 72 Berserker Hero (Member)</span>
+                        </div>
+                        <div class="member-actions">
+                            <div class="action-icon" title="Private Message">💬</div>
+                            <div class="action-icon" title="Appoint Vice Chief">🎖️</div>
+                            <div class="action-icon kick" title="Expel from guild" style="color: #ff453a;">✕</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bags layout mockup below guild -->
+            <div class="fantasy-section">
+                <div class="section-header">Sack Slots</div>
+                <div class="bag-grid">
+                    <div class="bag-slot rare"></div>
+                    <div class="bag-slot quest-item"></div>
+                    <div class="bag-slot"></div>
+                    <div class="bag-slot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gold-drawer">
+            <span class="gold-title">🏦 Gold Noahs</span>
+            <span class="gold-amount">🪙 1,250,500</span>
+        </div>
+    </div>
+
+</body>
+</html>

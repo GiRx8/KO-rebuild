@@ -1,0 +1,3446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Knight Online HUD</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Cinzel:wght@700;900&family=MedievalSharp&display=swap');
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        input, textarea {
+            user-select: text !important;
+            -webkit-user-select: text !important;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: transparent;
+            font-family: 'Outfit', sans-serif;
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: geometricPrecision;
+        }
+
+        /* ====== FANTASY THEME OVERLAYS (DWARVEN WARRIOR) ====== */
+        .fantasy-panel {
+            background: linear-gradient(180deg, rgba(20, 20, 24, 0.98) 0%, rgba(12, 12, 14, 0.99) 100%) !important;
+            border: 3px solid #333333 !important;
+            border-image: linear-gradient(to bottom, #555555, #222222, #555555) 1 !important;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 110, 0, 0.15) !important;
+            border-radius: 0px !important;
+        }
+
+        .inv-title, .skills-title, .char-title {
+            font-family: 'MedievalSharp', cursive !important;
+            font-size: 12px !important;
+            font-weight: bold;
+            color: #ff7700 !important;
+            text-shadow: 0 0 10px rgba(255, 119, 0, 0.6), 0 2px 2px rgba(0,0,0,0.9) !important;
+            letter-spacing: 1px !important;
+            text-transform: uppercase !important;
+        }
+
+        .inv-divider {
+            height: 2px !important;
+            background: linear-gradient(to right, transparent, #ff7700, transparent) !important;
+            border: none !important;
+            margin: 10px 0 !important;
+        }
+
+        .char-section-title, .skill-section-title {
+            font-family: 'MedievalSharp', cursive !important;
+            color: #ff9900 !important;
+            font-size: 10px !important;
+            letter-spacing: 0.5px !important;
+            text-transform: uppercase !important;
+        }
+
+        .skill-tab, .char-tab {
+            font-family: 'MedievalSharp', cursive !important;
+            letter-spacing: 0.5px !important;
+            border: 1px solid #444 !important;
+            background: rgba(10, 10, 12, 0.8) !important;
+            border-radius: 0px !important;
+        }
+
+        .skill-tab.active, .char-tab.active {
+            background: linear-gradient(to bottom, #993d00 0%, #4d1f00 100%) !important;
+            border-color: #ff7700 !important;
+            box-shadow: 0 0 10px rgba(255, 119, 0, 0.35) !important;
+            color: #ffffff !important;
+        }
+
+        .inv-footer {
+            background: rgba(255, 119, 0, 0.03) !important;
+            border-top: 1.5px solid rgba(255, 119, 0, 0.2) !important;
+        }
+
+        /* HUD Container */
+        .hud-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        .interactive {
+            pointer-events: auto;
+        }
+
+        /* VERTICAL POCKET HUD CARD (PREMIUM STYLING) */
+        .unified-hud {
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, rgba(8, 12, 24, 0.85) 0%, rgba(14, 20, 38, 0.8) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 10px 12px;
+            gap: 6px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.02);
+            width: 215px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .unified-hud:hover {
+            border-color: rgba(255, 174, 0, 0.25);
+            box-shadow: 0 8px 32px rgba(255, 174, 0, 0.08), inset 0 0 20px rgba(255, 174, 0, 0.01);
+        }
+
+        /* Top Profile Row */
+        .profile-sec {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 2px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 6px;
+        }
+
+        .meta-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+        }
+
+        .player-name {
+            font-size: 12px;
+            font-weight: 900;
+            color: #ffe89e; /* Golden Name */
+            letter-spacing: 0.2px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 110px;
+        }
+
+        .player-class {
+            font-size: 8px;
+            color: #a2b4cd;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        /* Golden Level Tag Badge */
+        .level-badge {
+            background: linear-gradient(135deg, #d4af37, #aa7c11);
+            color: #ffffff;
+            font-size: 8px;
+            font-weight: 900;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #ffe89e;
+            box-shadow: 0 1.5px 4px rgba(0,0,0,0.4);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+        }
+
+        /* Status Bars Section */
+        .bars-sec {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+        }
+
+        .stat-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 7.5px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            color: #c7d5e6;
+        }
+
+        .stat-label {
+            font-weight: 900;
+        }
+
+        .stat-val {
+            opacity: 0.85;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* FANCY CRYSTAL-TUBE BAR WRAPPER */
+        .bar-wrap {
+            width: 100%;
+            height: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Diagonal Glass Shine Overlay */
+        .bar-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .bar-inner {
+            height: 100%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        /* Smooth Gradients */
+        .hp-bar {
+            background: linear-gradient(180deg, #ff6b5e 0%, #e82010 60%, #b30c00 100%);
+            box-shadow: 0 0 4px rgba(255, 45, 27, 0.4);
+            width: 0%;
+        }
+
+        .mp-bar {
+            background: linear-gradient(180deg, #5eadff 0%, #0066ff 60%, #003da8 100%);
+            box-shadow: 0 0 4px rgba(0, 102, 255, 0.4);
+            width: 0%;
+        }
+
+        .xp-bar {
+            background: linear-gradient(180deg, #72f893 0%, #2bd957 60%, #0d8a2b 100%);
+            box-shadow: 0 0 4px rgba(43, 217, 87, 0.4);
+            width: 0%;
+        }
+
+        /* BOTTOM HUD WRAPPER */
+        .bottom-hud {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 10px;
+            pointer-events: none;
+        }
+
+        /* ACTION BAR */
+        .action-bar {
+            background: rgba(10, 15, 28, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 6px 12px;
+            display: flex;
+            gap: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            font-size: 8px;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 123, 0, 0.12);
+            border-color: #ff7b00;
+            box-shadow: 0 0 10px rgba(255, 123, 0, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .action-btn span {
+            font-size: 13px;
+        }
+
+        /* ====== PREMIUM HOTKEY SLOTS ====== */
+        @keyframes slotBorderPulse {
+            0%, 100% { border-color: rgba(255, 174, 0, 0.25); box-shadow: 0 0 6px rgba(255, 174, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.06); }
+            50% { border-color: rgba(255, 174, 0, 0.45); box-shadow: 0 0 12px rgba(255, 174, 0, 0.18), inset 0 1px 0 rgba(255,255,255,0.1); }
+        }
+
+        .hotkey-slot {
+            position: absolute;
+            border-radius: 8px;
+            background: linear-gradient(160deg, rgba(18, 22, 38, 0.92) 0%, rgba(10, 14, 26, 0.96) 100%);
+            border: 1.5px solid rgba(255, 255, 255, 0.07);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255,255,255,0.04);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        /* Inner glass shine overlay */
+        .hotkey-slot::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 45%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, transparent 100%);
+            border-radius: 7px 7px 0 0;
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        /* Animated glow border when slot has an icon */
+        .hotkey-slot.has-icon {
+            border-color: rgba(255, 174, 0, 0.3);
+            animation: slotBorderPulse 3s ease-in-out infinite;
+        }
+
+        /* Empty slot subtle pattern */
+        .hotkey-slot:not(.has-icon) {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 5px 5px;
+        }
+
+        .hotkey-num {
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            font-size: 8px;
+            font-weight: 950;
+            color: rgba(255, 255, 255, 0.75);
+            z-index: 5;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 6px rgba(0, 0, 0, 0.5);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .slot-icon {
+            width: 100%;
+            height: 100%;
+            border-radius: 6px;
+            object-fit: cover;
+            z-index: 1;
+            filter: saturate(1.1) brightness(1.05);
+            pointer-events: none;
+        }
+
+        /* Canvas-based clockwise cooldown overlay */
+        .cooldown-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 6px;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* ====== HOTKEY BAR BACKDROP ====== */
+        #hotkey-bar-bg {
+            position: absolute;
+            display: none;
+            pointer-events: none;
+            background: linear-gradient(180deg, rgba(12, 16, 30, 0.88) 0%, rgba(8, 11, 22, 0.94) 100%);
+            border: 1.5px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                        0 0 12px rgba(255, 174, 0, 0.04);
+            z-index: -1;
+        }
+
+        /* Top highlight edge on the bar */
+        #hotkey-bar-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10px;
+            right: 10px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 174, 0, 0.2), transparent);
+        }
+
+        /* Bottom subtle glow */
+        #hotkey-bar-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 20%;
+            right: 20%;
+            height: 6px;
+            background: radial-gradient(ellipse, rgba(255, 174, 0, 0.08), transparent);
+            border-radius: 50%;
+        }
+
+        /* TOP-RIGHT RADAR MINIMAP (PREMIUM RENDER) */
+        .radar-widget {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: rgba(8, 12, 24, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 
+                        inset 0 0 15px rgba(0, 0, 0, 0.8),
+                        0 0 15px rgba(255, 123, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .radar-widget:hover {
+            border-color: rgba(255, 123, 0, 0.4);
+            box-shadow: 0 8px 30px rgba(255, 123, 0, 0.18), 
+                        inset 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+
+        #radar-canvas {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .radar-controls {
+            position: absolute;
+            bottom: 5px;
+            display: flex;
+            gap: 6px;
+            pointer-events: auto;
+            z-index: 4;
+        }
+
+        .radar-btn {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .radar-btn:hover {
+            background: rgba(255, 123, 0, 0.25);
+            border-color: #ff7b00;
+            color: #ffae00;
+        }
+
+        /* ====== PREMIUM CHAT & INFO LOG PANEL ====== */
+        #chat-panel {
+            position: absolute;
+            left: 20px;
+            bottom: 85px;
+            width: 350px;
+            height: 195px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            overflow: visible;
+        }
+
+        #info-panel {
+            position: absolute;
+            left: 380px;
+            bottom: 85px;
+            width: 320px;
+            height: 195px;
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.88) 0%, rgba(6, 8, 16, 0.92) 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: border-color 0.25s;
+        }
+
+        #info-panel:hover {
+            border-color: rgba(255, 174, 0, 0.25);
+        }
+
+        .info-header {
+            font-size: 8.5px;
+            font-weight: 900;
+            color: rgba(255, 174, 0, 0.75);
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 6px 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        #info-log-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        #info-log-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        #info-log-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #info-log-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+        }
+        #info-log-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 174, 0, 0.4);
+        }
+
+        /* Styled HTML Chat Input Field */
+        .chat-input-wrapper {
+            height: 24px;
+            width: 100%;
+            background: rgba(10, 14, 26, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            box-sizing: border-box;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .chat-input-wrapper:focus-within {
+            border-color: rgba(255, 174, 0, 0.5);
+            box-shadow: 0 0 8px rgba(255, 174, 0, 0.15), inset 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        #chat-input-field {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0 10px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 10.5px;
+            font-weight: 550;
+            box-sizing: border-box;
+        }
+
+        #chat-input-field::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            font-style: italic;
+        }
+
+        /* Chat Messages Container */
+        #chat-log-container {
+            height: 135px;
+            overflow-y: auto;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 11px;
+            line-height: 1.4;
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.88) 0%, rgba(6, 8, 16, 0.92) 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            box-sizing: border-box;
+        }
+
+        /* Custom Scrollbar */
+        #chat-log-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        #chat-log-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #chat-log-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+        }
+        #chat-log-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 174, 0, 0.4);
+        }
+
+        /* Chat lines styling */
+        .chat-line {
+            word-wrap: break-word;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            animation: fadeInChatLine 0.15s ease-out;
+        }
+
+        @keyframes fadeInChatLine {
+            from { opacity: 0; transform: translateY(2px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-time {
+            font-size: 8px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.35);
+            margin-right: 6px;
+        }
+
+        /* Chat Input Channel Switcher (Action Bar) */
+        .chat-channels {
+            display: flex;
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.88) 0%, rgba(6, 8, 16, 0.92) 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 4px 10px;
+            gap: 6px;
+            align-items: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+        }
+
+        .chat-channels-label {
+            font-size: 8px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 4px;
+        }
+
+        .chat-chan {
+            font-size: 8.5px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2.5px 7px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .chat-chan:hover {
+            color: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .chat-chan.active {
+            color: #ffffff;
+            font-weight: 900;
+            border-color: rgba(255, 174, 0, 0.4);
+            box-shadow: 0 0 8px rgba(255, 174, 0, 0.15);
+        }
+
+        .chat-chan.active[onclick*="1"] { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.3); }
+        .chat-chan.active[onclick*="5"] { background: rgba(255, 69, 58, 0.15); border-color: #ff453a; color: #ff6b6b; }
+        .chat-chan.active[onclick*="3"] { background: rgba(62, 229, 255, 0.15); border-color: #3ee5ff; color: #6bf0ff; }
+        .chat-chan.active[onclick*="6"] { background: rgba(71, 255, 95, 0.15); border-color: #47ff5f; color: #7aff8f; }
+        .chat-chan.active[onclick*="4"] { background: rgba(255, 174, 0, 0.15); border-color: #ffae00; color: #ffe270; }
+
+        /* Inventory Widget (Right Side Overlay) */
+        .inventory-wnd {
+            position: absolute;
+            top: 60px;
+            right: 25px;
+            width: 320px;
+            background: linear-gradient(135deg, rgba(10, 15, 30, 0.9) 0%, rgba(6, 8, 16, 0.95) 100%);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            padding: 8px;
+            z-index: 1000;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .inv-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 8px;
+        }
+
+        .inv-title {
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.8px;
+            color: #ffe270;
+            text-transform: uppercase;
+        }
+
+        .inv-close {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: color 0.15s ease;
+        }
+
+        .inv-close:hover {
+            color: #ff453a;
+        }
+
+        /* Equipment grid */
+        .equip-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .equip-row {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+        }
+
+        .equip-slot {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1.2px solid rgba(255, 255, 255, 0.06);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.15s ease;
+        }
+
+        .equip-slot:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+        }
+
+        .trash-slot {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 69, 58, 0.05);
+            border: 1.2px dashed rgba(255, 69, 58, 0.25);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.15s ease;
+        }
+
+        .trash-slot:hover {
+            background: rgba(255, 69, 58, 0.1);
+            border-color: rgba(255, 69, 58, 0.4);
+        }
+
+        .trash-slot.drag-over {
+            background: rgba(255, 69, 58, 0.2);
+            border-color: #ff453a;
+            box-shadow: 0 0 8px rgba(255, 69, 58, 0.3);
+        }
+
+        .inv-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.06);
+            margin: 4px 0 10px 0;
+        }
+
+        /* Inventory slots grid (7 columns) */
+        .bag-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 40px);
+            gap: 4px;
+            justify-content: center;
+        }
+
+        .bag-slot {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.15s ease;
+        }
+
+        .bag-slot:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.05);
+        }
+
+        .inv-footer {
+            margin-top: 8px;
+            padding: 4px 10px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            box-sizing: border-box;
+            height: 28px;
+        }
+
+        .gold-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .gold-icon {
+            font-size: 11px;
+            filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.3));
+        }
+
+        .gold-amount {
+            color: #ffd700;
+            text-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
+            letter-spacing: 0.3px;
+        }
+
+        .gold-label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 8px;
+            text-transform: uppercase;
+        }
+
+        .char-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+            height: 24px;
+            box-sizing: border-box;
+        }
+
+        .char-tab {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .char-tab:hover {
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .char-tab.active {
+            color: #ffffff;
+            background: rgba(255, 174, 0, 0.15);
+            border-color: rgba(255, 174, 0, 0.4);
+            box-shadow: 0 0 8px rgba(255, 174, 0, 0.15);
+        }
+
+        /* ====== PREMIUM CHARACTER STATS WINDOW ====== */
+        .character-wnd {
+            position: absolute;
+            top: 60px;
+            left: 360px;
+            width: 300px;
+            height: 380px;
+            background: linear-gradient(135deg, rgba(10, 15, 30, 0.92) 0%, rgba(6, 8, 16, 0.96) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            z-index: 10000;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            box-sizing: border-box;
+        }
+
+        .char-tab-content {
+            flex: 1;
+            overflow-y: auto;
+            display: none;
+            padding-right: 4px;
+        }
+        
+        .char-tab-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .char-tab-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .char-tab-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+        .char-tab-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 174, 0, 0.3);
+        }
+
+        /* Clan Panel Custom Styles */
+        .clan-action-btn {
+            flex: 1;
+            height: 26px;
+            font-family: inherit;
+            font-size: 9px;
+            font-weight: 800;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+        
+        .clan-action-btn.primary {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .clan-action-btn.primary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .clan-action-btn.accent {
+            background: rgba(255, 123, 0, 0.15);
+            border-color: rgba(255, 123, 0, 0.35);
+        }
+        .clan-action-btn.accent:hover {
+            background: rgba(255, 123, 0, 0.25);
+            border-color: rgba(255, 123, 0, 0.5);
+            box-shadow: 0 0 10px rgba(255, 123, 0, 0.25);
+        }
+
+        .clan-members-list-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .clan-member-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 8px;
+            background: rgba(0, 0, 0, 0.15);
+            border: 1.2px solid rgba(255, 255, 255, 0.04);
+            border-radius: 6px;
+            font-size: 9px;
+            box-sizing: border-box;
+        }
+
+        .clan-member-row:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .member-info-col {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .member-name-wrap {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .online-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+        .online-dot.online {
+            background: #30d158;
+            box-shadow: 0 0 6px #30d158;
+        }
+        .online-dot.offline {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .member-name {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .member-meta {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 8px;
+        }
+
+        .member-actions-col {
+            display: flex;
+            gap: 3px;
+        }
+
+        .member-icon-btn {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .member-icon-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .member-icon-btn.kick:hover {
+            background: rgba(255, 69, 58, 0.2);
+            border-color: rgba(255, 69, 58, 0.4);
+            color: #ff453a;
+        }
+
+        .char-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .char-title {
+            font-size: 11px;
+            font-weight: 900;
+            color: #ffae00;
+            text-shadow: 0 0 8px rgba(255, 174, 0, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .char-close {
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: color 0.15s;
+        }
+
+        .char-close:hover {
+            color: #ff453a;
+        }
+
+        .char-section {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 6px 8px;
+            margin-bottom: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            box-sizing: border-box;
+        }
+
+        .char-section-title {
+            font-size: 8px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-bottom: 2px;
+        }
+
+        .char-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            height: 18px;
+        }
+
+        .char-label {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+        }
+
+        .char-val {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .char-val-bonus {
+            color: #30d158;
+            font-size: 9px;
+            font-weight: 700;
+            margin-left: 2px;
+        }
+
+        .stat-dist-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            height: 18px;
+        }
+
+        .stat-btn-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-up-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            background: #ffae00;
+            color: #000000;
+            font-size: 8px;
+            font-weight: 950;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            user-select: none;
+        }
+
+        .stat-up-btn:hover {
+            background: #ffc44d;
+            box-shadow: 0 0 4px rgba(255, 174, 0, 0.5);
+        }
+
+        .stat-up-btn.disabled {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.2);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .resist-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin-top: 2px;
+        }
+
+        .resist-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+            padding: 3px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .resist-name {
+            font-size: 7.5px;
+            color: rgba(255, 255, 255, 0.35);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .resist-val {
+            font-size: 9.5px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        /* Item styles */
+        .item-icon-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 142%;
+            height: 142%;
+            object-fit: fill;
+            pointer-events: none;
+        }
+
+        .item-count {
+            position: absolute;
+            bottom: 2px;
+            right: 4px;
+            font-size: 8px;
+            font-weight: 900;
+            color: #ffe270;
+            text-shadow: 1px 1px 2px #000;
+            pointer-events: none;
+        }
+
+        .item-durability-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: #30d158;
+            pointer-events: none;
+        }
+
+        /* Tooltip */
+        .item-tooltip {
+            position: absolute;
+            background: rgba(10, 10, 15, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-size: 9.5px;
+            color: #ffffff;
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            max-width: 200px;
+        }
+
+        .bag-slot.dragging, .equip-slot.dragging {
+            opacity: 0.4;
+            border-style: dashed;
+        }
+        .bag-slot.drag-over, .equip-slot.drag-over {
+            background: rgba(255, 174, 0, 0.12) !important;
+            border-color: rgba(255, 174, 0, 0.4) !important;
+            box-shadow: 0 0 10px rgba(255, 174, 0, 0.2);
+        }
+        .custom-drag-preview {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            z-index: 99999;
+            opacity: 0.8;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* ====== SKILL TREE PANEL (LEFT SIDE) ====== */
+        .skills-wnd {
+            position: absolute;
+            top: 60px;
+            left: 25px;
+            width: 320px; /* Matches inventory width! */
+            height: 380px; /* Matches inventory height! */
+            background: linear-gradient(135deg, rgba(10, 15, 30, 0.92) 0%, rgba(6, 8, 16, 0.96) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            padding: 12px; /* Margins increased slightly */
+            z-index: 10000;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            box-sizing: border-box;
+        }
+
+        .skills-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 6px;
+            height: 20px;
+            box-sizing: border-box;
+        }
+
+        .skills-title {
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.8px;
+            color: #ffe270;
+            text-transform: uppercase;
+        }
+
+        .skills-close {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: color 0.15s ease;
+        }
+
+        .skills-close:hover {
+            color: #ff453a;
+        }
+
+        /* Skill Points Section (Top of Tabs) */
+        .skill-points-section {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 6px 8px;
+            margin-bottom: 12px; /* Increased from 8px to add more spacing */
+            box-sizing: border-box;
+            height: 52px; /* Static height */
+            overflow: hidden; /* Prevent any downward overflow from blocking tabs */
+        }
+
+        .skill-points-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .skill-points-avail-row {
+            font-size: 8px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.55);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .skill-points-avail-val {
+            color: #ff7b00;
+            font-weight: 900;
+            font-size: 9px;
+            text-shadow: 0 0 6px rgba(255, 123, 0, 0.3);
+        }
+
+        .skill-points-cats {
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .skill-point-up-item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            padding: 2px 4px;
+            font-size: 7.5px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .skill-point-up-item .cat-val {
+            color: #ffffff;
+            margin-left: 2px;
+            font-weight: 800;
+        }
+
+        .skill-point-up-mini-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            background: rgba(255, 123, 0, 0.15);
+            border: 1px solid rgba(255, 123, 0, 0.4);
+            color: #ff7b00;
+            font-size: 8px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            line-height: 1;
+        }
+
+        .skill-point-up-mini-btn:hover {
+            background: rgba(255, 123, 0, 0.35);
+            border-color: #ff7b00;
+            color: #ffffff;
+        }
+
+        .skill-point-up-mini-btn.disabled {
+            opacity: 0.15;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        /* Category Tabs */
+        .skill-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+            height: 28px; /* Increased from 22px to fit larger tabs */
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10001;
+            pointer-events: auto !important;
+        }
+
+        .skill-tab {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9.5px; /* Increased from 8px for readability and hitbox size */
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.05); /* Slightly less transparent */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: relative;
+            z-index: 10002;
+            pointer-events: auto !important;
+            box-sizing: border-box;
+            height: 100%;
+        }
+
+        .skill-tab:hover {
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .skill-tab.active {
+            color: #ffffff;
+            background: rgba(255, 123, 0, 0.15);
+            border-color: rgba(255, 123, 0, 0.5);
+            box-shadow: 0 0 8px rgba(255, 123, 0, 0.15);
+        }
+
+        /* Skill Slots Grid (2 cols × 3 rows) */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 142px);
+            justify-content: center;
+            gap: 8px 10px; /* row-gap col-gap */
+            margin: 0 auto 12px auto;
+            height: 166px; /* Static height! (3 * 50px + 2 * 8px gap) */
+            box-sizing: border-box;
+        }
+
+        .skill-slot {
+            position: relative;
+            width: 142px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1.2px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            gap: 8px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .skill-slot:hover {
+            background: rgba(255, 123, 0, 0.08);
+            border-color: rgba(255, 123, 0, 0.35);
+            box-shadow: 0 0 10px rgba(255, 123, 0, 0.15);
+        }
+
+        .skill-slot.not-usable {
+            opacity: 0.45;
+            filter: grayscale(0.5);
+        }
+
+        .skill-slot.not-usable:hover {
+            opacity: 0.65;
+        }
+
+        .skill-slot.empty-skill {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 5px 5px;
+            cursor: default;
+        }
+
+        .skill-slot.empty-skill:hover {
+            background-color: rgba(0, 0, 0, 0.25);
+            border-color: rgba(255, 255, 255, 0.06);
+            box-shadow: none;
+        }
+
+        .skill-icon-container {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+        }
+
+        .skill-icon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+            pointer-events: none;
+            filter: saturate(1.1) brightness(1.05);
+        }
+
+        .skill-info-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+            overflow: hidden;
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .skill-slot-name {
+            font-size: 9.5px;
+            font-weight: 800;
+            color: #ffe270;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            pointer-events: none;
+        }
+
+        .skill-slot-desc {
+            font-size: 7.5px;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.25;
+            pointer-events: none;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+
+
+        /* Page Navigation */
+        .skill-page-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            height: 24px;
+            box-sizing: border-box;
+        }
+
+        .skill-page-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .skill-page-btn:hover {
+            background: rgba(255, 123, 0, 0.15);
+            border-color: #ff7b00;
+            color: #ffae00;
+        }
+
+        .skill-page-btn.disabled {
+            opacity: 0.25;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .skill-page-label {
+            font-size: 9px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        /* Skill Tooltip */
+        .skill-tooltip {
+            position: absolute;
+            background: rgba(10, 10, 15, 0.98);
+            border: 1px solid rgba(255, 174, 0, 0.25);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 9.5px;
+            color: #ffffff;
+            pointer-events: none;
+            z-index: 10001;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 123, 0, 0.08);
+            max-width: 220px;
+            min-width: 160px;
+        }
+
+        .skill-tooltip-name {
+            font-size: 11px;
+            font-weight: 900;
+            color: #ffe270;
+            margin-bottom: 4px;
+        }
+
+        .skill-tooltip-desc {
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+
+        .skill-tooltip-stat {
+            font-size: 8.5px;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 2px;
+        }
+
+        .skill-tooltip-stat span {
+            color: #ff7b00;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOOLTIP CONTAINER -->
+    <div id="item-tooltip" class="item-tooltip" style="display: none;"></div>
+
+    <!-- SKILL TOOLTIP -->
+    <div id="skill-tooltip" class="skill-tooltip" style="display: none;"></div>
+
+    <!-- SKILLS WIDGET -->
+    <div id="skills-widget" class="skills-wnd interactive fantasy-panel" style="display: none;">
+        <div class="skills-header">
+            <span class="skills-title">⚡ SKILLS</span>
+            <div class="skills-close" onclick="sendGameCommand('skill')">✕</div>
+        </div>
+        <div class="skill-points-section" id="skill-points-section"></div>
+        <div class="skill-tabs" id="skill-tabs"></div>
+        <div class="skill-grid" id="skill-grid"></div>
+        <div class="skill-page-nav" id="skill-page-nav">
+            <div class="skill-page-btn" id="skill-page-prev">◀</div>
+            <span class="skill-page-label" id="skill-page-label">Page 1</span>
+            <div class="skill-page-btn" id="skill-page-next">▶</div>
+        </div>
+    </div>
+
+    <!-- CHARACTER STATS WIDGET -->
+    <div id="character-stats-widget" class="character-wnd interactive fantasy-panel" style="display: none;">
+        <div class="char-header">
+            <span class="char-title">👤 CHARACTER PROFILE</span>
+            <div class="char-close" onclick="sendGameCommand('info')">✕</div>
+        </div>
+        <div class="inv-divider" style="margin-top: 0; margin-bottom: 6px;"></div>
+
+        <!-- TABS BAR -->
+        <div class="char-tabs" id="char-tabs">
+            <div class="char-tab active" onclick="switchCharTab(0)">Stats</div>
+            <div class="char-tab" onclick="switchCharTab(1)">Quests</div>
+            <div class="char-tab" onclick="switchCharTab(2)">Clan</div>
+            <div class="char-tab" onclick="switchCharTab(3)">Friends</div>
+        </div>
+
+        <!-- TAB CONTENT: STATS -->
+        <div id="char-tab-stats" class="char-tab-content">
+            <!-- PROFILE SUMMARY -->
+            <div class="char-section">
+                <div class="char-row">
+                    <span class="char-label">Class</span>
+                    <span class="char-val" id="char-class-val">-</span>
+                </div>
+                <div class="char-row">
+                    <span class="char-label">Race</span>
+                    <span class="char-val" id="char-race-val">-</span>
+                </div>
+                <div class="char-row">
+                    <span class="char-label">Nation</span>
+                    <span class="char-val" id="char-nation-val">-</span>
+                </div>
+                <div class="char-row">
+                    <span class="char-label">Experience</span>
+                    <span class="char-val" id="char-exp-val" style="font-size: 8px;">-</span>
+                </div>
+                <div class="char-row">
+                    <span class="char-label">National Points</span>
+                    <span class="char-val" id="char-np-val">-</span>
+                </div>
+                <div class="char-row">
+                    <span class="char-label">Monthly NP</span>
+                    <span class="char-val" id="char-np-monthly-val">-</span>
+                </div>
+            </div>
+
+            <!-- ATTRIBUTE POINTS -->
+            <div class="char-section">
+                <div class="char-section-title" id="char-points-avail-header">Attributes (0 points)</div>
+                
+                <div class="stat-dist-row">
+                    <span class="char-label">Strength</span>
+                    <div class="stat-btn-wrap">
+                        <span class="char-val" id="char-str-val">0</span>
+                        <span class="char-val-bonus" id="char-str-bonus"></span>
+                        <div class="stat-up-btn disabled" id="stat-btn-1" onclick="sendGameCommand('stat_point_up:1')">+</div>
+                    </div>
+                </div>
+                <div class="stat-dist-row">
+                    <span class="char-label">Health Points</span>
+                    <div class="stat-btn-wrap">
+                        <span class="char-val" id="char-sta-val">0</span>
+                        <span class="char-val-bonus" id="char-sta-bonus"></span>
+                        <div class="stat-up-btn disabled" id="stat-btn-2" onclick="sendGameCommand('stat_point_up:2')">+</div>
+                    </div>
+                </div>
+                <div class="stat-dist-row">
+                    <span class="char-label">Dexterity</span>
+                    <div class="stat-btn-wrap">
+                        <span class="char-val" id="char-dex-val">0</span>
+                        <span class="char-val-bonus" id="char-dex-bonus"></span>
+                        <div class="stat-up-btn disabled" id="stat-btn-3" onclick="sendGameCommand('stat_point_up:3')">+</div>
+                    </div>
+                </div>
+                <div class="stat-dist-row">
+                    <span class="char-label">Intelligence</span>
+                    <div class="stat-btn-wrap">
+                        <span class="char-val" id="char-int-val">0</span>
+                        <span class="char-val-bonus" id="char-int-bonus"></span>
+                        <div class="stat-up-btn disabled" id="stat-btn-4" onclick="sendGameCommand('stat_point_up:4')">+</div>
+                    </div>
+                </div>
+                <div class="stat-dist-row">
+                    <span class="char-label">Magic Points</span>
+                    <div class="stat-btn-wrap">
+                        <span class="char-val" id="char-cha-val">0</span>
+                        <span class="char-val-bonus" id="char-cha-bonus"></span>
+                        <div class="stat-up-btn disabled" id="stat-btn-5" onclick="sendGameCommand('stat_point_up:5')">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMBAT STATS -->
+            <div class="char-section">
+                <div class="char-section-title">Combat Info</div>
+                <div class="char-row">
+                    <span class="char-label">Attack</span>
+                    <span class="char-val" id="char-atk-val">-</span>
+                </div>
+                <div class="char-row">
+                    <span class="char-label">Defense</span>
+                    <span class="char-val" id="char-def-val">-</span>
+                </div>
+                <div class="char-row">
+                    <span class="char-label">Weight</span>
+                    <span class="char-val" id="char-weight-val">- / -</span>
+                </div>
+            </div>
+
+            <!-- RESISTANCES -->
+            <div class="char-section">
+                <div class="char-section-title">Resistances</div>
+                <div class="resist-grid">
+                    <div class="resist-item">
+                        <span class="resist-name">Fire</span>
+                        <span class="resist-val" id="resist-fire-val">0</span>
+                    </div>
+                    <div class="resist-item">
+                        <span class="resist-name">Cold</span>
+                        <span class="resist-val" id="resist-cold-val">0</span>
+                    </div>
+                    <div class="resist-item">
+                        <span class="resist-name">Light</span>
+                        <span class="resist-val" id="resist-light-val">0</span>
+                    </div>
+                    <div class="resist-item">
+                        <span class="resist-name">Magic</span>
+                        <span class="resist-val" id="resist-magic-val">0</span>
+                    </div>
+                    <div class="resist-item">
+                        <span class="resist-name">Curse</span>
+                        <span class="resist-val" id="resist-curse-val">0</span>
+                    </div>
+                    <div class="resist-item">
+                        <span class="resist-name">Poison</span>
+                        <span class="resist-val" id="resist-poison-val">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: QUESTS -->
+        <div id="char-tab-quests" class="char-tab-content" style="display: none;">
+            <div class="char-section">
+                <div class="char-section-title">Active Quests</div>
+                <div class="char-row" style="height: auto; padding: 4px 0;">
+                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                        <span style="color: #ffae00; font-weight: 700;">Moradon Clean-Up</span>
+                        <span style="color: rgba(255,255,255,0.4); font-size: 8px;">Kill 10 Wild Bulcans (8/10)</span>
+                    </div>
+                </div>
+                <div class="char-row" style="height: auto; padding: 4px 0;">
+                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                        <span style="color: #ffae00; font-weight: 700;">Captain's Letter</span>
+                        <span style="color: rgba(255,255,255,0.4); font-size: 8px;">Deliver letter to Captain Kunabarl</span>
+                    </div>
+                </div>
+            </div>
+            <div class="char-section">
+                <div class="char-section-title">Completed Quests</div>
+                <div class="char-row" style="opacity: 0.6;">
+                    <span class="char-label">First Steps (Completed)</span>
+                    <span style="color: #30d158; font-weight: 700;">✓</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: CLAN -->
+        <div id="char-tab-clan" class="char-tab-content" style="display: none;">
+            <!-- Clan Details Summary -->
+            <div class="char-section">
+                <div class="char-section-title">Clan Profile</div>
+                <div class="char-row">
+                    <span class="char-label">Clan Name</span>
+                    <span class="char-val" id="char-clan-name" style="color: #ffae00; font-weight: 800;">-</span>
+                </div>
+                <div class="char-row">
+                    <span class="char-label">Grade / Rank</span>
+                    <span class="char-val" id="char-clan-grade-rank">-</span>
+                </div>
+            </div>
+
+            <!-- Clan Control Buttons -->
+            <div class="char-section" style="padding: 6px 0; border: none; background: transparent;">
+                <div style="display: flex; gap: 6px;">
+                    <button class="clan-action-btn primary" onclick="sendGameCommand('clan_refresh')">🔄 Refresh</button>
+                    <button class="clan-action-btn accent" onclick="sendGameCommand('clan_invite')">➕ Invite selected</button>
+                </div>
+            </div>
+
+            <!-- Clan Members List -->
+            <div class="char-section" style="flex: 1; display: flex; flex-direction: column;">
+                <div class="char-section-title" id="clan-members-title">Clan Members (0)</div>
+                <div class="clan-members-list-wrapper" id="clan-members-list">
+                    <!-- Dynamic Member Rows -->
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: FRIENDS -->
+        <div id="char-tab-friends" class="char-tab-content" style="display: none;">
+            <div class="char-section">
+                <div class="char-section-title">Friends List</div>
+                <div class="char-row">
+                    <span class="char-label">Archy</span>
+                    <span style="color: #30d158; font-weight: 700;">Online</span>
+                </div>
+                <div class="char-row">
+                    <span class="char-label">X_Warrior_X</span>
+                    <span style="color: rgba(255,255,255,0.3);">Offline</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INVENTORY WIDGET -->
+    <div id="inventory-widget" class="inventory-wnd interactive fantasy-panel" style="display: none;">
+        <div class="inv-header">
+            <span class="inv-title">🎒 INVENTORY</span>
+            <div class="inv-close" onclick="sendGameCommand('bag')">✕</div>
+        </div>
+        <div class="inv-content">
+            <!-- Equipment slots -->
+            <div class="equip-grid">
+                <div class="equip-row">
+                    <div class="equip-slot" id="equip-0" data-slot-name="Ear R"></div>
+                    <div class="equip-slot" id="equip-1" data-slot-name="Head"></div>
+                    <div class="equip-slot" id="equip-2" data-slot-name="Ear L"></div>
+                </div>
+                <div class="equip-row">
+                    <div class="equip-slot" id="equip-3" data-slot-name="Neck"></div>
+                    <div class="equip-slot" id="equip-4" data-slot-name="Chest"></div>
+                    <div class="equip-slot" id="equip-5" data-slot-name="Cape"></div>
+                </div>
+                <div class="equip-row">
+                    <div class="equip-slot" id="equip-6" data-slot-name="Wep R"></div>
+                    <div class="equip-slot" id="equip-7" data-slot-name="Belt"></div>
+                    <div class="equip-slot" id="equip-8" data-slot-name="Wep L"></div>
+                </div>
+                <div class="equip-row">
+                    <div class="equip-slot" id="equip-9" data-slot-name="Ring R"></div>
+                    <div class="equip-slot" id="equip-10" data-slot-name="Legs"></div>
+                    <div class="equip-slot" id="equip-11" data-slot-name="Ring L"></div>
+                </div>
+                <div class="equip-row">
+                    <div class="equip-slot" id="equip-12" data-slot-name="Glove"></div>
+                    <div class="equip-slot" id="equip-13" data-slot-name="Shoes"></div>
+                    <div class="trash-slot" id="inventory-trash" title="Drag items here to destroy">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(255, 69, 58, 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="inv-divider"></div>
+            
+            <!-- Bag slots grid -->
+            <div class="bag-grid" id="bag-slots-container"></div>
+
+            <div class="inv-footer">
+                <div class="gold-container">
+                    <span class="gold-icon">🪙</span>
+                    <span class="gold-amount" id="inventory-gold">0</span>
+                    <span class="gold-label">Noahs</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main HUD Container (Hidden until in-game) -->
+    <div class="hud-container" style="display: none;">
+        
+        <!-- VERTICAL POCKET HUD CARD -->
+        <div class="unified-hud interactive">
+            <!-- Profile Section -->
+            <div class="profile-sec">
+                <div class="meta-details">
+                    <div class="player-name">-</div>
+                    <div class="player-class">-</div>
+                </div>
+                <div class="level-badge">LV 1</div>
+            </div>
+
+            <!-- HP / MP / EXP Bars Section -->
+            <div class="bars-sec">
+                <!-- HP -->
+                <div class="stat-group">
+                    <div class="stat-header">
+                        <span class="stat-label" style="color:#ff453a;">HP</span>
+                        <span class="stat-val hp-val">0 / 0</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar-inner hp-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+                <!-- MP -->
+                <div class="stat-group">
+                    <div class="stat-header">
+                        <span class="stat-label" style="color:#0a84ff;">MP</span>
+                        <span class="stat-val mp-val">0 / 0</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar-inner mp-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+                <!-- EXP -->
+                <div class="stat-group">
+                    <div class="stat-header">
+                        <span class="stat-label" style="color:#30d158;">EXP</span>
+                        <span class="stat-val xp-val">0.00%</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar-inner xp-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOP-RIGHT RADAR MINIMAP -->
+        <div class="radar-widget interactive">
+            <canvas id="radar-canvas" width="120" height="120"></canvas>
+            <div class="radar-controls">
+                <div class="radar-btn" onclick="adjustZoom(1.3)">+</div>
+                <div class="radar-btn" onclick="adjustZoom(0.7)">-</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM HUD PANEL -->
+        <div class="bottom-hud">
+            <div class="action-bar interactive">
+                <div class="action-btn" onclick="sendGameCommand('info')">
+                    <span>👤</span>
+                    INFO
+                </div>
+                <div class="action-btn" onclick="sendGameCommand('bag')">
+                    <span>🎒</span>
+                    BAG
+                </div>
+                <div class="action-btn" onclick="sendGameCommand('skill')">
+                    <span>⚡</span>
+                    SKILL
+                </div>
+                <div class="action-btn" onclick="sendGameCommand('quest')">
+                    <span>📜</span>
+                    QUEST
+                </div>
+                <div class="action-btn" onclick="sendGameCommand('invite')">
+                    <span>🤝</span>
+                    INVITE
+                </div>
+                <div class="action-btn" onclick="sendGameCommand('trade')">
+                    <span>🔄</span>
+                    TRADE
+                </div>
+                <div class="action-btn" onclick="sendGameCommand('option')">
+                    <span>⚙️</span>
+                    OPTION
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM-LEFT CHAT PANEL -->
+        <div id="chat-panel" class="interactive">
+            <div id="chat-log-container"></div>
+            <div class="chat-input-wrapper">
+                <input type="text" id="chat-input-field" placeholder="Press Enter to chat..." maxlength="255" autocomplete="off" />
+            </div>
+            <div class="chat-channels">
+                <span class="chat-channels-label">MODE:</span>
+                <span class="chat-chan active" onclick="setChatMode(1)">ALL</span>
+                <span class="chat-chan" onclick="setChatMode(5)">SHOUT</span>
+                <span class="chat-chan" onclick="setChatMode(3)">PARTY</span>
+                <span class="chat-chan" onclick="setChatMode(6)">CLAN</span>
+                <span class="chat-chan" onclick="setChatMode(4)">ALLIANCE</span>
+            </div>
+        </div>
+
+        <!-- INFO PANEL (BESIDE CHAT PANEL) -->
+        <div id="info-panel" class="interactive">
+            <div class="info-header">SYSTEM INFORMATION</div>
+            <div id="info-log-container"></div>
+        </div>
+
+    </div>
+
+    <!-- HOTKEY BAR BACKDROP -->
+    <div id="hotkey-bar-bg"></div>
+
+    <!-- DYNAMIC HOTKEY SLOTS -->
+    <div id="hotkey-1" class="hotkey-slot"><div class="hotkey-num">1</div></div>
+    <div id="hotkey-2" class="hotkey-slot"><div class="hotkey-num">2</div></div>
+    <div id="hotkey-3" class="hotkey-slot"><div class="hotkey-num">3</div></div>
+    <div id="hotkey-4" class="hotkey-slot"><div class="hotkey-num">4</div></div>
+    <div id="hotkey-5" class="hotkey-slot"><div class="hotkey-num">5</div></div>
+    <div id="hotkey-6" class="hotkey-slot"><div class="hotkey-num">6</div></div>
+    <div id="hotkey-7" class="hotkey-slot"><div class="hotkey-num">7</div></div>
+    <div id="hotkey-8" class="hotkey-slot"><div class="hotkey-num">8</div></div>
+
+    <script>
+        var loadedByGame = false;
+        window.onerror = function(message, source, lineno, colno, error) {
+            var errDiv = document.getElementById('js-debug-error');
+            if (!errDiv) {
+                errDiv = document.createElement('div');
+                errDiv.id = 'js-debug-error';
+                errDiv.style.position = 'absolute';
+                errDiv.style.top = '10px';
+                errDiv.style.left = '10px';
+                errDiv.style.background = 'rgba(255,0,0,0.85)';
+                errDiv.style.color = '#fff';
+                errDiv.style.padding = '10px';
+                errDiv.style.zIndex = '999999';
+                errDiv.style.pointerEvents = 'none';
+                errDiv.style.fontSize = '12px';
+                errDiv.style.fontFamily = 'monospace';
+                document.body.appendChild(errDiv);
+            }
+            errDiv.innerText = "Global JS Error: " + message + "\nSource: " + source + "\nLine: " + lineno + "\nCol: " + colno;
+            console.error("Global JS Error: " + message + " at " + source + ":" + lineno + ":" + colno);
+            return false;
+        };
+        function sendGameCommand(command) {
+            document.title = "cmd:" + command + ":" + Date.now();
+        }
+
+        var radarZoom = 1.0;
+        var mapImg = new Image();
+        var currentMapPath = "";
+        var currentSkillCat = 0;
+        var currentSkillPage = 0;
+        var lastSkillsData = null;
+        var lastSkillPoints = null;
+        var lastHotkeys = null;
+        var playerClassId = 0;
+
+        function isWarrior(classId) {
+            return [101, 201, 105, 106, 205, 206].indexOf(classId) !== -1;
+        }
+        function isRogue(classId) {
+            return [102, 202, 107, 108, 207, 208].indexOf(classId) !== -1;
+        }
+        function isMage(classId) {
+            return [103, 203, 109, 110, 209, 210].indexOf(classId) !== -1;
+        }
+        function isPriest(classId) {
+            return [104, 204, 111, 112, 211, 212].indexOf(classId) !== -1;
+        }
+
+        function getCatNames(classId) {
+            if (isWarrior(classId)) return ['Basic', 'Attack', 'Defense', 'Passion', 'Master'];
+            if (isRogue(classId)) return ['Basic', 'Archery', 'Assassin', 'Explore', 'Master'];
+            if (isMage(classId)) return ['Basic', 'Flame', 'Glacier', 'Lightning', 'Master'];
+            if (isPriest(classId)) return ['Basic', 'Healing', 'Aura', 'Holy', 'Master'];
+            return ['Basic', 'Tab 1', 'Tab 2', 'Tab 3', 'Master'];
+        }
+
+        function getShortCatNames(classId) {
+            if (isWarrior(classId)) return ['Atk', 'Def', 'Pas', 'Mst'];
+            if (isRogue(classId)) return ['Arc', 'Asn', 'Exp', 'Mst'];
+            if (isMage(classId)) return ['Flm', 'Glc', 'Lgt', 'Mst'];
+            if (isPriest(classId)) return ['Hel', 'Aur', 'Hly', 'Mst'];
+            return ['Tab1', 'Tab2', 'Tab3', 'Mst'];
+        }
+
+        function selectSkillTab(catIdx) {
+            var catNames = getCatNames(playerClassId);
+            console.log("[WebUI Console] Tab clicked via onclick: " + catIdx + " (" + catNames[catIdx] + ")");
+            currentSkillCat = catIdx;
+            currentSkillPage = 0;
+            // Update active tab styling
+            var allTabs = document.querySelectorAll('.skill-tab');
+            for (var ti = 0; ti < allTabs.length; ti++) {
+                if (parseInt(allTabs[ti].getAttribute('data-cat')) == catIdx) {
+                    allTabs[ti].classList.add('active');
+                } else {
+                    allTabs[ti].classList.remove('active');
+                }
+            }
+            renderSkillGrid();
+        }
+
+        function renderSkillGrid() {
+            if (!lastSkillsData) return;
+
+            var grid = document.getElementById('skill-grid');
+            if (!grid) return;
+
+            // Filter skills for current category and page
+            var pageSkills = [];
+            for (var i = 0; i < lastSkillsData.length; i++) {
+                var sk = lastSkillsData[i];
+                if (sk.cat == currentSkillCat && sk.pg == currentSkillPage) {
+                    pageSkills.push(sk);
+                }
+            }
+
+            // Find max page for current category
+            var maxPage = 0;
+            for (var i = 0; i < lastSkillsData.length; i++) {
+                if (lastSkillsData[i].cat == currentSkillCat && lastSkillsData[i].pg > maxPage) {
+                    maxPage = lastSkillsData[i].pg;
+                }
+            }
+
+            // Build 6 slots (2 cols x 3 rows), slots 0-5
+            grid.innerHTML = '';
+            for (var sl = 0; sl < 6; sl++) {
+                var skillForSlot = null;
+                for (var j = 0; j < pageSkills.length; j++) {
+                    if (pageSkills[j].sl === sl) {
+                        skillForSlot = pageSkills[j];
+                        break;
+                    }
+                }
+
+                var slotDiv = document.createElement('div');
+                slotDiv.className = 'skill-slot';
+
+                if (skillForSlot) {
+                    if (!skillForSlot.usable) {
+                        slotDiv.classList.add('not-usable');
+                    }
+
+                    // Icon container (on the left side)
+                    var iconCont = document.createElement('div');
+                    iconCont.className = 'skill-icon-container';
+
+                    var img = document.createElement('img');
+                    var cleanIcon = (skillForSlot.icon || '').replace(/^ui\//, '');
+                    img.src = cleanIcon;
+                    img.className = 'skill-icon-img';
+                    img.setAttribute('draggable', 'false');
+                    iconCont.appendChild(img);
+                    slotDiv.appendChild(iconCont);
+
+                    // Info container (name and description side-by-side)
+                    var infoCont = document.createElement('div');
+                    infoCont.className = 'skill-info-container';
+
+                    var nameDiv = document.createElement('div');
+                    nameDiv.className = 'skill-slot-name';
+                    nameDiv.innerText = skillForSlot.name || '';
+                    infoCont.appendChild(nameDiv);
+
+                    var descDiv = document.createElement('div');
+                    descDiv.className = 'skill-slot-desc';
+                    descDiv.innerText = skillForSlot.desc || '';
+                    infoCont.appendChild(descDiv);
+
+                    slotDiv.appendChild(infoCont);
+
+                    // Tooltip on hover
+                    (function(skill, slot) {
+                        slot.addEventListener('mouseenter', function(e) {
+                            var tooltip = document.getElementById('skill-tooltip');
+                            if (!tooltip) return;
+                            var cdVal = skill.cd || 0;
+                            var cdSeconds = (cdVal / 10).toFixed(1);
+                            tooltip.innerHTML =
+                                '<div class="skill-tooltip-name">' + (skill.name || '') + '</div>' +
+                                '<div class="skill-tooltip-desc">' + (skill.desc || '') + '</div>' +
+                                '<div class="skill-tooltip-stat">MP Cost: <span>' + (skill.mp || 0) + '</span></div>' +
+                                '<div class="skill-tooltip-stat">Level Req: <span>' + (skill.lvl || 0) + '</span></div>' +
+                                '<div class="skill-tooltip-stat">Cooldown: <span>' + cdSeconds + 's</span></div>';
+                            tooltip.style.display = 'block';
+                            // Position near mouse
+                            var rect = slot.getBoundingClientRect();
+                            tooltip.style.left = (rect.right + 10) + 'px';
+                            tooltip.style.top = rect.top + 'px';
+                        });
+                        slot.addEventListener('mouseleave', function() {
+                            var tooltip = document.getElementById('skill-tooltip');
+                            if (tooltip) tooltip.style.display = 'none';
+                        });
+
+                        // Right-click to assign to first empty hotkey
+                        slot.addEventListener('contextmenu', function(e) {
+                            e.preventDefault();
+                            if (!lastHotkeys || !Array.isArray(lastHotkeys)) return;
+                            var emptySlot = -1;
+                            for (var h = 0; h < lastHotkeys.length; h++) {
+                                if (!lastHotkeys[h].icon || lastHotkeys[h].icon === '') {
+                                    emptySlot = h;
+                                    break;
+                                }
+                            }
+                            if (emptySlot >= 0) {
+                                sendGameCommand('skill_to_hotkey:' + skill.id + ':' + emptySlot);
+                            }
+                        });
+                    })(skillForSlot, slotDiv);
+                } else {
+                    slotDiv.classList.add('empty-skill');
+                }
+
+                grid.appendChild(slotDiv);
+            }
+
+            // Update page navigation
+            var pageLabel = document.getElementById('skill-page-label');
+            if (pageLabel) pageLabel.innerText = 'Page ' + (currentSkillPage + 1);
+
+            var prevBtn = document.getElementById('skill-page-prev');
+            var nextBtn = document.getElementById('skill-page-next');
+
+            if (prevBtn) {
+                prevBtn.className = 'skill-page-btn' + (currentSkillPage <= 0 ? ' disabled' : '');
+                prevBtn.onclick = function() {
+                    if (currentSkillPage > 0) {
+                        currentSkillPage--;
+                        renderSkillGrid();
+                    }
+                };
+            }
+            if (nextBtn) {
+                nextBtn.className = 'skill-page-btn' + (currentSkillPage >= maxPage ? ' disabled' : '');
+                nextBtn.onclick = function() {
+                    if (currentSkillPage < maxPage) {
+                        currentSkillPage++;
+                        renderSkillGrid();
+                    }
+                };
+            }
+
+            // Update skill points section
+            var spSection = document.getElementById('skill-points-section');
+            if (spSection && lastSkillPoints && Array.isArray(lastSkillPoints)) {
+                var shortNames = getShortCatNames(playerClassId);
+                var html = '<div class="skill-points-header">' +
+                    '<span class="skill-points-avail-row">Available Points: <span class="skill-points-avail-val">' + lastSkillPoints[0] + '</span></span>' +
+                    '</div>' +
+                    '<div class="skill-points-cats">';
+
+                for (var ci = 0; ci < 4; ci++) {
+                    var investedPts = lastSkillPoints[ci + 5] || 0;
+                    var hasPoints = lastSkillPoints[0] > 0;
+                    var name = shortNames[ci];
+                    html += '<div class="skill-point-up-item">' +
+                        '<span>' + name + ' <span class="cat-val">' + investedPts + '</span></span>' +
+                        '<div class="skill-point-up-mini-btn' + (hasPoints ? '' : ' disabled') + '" onclick="if (!this.classList.contains(\'disabled\')) { sendGameCommand(\'skill_point_up:\' + (ci + 5)); }">+</div>' +
+                        '</div>';
+                }
+                html += '</div>';
+                spSection.innerHTML = html;
+            }
+        }
+
+        function adjustZoom(factor) {
+            radarZoom *= factor;
+            if (radarZoom < 0.2) radarZoom = 0.2;
+            if (radarZoom > 5.0) radarZoom = 5.0;
+        }
+
+        function setupSlotRightClick(slot, type, order) {
+            slot.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                sendGameCommand('inv_rclick:' + type + ':' + order);
+            });
+        }
+
+        function setupDragAndDropEvents(slot, type, order) {
+            // Stub, custom drag and drop handles this globally
+        }
+
+        var activeDrag = null;
+        var dragPreview = null;
+
+        function initCustomDragAndDrop() {
+            document.addEventListener('mousedown', function(e) {
+                // Find if we clicked on a slot with an item/icon
+                var slot = e.target.closest('.bag-slot, .equip-slot, .hotkey-slot');
+                if (!slot) return;
+                
+                // For hotkey slots, only drag if it has an icon
+                if (slot.classList.contains('hotkey-slot') && !slot.classList.contains('has-icon')) {
+                    return;
+                }
+                
+                if (!slot.itemData && !slot.querySelector('.slot-icon') && !slot.querySelector('.item-icon-img')) return;
+                
+                // If right click, let the contextmenu handler take care of it
+                if (e.button !== 0) return; 
+
+                // Prevent default text selection/drag behaviors
+                e.preventDefault();
+
+                var rect = slot.getBoundingClientRect();
+                
+                var dragType = "";
+                var dragOrder = 0;
+                if (slot.classList.contains('bag-slot')) {
+                    dragType = "inv";
+                    dragOrder = parseInt(slot.getAttribute('data-slot-index'));
+                } else if (slot.classList.contains('equip-slot')) {
+                    dragType = "slot";
+                    dragOrder = parseInt(slot.getAttribute('data-slot-index'));
+                } else if (slot.classList.contains('hotkey-slot')) {
+                    dragType = "hotkey";
+                    dragOrder = parseInt(slot.id.replace('hotkey-', '')) - 1; // 0-indexed hotkey index
+                }
+
+                activeDrag = {
+                    slot: slot,
+                    type: dragType,
+                    order: dragOrder,
+                    offsetX: e.clientX - rect.left,
+                    offsetY: e.clientY - rect.top
+                };
+
+                // Create a visual drag preview
+                var img = slot.querySelector('.item-icon-img, .slot-icon');
+                if (img) {
+                    dragPreview = document.createElement('div');
+                    dragPreview.className = 'custom-drag-preview';
+                    
+                    var cloneImg = img.cloneNode(true);
+                    cloneImg.style.width = '100%';
+                    cloneImg.style.height = '100%';
+                    cloneImg.style.position = 'static';
+                    cloneImg.setAttribute('draggable', 'false');
+                    dragPreview.appendChild(cloneImg);
+                    
+                    document.body.appendChild(dragPreview);
+                    
+                    // Position it
+                    updateDragPreviewPosition(e.clientX, e.clientY);
+                }
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!activeDrag) return;
+                
+                updateDragPreviewPosition(e.clientX, e.clientY);
+                
+                // Find element under cursor and add drag-over class
+                var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+                var targetSlot = hoverEl ? hoverEl.closest('.bag-slot, .equip-slot, .trash-slot, .hotkey-slot') : null;
+                
+                // Clear previous drag-over classes
+                document.querySelectorAll('.bag-slot, .equip-slot, .trash-slot, .hotkey-slot').forEach(function(el) {
+                    el.classList.remove('drag-over');
+                });
+                
+                if (targetSlot) {
+                    targetSlot.classList.add('drag-over');
+                }
+            });
+
+            document.addEventListener('mouseup', function(e) {
+                if (!activeDrag) return;
+
+                // Clear drag-over classes
+                document.querySelectorAll('.bag-slot, .equip-slot, .trash-slot, .hotkey-slot').forEach(function(el) {
+                    el.classList.remove('drag-over');
+                });
+
+                // Find slot under cursor
+                var releaseEl = document.elementFromPoint(e.clientX, e.clientY);
+                var targetSlot = releaseEl ? releaseEl.closest('.bag-slot, .equip-slot, .trash-slot, .hotkey-slot') : null;
+
+                if (targetSlot) {
+                    var dstType = "";
+                    if (targetSlot.classList.contains('bag-slot')) dstType = "inv";
+                    else if (targetSlot.classList.contains('equip-slot')) dstType = "slot";
+                    else if (targetSlot.classList.contains('hotkey-slot')) dstType = "hotkey";
+                    
+                    var dstOrder = targetSlot.classList.contains('hotkey-slot') 
+                        ? (parseInt(targetSlot.id.replace('hotkey-', '')) - 1)
+                        : parseInt(targetSlot.getAttribute('data-slot-index'));
+
+                    if (activeDrag.type === "hotkey") {
+                        if (dstType === "hotkey") {
+                            // Move hotkey to another hotkey slot
+                            if (activeDrag.order !== dstOrder) {
+                                sendGameCommand('hotkey_move:' + activeDrag.order + ':' + dstOrder);
+                            }
+                        } else {
+                            // Dragged hotkey to inventory/equip/trash -> clear the hotkey
+                            sendGameCommand('hotkey_clear:' + activeDrag.order);
+                        }
+                    } else {
+                        // Dragging from inventory/equip
+                        if (dstType === "hotkey") {
+                            // Register inventory item to hotkey slot
+                            sendGameCommand('inv_to_hotkey:' + activeDrag.type + ':' + activeDrag.order + ':' + dstOrder);
+                        } else if (targetSlot.classList.contains('trash-slot') || targetSlot.id === 'inventory-trash') {
+                            // Destroy item
+                            if (confirm("Are you sure you want to destroy this item?")) {
+                                sendGameCommand('inv_destroy:' + activeDrag.type + ':' + activeDrag.order);
+                            }
+                        } else {
+                            // Standard inventory move
+                            if (!(activeDrag.type === dstType && activeDrag.order === dstOrder)) {
+                                sendGameCommand('inv_move:' + activeDrag.type + ':' + activeDrag.order + ':' + dstType + ':' + dstOrder);
+                            }
+                        }
+                    }
+                } else {
+                    // Dropped outside slots
+                    if (activeDrag.type === "hotkey") {
+                        // Dragged hotkey to outside -> clear the hotkey
+                        sendGameCommand('hotkey_clear:' + activeDrag.order);
+                    } else {
+                        // Dropped outside slots - check if we should destroy
+                        var invPanel = document.getElementById('inventory-widget');
+                        if (invPanel) {
+                            var panelRect = invPanel.getBoundingClientRect();
+                            if (e.clientX < panelRect.left || e.clientX > panelRect.right || e.clientY < panelRect.top || e.clientY > panelRect.bottom) {
+                                if (confirm("Are you sure you want to destroy this item?")) {
+                                    sendGameCommand('inv_destroy:' + activeDrag.type + ':' + activeDrag.order);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Cleanup
+                if (dragPreview) {
+                    dragPreview.remove();
+                    dragPreview = null;
+                }
+                activeDrag = null;
+            });
+        }
+
+        function updateDragPreviewPosition(clientX, clientY) {
+            if (!dragPreview || !activeDrag) return;
+            // Center the preview on the cursor
+            dragPreview.style.left = (clientX - 20) + 'px';
+            dragPreview.style.top = (clientY - 20) + 'px';
+        }
+
+        // Initialize the custom drag and drop system
+        initCustomDragAndDrop();
+
+        function setupSlotHover(slot, type, order) {
+            slot.addEventListener('mouseenter', function(e) {
+                if (slot.itemData) {
+                    sendGameCommand('inv_tooltip:' + type + ':' + order);
+                }
+            });
+
+            slot.addEventListener('mouseleave', function(e) {
+                sendGameCommand('inv_tooltip_hide');
+            });
+        }
+
+        function updateSlotItem(slot, item) {
+            slot.innerHTML = '';
+            slot.itemData = null;
+            slot.removeAttribute('draggable');
+            
+            if (!item) return;
+
+            slot.itemData = item;
+            slot.setAttribute('draggable', 'true');
+
+            var img = document.createElement('img');
+            var cleanPath = item.icon.replace(/^ui\//, '');
+            img.src = cleanPath;
+            img.className = 'item-icon-img';
+            img.setAttribute('draggable', 'false');
+            slot.appendChild(img);
+
+            if (item.count > 1) {
+                var countSpan = document.createElement('span');
+                countSpan.className = 'item-count';
+                countSpan.innerText = item.count;
+                slot.appendChild(countSpan);
+            }
+        }
+
+
+
+        function updatePlayerStats(name, level, hp, hpMax, mp, mpMax, exp, expMax, classId, yaw, entities, isInGame, isInventoryVisible, hotkeys, mapPath, mapX1, mapY1, mapX2, mapY2, equipItems, invItems, isSkillTreeVisible, skills, skillPoints, characterStats, isStateVisible) {
+            try {
+                loadedByGame = true;
+                var hudContainer = document.querySelector('.hud-container');
+                
+                if (!isInGame) {
+                    hudContainer.style.display = 'none';
+                    for (var i = 1; i <= 8; i++) {
+                        document.getElementById('hotkey-' + i).style.display = 'none';
+                    }
+                    var barBgHide = document.getElementById('hotkey-bar-bg');
+                    if (barBgHide) barBgHide.style.display = 'none';
+                    var invWidgetHide = document.getElementById('inventory-widget');
+                    if (invWidgetHide) invWidgetHide.style.display = 'none';
+                    var skillWidgetHide = document.getElementById('skills-widget');
+                    if (skillWidgetHide) skillWidgetHide.style.display = 'none';
+                    return;
+                }
+                
+                hudContainer.style.display = 'flex';
+
+                // Lazy initialize bag slots if empty
+                var bagContainer = document.getElementById('bag-slots-container');
+                if (bagContainer && bagContainer.children.length === 0) {
+                    for (var i = 0; i < 28; i++) {
+                        var slot = document.createElement('div');
+                        slot.className = 'bag-slot';
+                        slot.id = 'bag-' + i;
+                        slot.setAttribute('data-slot-index', i);
+                        setupDragAndDropEvents(slot, 'inv', i);
+                        setupSlotRightClick(slot, 'inv', i);
+                        setupSlotHover(slot, 'inv', i);
+                        bagContainer.appendChild(slot);
+                    }
+                }
+
+                // Initialize equipment slot events once
+                if (!window.equipEventsInitialized) {
+                    window.equipEventsInitialized = true;
+                    for (var i = 0; i < 14; i++) {
+                        var slot = document.getElementById('equip-' + i);
+                        if (slot) {
+                            slot.setAttribute('data-slot-index', i);
+                            setupDragAndDropEvents(slot, 'slot', i);
+                            setupSlotRightClick(slot, 'slot', i);
+                            setupSlotHover(slot, 'slot', i);
+                        }
+                    }
+                }
+
+
+
+                // Update Equipment slots
+                for (var i = 0; i < 14; i++) {
+                    var slot = document.getElementById('equip-' + i);
+                    if (slot) {
+                        var item = null;
+                        if (equipItems && Array.isArray(equipItems)) {
+                            item = equipItems.find(function(it) { return it.pos === i; }) || null;
+                        }
+                        updateSlotItem(slot, item);
+                    }
+                }
+
+                // Update Bag slots
+                for (var i = 0; i < 28; i++) {
+                    var slot = document.getElementById('bag-' + i);
+                    if (slot) {
+                        var item = null;
+                        if (invItems && Array.isArray(invItems)) {
+                            item = invItems.find(function(it) { return it.pos === i; }) || null;
+                        }
+                        updateSlotItem(slot, item);
+                    }
+                }
+
+                // Show/hide inventory widget
+                var invWidget = document.getElementById('inventory-widget');
+                if (invWidget) {
+                    invWidget.style.display = isInventoryVisible ? 'flex' : 'none';
+                }
+
+                // Store hotkeys ref for skill right-click
+                lastHotkeys = hotkeys;
+
+                // Show/hide skills widget
+                var skillWidget = document.getElementById('skills-widget');
+                if (skillWidget) {
+                    skillWidget.style.display = isSkillTreeVisible ? 'flex' : 'none';
+
+                    if (isSkillTreeVisible && skills && Array.isArray(skills)) {
+                        playerClassId = classId;
+                        lastSkillsData = skills;
+                        lastSkillPoints = skillPoints;
+
+                        // Category tab names
+                        var catNames = getCatNames(playerClassId);
+
+                        // Build tabs
+                        var tabsContainer = document.getElementById('skill-tabs');
+                        if (tabsContainer) {
+                            if (!tabsContainer.dataset.clickEventAttached) {
+                                tabsContainer.dataset.clickEventAttached = "1";
+                                tabsContainer.addEventListener('click', function(e) {
+                                    var tab = e.target.closest('.skill-tab');
+                                    if (tab) {
+                                        var catIdx = parseInt(tab.getAttribute('data-cat'));
+                                        console.log("[WebUI Console] Container click event: tab data-cat = " + catIdx);
+                                        selectSkillTab(catIdx);
+                                    }
+                                });
+                            }
+
+                            // Only rebuild tabs if needed (class changed)
+                            if (tabsContainer.dataset.builtClass !== String(playerClassId)) {
+                                tabsContainer.dataset.builtClass = String(playerClassId);
+                                tabsContainer.innerHTML = '';
+                                for (var ci = 0; ci < 5; ci++) {
+                                    var tab = document.createElement('div');
+                                    tab.className = 'skill-tab' + (ci == currentSkillCat ? ' active' : '');
+                                    tab.innerText = catNames[ci];
+                                    tab.setAttribute('data-cat', ci);
+                                    tabsContainer.appendChild(tab);
+                                }
+                            } else {
+                                // Just update active state
+                                var allTabs = tabsContainer.querySelectorAll('.skill-tab');
+                                for (var ti = 0; ti < allTabs.length; ti++) {
+                                    if (parseInt(allTabs[ti].getAttribute('data-cat')) == currentSkillCat) {
+                                        allTabs[ti].classList.add('active');
+                                    } else {
+                                        allTabs[ti].classList.remove('active');
+                                    }
+                                }
+                            }
+                        }
+
+                        renderSkillGrid();
+                    }
+                }
+
+                // Update profile
+                document.querySelector('.player-name').innerText = name;
+                document.querySelector('.level-badge').innerText = 'LV ' + level;
+
+                // Map classId
+                var className = "Novice";
+                if (classId === 101 || classId === 201) className = "Warrior";
+                else if (classId === 102 || classId === 202) className = "Rogue";
+                else if (classId === 103 || classId === 203) className = "Wizard";
+                else if (classId === 104 || classId === 204) className = "Priest";
+                else if (classId === 105) className = "Berserker";
+                else if (classId === 106) className = "Guardian";
+                else if (classId === 107) className = "Hunter";
+                else if (classId === 108) className = "Shadow Vain";
+                else if (classId === 109) className = "Sorcerer";
+                else if (classId === 110) className = "Necromancer";
+                else if (classId === 111) className = "Shaman";
+                else if (classId === 112) className = "Dark Priest";
+                else if (classId === 205) className = "Blade";
+                else if (classId === 206) className = "Protector";
+                else if (classId === 207) className = "Ranger";
+                else if (classId === 208) className = "Assassin";
+                else if (classId === 209) className = "Mage";
+                else if (classId === 210) className = "Arch Mage";
+                else if (classId === 211) className = "Cleric";
+                else if (classId === 212) className = "Druid";
+                
+                document.querySelector('.player-class').innerText = className;
+
+                // Update HP Bar
+                var hpPercent = hpMax > 0 ? (hp / hpMax) * 100 : 0;
+                document.querySelector('.hp-bar').style.width = hpPercent + '%';
+                document.querySelector('.hp-val').innerText = hp + ' / ' + hpMax;
+
+                // Update MP Bar
+                var mpPercent = mpMax > 0 ? (mp / mpMax) * 100 : 0;
+                document.querySelector('.mp-bar').style.width = mpPercent + '%';
+                document.querySelector('.mp-val').innerText = mp + ' / ' + mpMax;
+
+                // Update XP Bar & Percentage Text
+                var expPercent = expMax > 0 ? (exp / expMax) * 100 : 0;
+                document.querySelector('.xp-bar').style.width = expPercent + '%';
+                document.querySelector('.xp-val').innerText = expPercent.toFixed(2) + '%';
+
+                // Draw Radar Minimap (incorporating the dynamic terrain texture mapping!)
+                drawRadar(yaw, entities, mapPath, mapX1, mapY1, mapX2, mapY2);
+
+                // Update Hotkey Slots dynamically
+                var barMinX = 99999, barMinY = 99999, barMaxX = 0, barMaxY = 0;
+                var anySlotVisible = false;
+
+                if (hotkeys && Array.isArray(hotkeys)) {
+                    for (var i = 0; i < hotkeys.length; i++) {
+                        var slot = document.getElementById('hotkey-' + (i + 1));
+                        var item = hotkeys[i];
+                        if (!slot || !item) continue;
+                        
+                        slot.style.left = item.x + 'px';
+                        slot.style.top = item.y + 'px';
+                        slot.style.width = item.w + 'px';
+                        slot.style.height = item.h + 'px';
+
+                        if (item.w === 0 || item.h === 0) {
+                            slot.style.display = 'none';
+                            continue;
+                        }
+
+                        slot.style.display = 'flex';
+                        anySlotVisible = true;
+
+                        // Track bounding box for the bar backdrop
+                        if (item.x < barMinX) barMinX = item.x;
+                        if (item.y < barMinY) barMinY = item.y;
+                        if (item.x + item.w > barMaxX) barMaxX = item.x + item.w;
+                        if (item.y + item.h > barMaxY) barMaxY = item.y + item.h;
+
+                        // Update Icon
+                        var existingIcon = slot.querySelector('.slot-icon');
+                        if (existingIcon) {
+                            existingIcon.remove();
+                        }
+                        
+                        if (item.icon && item.icon !== "") {
+                            slot.classList.add('has-icon');
+                            var cleanPath = item.icon.replace(/^ui\//, '');
+                            var img = document.createElement('img');
+                            img.src = cleanPath;
+                            img.className = 'slot-icon';
+                            slot.appendChild(img);
+                        } else {
+                            slot.classList.remove('has-icon');
+                        }
+
+                        // Clockwise Cooldown via Canvas (WebKit/Ultralight compatible)
+                        var cdCanvas = slot.querySelector('.cooldown-canvas');
+                        if (!cdCanvas) {
+                            cdCanvas = document.createElement('canvas');
+                            cdCanvas.className = 'cooldown-canvas';
+                            slot.appendChild(cdCanvas);
+                        }
+                        cdCanvas.width = item.w;
+                        cdCanvas.height = item.h;
+
+                        var cdCtx = cdCanvas.getContext('2d');
+                        cdCtx.clearRect(0, 0, item.w, item.h);
+
+                        if (item.cooldown > 0) {
+                            var cx = item.w / 2;
+                            var cy = item.h / 2;
+                            var radius = Math.max(item.w, item.h);
+                            var startAngle = -Math.PI / 2;
+                            var endAngle = startAngle + (item.cooldown * Math.PI * 2);
+
+                            cdCtx.fillStyle = 'rgba(0, 0, 0, 0.72)';
+                            cdCtx.beginPath();
+                            cdCtx.moveTo(cx, cy);
+                            cdCtx.arc(cx, cy, radius, startAngle, endAngle, false);
+                            cdCtx.closePath();
+                            cdCtx.fill();
+
+                            cdCtx.strokeStyle = 'rgba(255, 174, 0, 0.5)';
+                            cdCtx.lineWidth = 1.5;
+                            cdCtx.beginPath();
+                            cdCtx.moveTo(cx, cy);
+                            cdCtx.lineTo(
+                                cx + Math.cos(endAngle) * radius,
+                                cy + Math.sin(endAngle) * radius
+                            );
+                            cdCtx.stroke();
+                        }
+                    }
+                }
+
+                // Position the bar backdrop behind all visible hotkey slots
+                var barBg = document.getElementById('hotkey-bar-bg');
+                if (barBg) {
+                    if (anySlotVisible) {
+                        var pad = 6;
+                        barBg.style.display = 'block';
+                        barBg.style.left = (barMinX - pad) + 'px';
+                        barBg.style.top = (barMinY - pad) + 'px';
+                        barBg.style.width = (barMaxX - barMinX + pad * 2) + 'px';
+                        barBg.style.height = (barMaxY - barMinY + pad * 2) + 'px';
+                    } else {
+                        barBg.style.display = 'none';
+                    }
+                }
+
+                // Toggle character stats widget
+                var charWidget = document.getElementById('character-stats-widget');
+                if (charWidget) {
+                    charWidget.style.display = isStateVisible ? 'flex' : 'none';
+                }
+
+                // Update character stats if provided
+                if (characterStats) {
+                    // Noahs
+                    var goldVal = document.getElementById('inventory-gold');
+                    if (goldVal) {
+                        goldVal.innerText = Number(characterStats.gold).toLocaleString();
+                    }
+
+                    // Class
+                    var charClassVal = document.getElementById('char-class-val');
+                    if (charClassVal) {
+                        charClassVal.innerText = document.querySelector('.player-class').innerText;
+                    }
+
+                    // Race & Nation
+                    var charRaceVal = document.getElementById('char-race-val');
+                    if (charRaceVal) {
+                        charRaceVal.innerText = characterStats.race || '-';
+                    }
+                    var charNationVal = document.getElementById('char-nation-val');
+                    if (charNationVal) {
+                        charNationVal.innerText = characterStats.nation || '-';
+                    }
+
+                    // Experience
+                    var charExpVal = document.getElementById('char-exp-val');
+                    if (charExpVal) {
+                        var expPercentVal = expMax > 0 ? (exp / expMax) * 100 : 0;
+                        charExpVal.innerText = Number(exp).toLocaleString() + ' / ' + Number(expMax).toLocaleString() + ' (' + expPercentVal.toFixed(2) + '%)';
+                    }
+
+                    // NPs
+                    document.getElementById('char-np-val').innerText = Number(characterStats.np).toLocaleString();
+                    document.getElementById('char-np-monthly-val').innerText = Number(characterStats.np_monthly).toLocaleString();
+
+                    // Attribute points available
+                    var availPoints = characterStats.points_avail || 0;
+                    var titleHeader = document.getElementById('char-points-avail-header');
+                    if (titleHeader) {
+                        titleHeader.innerText = "Attributes (" + availPoints + " points)";
+                    }
+
+                    // Setup stats and bonus indicators
+                    var statsList = [
+                        { name: 'str', key: 'str', bonus: 'str_bonus', id: 1 },
+                        { name: 'sta', key: 'sta', bonus: 'sta_bonus', id: 2 },
+                        { name: 'dex', key: 'dex', bonus: 'dex_bonus', id: 3 },
+                        { name: 'int', key: 'int', bonus: 'int_bonus', id: 4 },
+                        { name: 'cha', key: 'cha', bonus: 'cha_bonus', id: 5 }
+                    ];
+
+                    for (var sIdx = 0; sIdx < statsList.length; sIdx++) {
+                        var s = statsList[sIdx];
+                        var baseEl = document.getElementById('char-' + s.name + '-val');
+                        var bonusEl = document.getElementById('char-' + s.name + '-bonus');
+                        var btnEl = document.getElementById('stat-btn-' + s.id);
+
+                        if (baseEl) baseEl.innerText = characterStats[s.key];
+                        if (bonusEl) {
+                            var bVal = characterStats[s.bonus] || 0;
+                            bonusEl.innerText = bVal > 0 ? '(+' + bVal + ')' : '';
+                        }
+                        if (btnEl) {
+                            if (availPoints > 0) {
+                                btnEl.classList.remove('disabled');
+                            } else {
+                                btnEl.classList.add('disabled');
+                            }
+                        }
+                    }
+
+                    // Combat Info
+                    document.getElementById('char-atk-val').innerText = characterStats.atk;
+                    document.getElementById('char-def-val').innerText = characterStats.def;
+                    
+                    // Format weights with a dot before the last digit (integer divided by 10)
+                    var formattedWeight = (Number(characterStats.weight) / 10).toFixed(1);
+                    var formattedMaxWeight = (Number(characterStats.weightMax) / 10).toFixed(1);
+                    document.getElementById('char-weight-val').innerText = formattedWeight + ' / ' + formattedMaxWeight + ' Lbs';
+
+                    // Clan Details
+                    var clanNameEl = document.getElementById('char-clan-name');
+                    if (clanNameEl) {
+                        clanNameEl.innerText = characterStats.clan || 'None';
+                    }
+                    var clanGradeRankEl = document.getElementById('char-clan-grade-rank');
+                    if (clanGradeRankEl) {
+                        clanGradeRankEl.innerText = 'Grade ' + (characterStats.clan_grade || '0') + ' / Rank ' + (characterStats.clan_rank || '0');
+                    }
+
+                    // Clan Members list
+                    var membersWrapper = document.getElementById('clan-members-list');
+                    if (membersWrapper && characterStats.clan_members) {
+                        var members = characterStats.clan_members;
+                        document.getElementById('clan-members-title').innerText = "Clan Members (" + members.length + ")";
+                        
+                        var html = "";
+                        for (var mIdx = 0; mIdx < members.length; mIdx++) {
+                            var m = members[mIdx];
+                            var statusClass = m.connected ? "online" : "offline";
+                            
+                            var dutyStr = "Member";
+                            if (m.duty === 1) dutyStr = "Leader";
+                            else if (m.duty === 2) dutyStr = "Vice Chief";
+                            
+                            var jobName = "Novice";
+                            if (m.class === 101 || m.class === 201) jobName = "Warrior";
+                            else if (m.class === 102 || m.class === 202) jobName = "Rogue";
+                            else if (m.class === 103 || m.class === 203) jobName = "Wizard";
+                            else if (m.class === 104 || m.class === 204) jobName = "Priest";
+                            else if (m.class === 105) jobName = "Berserker";
+                            else if (m.class === 106) jobName = "Guardian";
+                            else if (m.class === 107) jobName = "Hunter";
+                            else if (m.class === 108) jobName = "Shadow Vain";
+                            else if (m.class === 205) jobName = "Blade";
+                            else if (m.class === 206) jobName = "Protector";
+                            else if (m.class === 207) jobName = "Ranger";
+                            else if (m.class === 208) jobName = "Assassin";
+
+                            var metaText = "Lv " + m.level + " " + jobName + " (" + dutyStr + ")";
+                            
+                            html += '<div class="clan-member-row">';
+                            html += '  <div class="member-info-col">';
+                            html += '    <div class="member-name-wrap">';
+                            html += '      <div class="online-dot ' + statusClass + '"></div>';
+                            html += '      <span class="member-name">' + m.name + '</span>';
+                            html += '    </div>';
+                            html += '    <span class="member-meta">' + metaText + '</span>';
+                            html += '  </div>';
+                            html += '  <div class="member-actions-col">';
+                            html += '    <div class="member-icon-btn" title="Private Message" onclick="startPrivateMessage(\'' + m.name + '\')">💬</div>';
+                            if (m.duty !== 1 && m.duty !== 2) {
+                                html += '    <div class="member-icon-btn" title="Appoint Vice Chief" onclick="sendGameCommand(\'clan_appoint:' + m.name + '\')">🎖️</div>';
+                            }
+                            if (m.duty !== 1) {
+                                html += '    <div class="member-icon-btn kick" title="Kick Member" onclick="sendGameCommand(\'clan_kick:' + m.name + '\')">✕</div>';
+                            }
+                            html += '  </div>';
+                            html += '</div>';
+                        }
+                        
+                        if (members.length === 0) {
+                            html = '<div style="text-align: center; color: rgba(255,255,255,0.3); font-size: 9px; padding: 12px 0;">No clan members found. Click Refresh to reload.</div>';
+                        }
+                        membersWrapper.innerHTML = html;
+                    }
+
+                    // Resistances
+                    document.getElementById('resist-fire-val').innerText = characterStats.regist.fire;
+                    document.getElementById('resist-cold-val').innerText = characterStats.regist.cold;
+                    document.getElementById('resist-light-val').innerText = characterStats.regist.light;
+                    document.getElementById('resist-magic-val').innerText = characterStats.regist.magic;
+                    document.getElementById('resist-curse-val').innerText = characterStats.regist.curse;
+                    document.getElementById('resist-poison-val').innerText = characterStats.regist.poison;
+                }
+            } catch(e) {
+                var errDiv = document.getElementById('js-debug-error');
+                if (!errDiv) {
+                    errDiv = document.createElement('div');
+                    errDiv.id = 'js-debug-error';
+                    errDiv.style.position = 'absolute';
+                    errDiv.style.top = '10px';
+                    errDiv.style.left = '10px';
+                    errDiv.style.background = 'rgba(255,0,0,0.85)';
+                    errDiv.style.color = '#fff';
+                    errDiv.style.padding = '10px';
+                    errDiv.style.zIndex = '999999';
+                    errDiv.style.pointerEvents = 'none';
+                    errDiv.style.fontSize = '12px';
+                    errDiv.style.fontFamily = 'monospace';
+                    document.body.appendChild(errDiv);
+                }
+                errDiv.innerText = "JS Exception: " + e.message + "\nStack: " + e.stack;
+                console.error("JS Error in updatePlayerStats: " + e.message + "\nStack: " + e.stack);
+            }
+        }
+
+        function startPrivateMessage(name) {
+            var chatInput = document.getElementById('chat-input-field');
+            if (chatInput) {
+                chatInput.value = "/pm " + name + " ";
+                chatInput.focus();
+            }
+        }
+
+        function switchCharTab(tabIdx) {
+            console.log("[WebUI Console] switchCharTab: " + tabIdx);
+            var tabs = document.querySelectorAll('.char-tab');
+            for (var i = 0; i < tabs.length; i++) {
+                if (i === tabIdx) {
+                    tabs[i].classList.add('active');
+                } else {
+                    tabs[i].classList.remove('active');
+                }
+            }
+
+            var contents = document.querySelectorAll('.char-tab-content');
+            var contentIds = ['char-tab-stats', 'char-tab-quests', 'char-tab-clan', 'char-tab-friends'];
+            for (var i = 0; i < contentIds.length; i++) {
+                var el = document.getElementById(contentIds[i]);
+                if (el) {
+                    el.style.display = (i === tabIdx) ? 'block' : 'none';
+                }
+            }
+        }
+
+        var chatMessages = [];
+        var infoMessages = [];
+
+        function addGameMessage(type, message, color) {
+            var now = new Date();
+            var timeStr = ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2);
+
+            var msgObj = {
+                type: type,
+                text: message,
+                color: color || '#ffffff',
+                time: timeStr
+            };
+
+            // type 100 is system notices/combat logs/warnings/loot logs
+            if (type === 100) {
+                infoMessages.push(msgObj);
+                if (infoMessages.length > 150) {
+                    infoMessages.shift();
+                }
+                appendLogMessage('info-log-container', msgObj);
+            } else {
+                chatMessages.push(msgObj);
+                if (chatMessages.length > 150) {
+                    chatMessages.shift();
+                }
+                appendLogMessage('chat-log-container', msgObj);
+            }
+        }
+
+        function appendLogMessage(containerId, msg) {
+            var container = document.getElementById(containerId);
+            if (!container) return;
+
+            var line = document.createElement('div');
+            line.className = 'chat-line mode-' + msg.type;
+            line.style.color = msg.color;
+
+            var timeSpan = document.createElement('span');
+            timeSpan.className = 'chat-time';
+            timeSpan.innerText = '[' + msg.time + ']';
+            line.appendChild(timeSpan);
+
+            var textNode = document.createTextNode(' ' + msg.text);
+            line.appendChild(textNode);
+
+            container.appendChild(line);
+
+            while (container.childNodes.length > 150) {
+                container.removeChild(container.firstChild);
+            }
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function setChatMode(modeId) {
+            var channels = document.querySelectorAll('.chat-chan');
+            channels.forEach(function(chan) {
+                if (chan.getAttribute('onclick').indexOf(modeId) !== -1) {
+                    chan.classList.add('active');
+                } else {
+                    chan.classList.remove('active');
+                }
+            });
+
+            sendGameCommand('chatmode_' + modeId);
+        }
+
+        var chatInput = document.getElementById('chat-input-field');
+
+        if (chatInput) {
+            chatInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    var text = chatInput.value.trim();
+                    if (text !== '') {
+                        sendGameCommand("sendchat:" + encodeURIComponent(text));
+                    } else {
+                        sendGameCommand("cancelchat");
+                    }
+                    chatInput.value = '';
+                    chatInput.blur();
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    sendGameCommand("cancelchat");
+                    chatInput.blur();
+                }
+            });
+        }
+
+        window.focusChatInput = function() {
+            if (chatInput) {
+                chatInput.focus();
+                chatInput.select();
+            }
+        };
+
+        window.blurChatInput = function() {
+            if (chatInput) {
+                chatInput.blur();
+            }
+        };
+
+        window.setChatMode = setChatMode;
+        window.addGameMessage = addGameMessage;
+
+        function drawRadar(yaw, entities, mapPath, mapX1, mapY1, mapX2, mapY2) {
+            var canvas = document.getElementById('radar-canvas');
+            if (!canvas) return;
+            var ctx = canvas.getContext('2d');
+            var w = canvas.width;
+            var h = canvas.height;
+            var cx = w / 2;
+            var cy = h / 2;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, w, h);
+
+            // Update map image reference if path changed
+            if (mapPath && mapPath !== "" && currentMapPath !== mapPath) {
+                currentMapPath = mapPath;
+                mapImg.src = mapPath.replace(/^ui\//, '');
+            }
+
+            // Keep map static (North is always up)
+            var angle = 0;
+            var cosA = Math.cos(angle);
+            var sinA = Math.sin(angle);
+
+            // 1. Draw Map Image rotated on canvas background (if loaded!)
+            if (mapPath && mapPath !== "" && mapImg.complete && mapImg.naturalWidth !== 0) {
+                var sx = mapX1 * mapImg.naturalWidth;
+                var sy = (1.0 - mapY1) * mapImg.naturalHeight;
+                var sw = (mapX2 - mapX1) * mapImg.naturalWidth;
+                var sh = ((1.0 - mapY2) - (1.0 - mapY1)) * mapImg.naturalHeight;
+
+                if (sw > 0 && sh > 0) {
+                    ctx.save();
+                    
+                    // Clip to the circular radar viewport
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, cx - 2, 0, Math.PI * 2);
+                    ctx.clip();
+                    
+                    // Translate & Rotate map
+                    ctx.translate(cx, cy);
+                    ctx.rotate(angle);
+                    
+                    // Draw map cropped section stretched to full circle
+                    ctx.drawImage(mapImg, sx, sy, sw, sh, -cx, -cy, w, h);
+                    
+                    ctx.restore();
+                }
+            } else {
+                // Fallback dark radar background
+                ctx.fillStyle = 'rgba(10, 15, 28, 0.4)';
+                ctx.beginPath();
+                ctx.arc(cx, cy, cx - 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // 2. Draw radar sweeps & grid axes lines on top of map
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+            ctx.lineWidth = 1;
+            
+            // Inner Grid Circle 1
+            ctx.beginPath();
+            ctx.arc(cx, cy, cx * 0.4, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Inner Grid Circle 2
+            ctx.beginPath();
+            ctx.arc(cx, cy, cx * 0.7, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Outer Ring Border
+            ctx.strokeStyle = 'rgba(255, 123, 0, 0.35)';
+            ctx.beginPath();
+            ctx.arc(cx, cy, cx - 2, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Draw radial axes lines
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.beginPath();
+            ctx.moveTo(0, cy); ctx.lineTo(w, cy);
+            ctx.moveTo(cx, 0); ctx.lineTo(cx, h);
+            ctx.stroke();
+            
+            // Draw radar sweep scan light effect
+            var time = Date.now() * 0.002;
+            ctx.strokeStyle = 'rgba(255, 123, 0, 0.12)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(cx + Math.cos(time) * cx, cy + Math.sin(time) * cy);
+            ctx.stroke();
+            
+            // Game coordinate scaling to pixels
+            var scale = 0.5 * radarZoom;
+            
+            // 3. Draw entities (dots)
+            if (entities && Array.isArray(entities)) {
+                entities.forEach(function(ent) {
+                    var dx = ent.dx;
+                    var dz = ent.dz;
+                    
+                    var rx = dx * cosA - dz * sinA;
+                    var ry = dx * sinA + dz * cosA;
+                    
+                    var px = cx + rx * scale;
+                    var py = cy - ry * scale;
+                    
+                    var dist = Math.sqrt(rx*rx + ry*ry) * scale;
+                    if (dist < cx - 4) {
+                        ctx.fillStyle = ent.color || '#ff3b30';
+                        ctx.beginPath();
+                        ctx.arc(px, py, 3.5, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        ctx.shadowColor = ent.color || '#ff3b30';
+                        ctx.shadowBlur = 4;
+                        ctx.beginPath();
+                        ctx.arc(px, py, 3.5, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                    }
+                });
+            }
+            
+            // 4. Draw local player green dot in center
+            ctx.fillStyle = '#34c759';
+            ctx.shadowColor = '#34c759';
+            ctx.shadowBlur = 6;
+            ctx.beginPath();
+            ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+
+        window.updatePlayerStats = updatePlayerStats;
+
+        // Auto-run mock preview if not loaded by the game client within 500ms
+        setTimeout(function() {
+            if (!loadedByGame) {
+                console.log("No game client detected. Entering local browser preview mode with mock data.");
+                
+                // Construct a mock hotkey layout centered at the bottom of the screen
+                var screenW = window.innerWidth || 1024;
+                var screenH = window.innerHeight || 768;
+                var slotSize = 44;
+                var gap = 6;
+                var totalW = (slotSize * 8) + (gap * 7);
+                var startX = Math.round((screenW - totalW) / 2);
+                var startY = screenH - slotSize - 20;
+
+                var mockHotkeys = [];
+                for (var i = 0; i < 8; i++) {
+                    mockHotkeys.push({
+                        x: startX + i * (slotSize + gap),
+                        y: startY,
+                        w: slotSize,
+                        h: slotSize,
+                        icon: i < 5 ? "icons/skillicon_01_1080.png" : "", // mock icons
+                        cooldown: i === 2 ? 0.35 : (i === 4 ? 0.75 : 0) // mock cooldowns
+                    });
+                }
+
+                // Mock Items for Preview
+                var mockEquip = [
+                    { pos: 1, id: 101, count: 1, durability: 400, durabilityMax: 400, name: "Chitin Helmet +7", icon: "icons/itemicon_1_1021_00_0.png" },
+                    { pos: 4, id: 102, count: 1, durability: 350, durabilityMax: 450, name: "Chitin Armor +7", icon: "icons/itemicon_1_2521_00_0.png" },
+                    { pos: 6, id: 103, count: 1, durability: 80, durabilityMax: 100, name: "Shard +7", icon: "icons/itemicon_3_2041_01_1.png" },
+                    { pos: 8, id: 104, count: 1, durability: 90, durabilityMax: 100, name: "Shard +7", icon: "icons/itemicon_3_2041_01_1.png" },
+                    { pos: 10, id: 105, count: 1, durability: 420, durabilityMax: 450, name: "Chitin Pants +7", icon: "icons/itemicon_1_3521_00_0.png" },
+                    { pos: 13, id: 106, count: 1, durability: 50, durabilityMax: 300, name: "Chitin Boots +7", icon: "icons/itemicon_1_5521_00_0.png" }
+                ];
+
+                var mockInv = [
+                    { pos: 0, id: 201, count: 50, durability: 0, durabilityMax: 0, name: "HP Potion (Large)", icon: "icons/itemicon_3_7000_10_0.png" },
+                    { pos: 1, id: 202, count: 30, durability: 0, durabilityMax: 0, name: "MP Potion (Large)", icon: "icons/itemicon_3_7001_10_0.png" },
+                    { pos: 4, id: 203, count: 1, durability: 70, durabilityMax: 80, name: "Raptor +1", icon: "icons/itemicon_3_3031_01_4.png" },
+                    { pos: 12, id: 204, count: 5, durability: 0, durabilityMax: 0, name: "Scroll of Teleport", icon: "icons/itemicon_3_7900_10_0.png" }
+                ];
+
+                var mockSkills = [
+                    { id: 1001, cat: 0, pg: 0, sl: 0, name: 'Slash', desc: 'A basic melee attack that deals physical damage.', icon: 'icons/skillicon_01_1080.png', mp: 30, lvl: 1, cd: 0, usable: true },
+                    { id: 1002, cat: 0, pg: 0, sl: 1, name: 'Charge', desc: 'Rush towards the enemy with great speed, dealing damage on impact.', icon: 'icons/skillicon_01_1080.png', mp: 50, lvl: 5, cd: 50, usable: true },
+                    { id: 1003, cat: 0, pg: 0, sl: 2, name: 'Shield Block', desc: 'Raise your shield to block incoming attacks.', icon: 'icons/skillicon_01_1080.png', mp: 40, lvl: 10, cd: 100, usable: true },
+                    { id: 1004, cat: 0, pg: 0, sl: 3, name: 'War Cry', desc: 'Let out a battle cry, boosting party morale and attack power.', icon: 'icons/skillicon_01_1080.png', mp: 80, lvl: 15, cd: 200, usable: false },
+                    { id: 1005, cat: 0, pg: 0, sl: 4, name: 'Berserk', desc: 'Enter a frenzied state, increasing attack speed but lowering defense.', icon: 'icons/skillicon_01_1080.png', mp: 120, lvl: 20, cd: 300, usable: false },
+                    { id: 1006, cat: 1, pg: 0, sl: 0, name: 'Spiral Slash', desc: 'Spin attack hitting all nearby enemies.', icon: 'icons/skillicon_01_1080.png', mp: 60, lvl: 25, cd: 80, usable: true },
+                    { id: 1007, cat: 1, pg: 0, sl: 1, name: 'Thunder Blow', desc: 'A devastating blow infused with lightning.', icon: 'icons/skillicon_01_1080.png', mp: 100, lvl: 30, cd: 120, usable: true }
+                ];
+                var mockSkillPoints = [5, 12, 8, 0, 0, 10, 5, 0, 0];
+
+                updatePlayerStats(
+                    "PreviewPlayer", // name
+                    80, // level
+                    2844, 2844, // HP
+                    4751, 4751, // MP
+                    9150, 10000, // EXP
+                    105, // Class ID (Berserker)
+                    0, // Yaw
+                    [
+                        { dx: 25, dz: 35, color: "rgba(255, 59, 48, 1)" },
+                        { dx: -15, dz: -10, color: "rgba(52, 199, 89, 1)" }
+                    ], // Entities
+                    true, // isInGame
+                    true, // isInventoryVisible
+                    mockHotkeys, // Hotkeys
+                    "", 0, 0, 0, 0, // Map info
+                    mockEquip,
+                    mockInv,
+                    true, // isSkillTreeVisible
+                    mockSkills,
+                    mockSkillPoints
+                );
+
+                // Mock Chat Messages
+                addGameMessage(100, "Notice: Welcome to Knight Online HTML5 HUD preview!", "#ffe270");
+                addGameMessage(1, "BnsHift: Hello everyone!", "#e4eaef");
+                addGameMessage(3, "[Party] Cleric: Casting Buffs, stand still.", "#3ee5ff");
+                addGameMessage(2, "[PM] From GM_Ko: Testing custom WebUI chat module.", "#ff72be");
+                addGameMessage(100, "You gained 24,500 Experience points.", "#ffe270");
+                addGameMessage(100, "Received item: [Shard +1] (Loot Log)", "#6bf58d");
+            }
+        }, 500);
+    </script>
+
+</body>
+</html>

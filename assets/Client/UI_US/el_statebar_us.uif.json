@@ -1,0 +1,1657 @@
+{
+    "_uif_metadata": {
+        "version": 1264,
+        "has_sounds": true
+    },
+    "type": "BASE",
+    "name": "",
+    "unknown_version_val": 1,
+    "children": [
+        {
+            "type": "IMAGE",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "Img_StateBar",
+            "region": {
+                "left": 0,
+                "top": 0,
+                "right": 278,
+                "bottom": 89
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+            "uv_rect": {
+                "left": 0.0,
+                "top": 0.0,
+                "right": 0.54296875,
+                "bottom": 0.173828125
+            },
+            "anim_frame": 30.0
+        },
+        {
+            "type": "PROGRESS",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 4,
+                        "top": 24,
+                        "right": 120,
+                        "bottom": 32
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.0078125,
+                        "top": 0.046875,
+                        "right": 0.234375,
+                        "bottom": 0.0625
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 4,
+                        "top": 24,
+                        "right": 120,
+                        "bottom": 32
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.029296875,
+                        "top": 0.740234375,
+                        "right": 0.255859375,
+                        "bottom": 0.755859375
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "Progress_ExpC",
+            "region": {
+                "left": 4,
+                "top": 24,
+                "right": 120,
+                "bottom": 32
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": ""
+        },
+        {
+            "type": "PROGRESS",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 153,
+                        "top": 4,
+                        "right": 270,
+                        "bottom": 18
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.298828125,
+                        "top": 0.0078125,
+                        "right": 0.52734375,
+                        "bottom": 0.03515625
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 153,
+                        "top": 4,
+                        "right": 270,
+                        "bottom": 18
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.029296875,
+                        "top": 0.7890625,
+                        "right": 0.2578125,
+                        "bottom": 0.81640625
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "Progress_HP",
+            "region": {
+                "left": 153,
+                "top": 4,
+                "right": 270,
+                "bottom": 18
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": ""
+        },
+        {
+            "type": "PROGRESS",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 4,
+                        "top": 4,
+                        "right": 120,
+                        "bottom": 18
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.0078125,
+                        "top": 0.0078125,
+                        "right": 0.234375,
+                        "bottom": 0.03515625
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 4,
+                        "top": 4,
+                        "right": 120,
+                        "bottom": 18
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.029296875,
+                        "top": 0.759765625,
+                        "right": 0.255859375,
+                        "bottom": 0.787109375
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "Progress_ExpP",
+            "region": {
+                "left": 4,
+                "top": 4,
+                "right": 120,
+                "bottom": 18
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": ""
+        },
+        {
+            "type": "PROGRESS",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 155,
+                        "top": 22,
+                        "right": 271,
+                        "bottom": 34
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.302734375,
+                        "top": 0.04296875,
+                        "right": 0.529296875,
+                        "bottom": 0.06640625
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 155,
+                        "top": 22,
+                        "right": 271,
+                        "bottom": 34
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.029296875,
+                        "top": 0.822265625,
+                        "right": 0.255859375,
+                        "bottom": 0.845703125
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "Progress_MSP",
+            "region": {
+                "left": 155,
+                "top": 22,
+                "right": 271,
+                "bottom": 34
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": ""
+        },
+        {
+            "type": "PROGRESS",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 153,
+                        "top": 4,
+                        "right": 270,
+                        "bottom": 18
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.3046875,
+                        "top": 0.009765625,
+                        "right": 0.53125,
+                        "bottom": 0.033203125
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 154,
+                        "top": 5,
+                        "right": 270,
+                        "bottom": 17
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.263671875,
+                        "top": 0.689453125,
+                        "right": 0.490234375,
+                        "bottom": 0.712890625
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "Progress_HP_slow",
+            "region": {
+                "left": 153,
+                "top": 4,
+                "right": 270,
+                "bottom": 18
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": ""
+        },
+        {
+            "type": "BASE",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "Img_MiniMap",
+                    "region": {
+                        "left": 38,
+                        "top": 79,
+                        "right": 226,
+                        "bottom": 261
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "",
+                    "uv_rect": {
+                        "left": 0.0,
+                        "top": 0.0,
+                        "right": 0.0,
+                        "bottom": 0.0
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "Img_MiniMapBackground",
+                    "region": {
+                        "left": 0,
+                        "top": 44,
+                        "right": 270,
+                        "bottom": 293
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.0,
+                        "top": 0.181640625,
+                        "right": 0.52734375,
+                        "bottom": 0.66796875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "BUTTON",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [
+                        {
+                            "type": "IMAGE",
+                            "name": "",
+                            "unknown_version_val": 1,
+                            "children": [],
+                            "id": "",
+                            "region": {
+                                "left": 144,
+                                "top": 45,
+                                "right": 162,
+                                "bottom": 63
+                            },
+                            "movable": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                            },
+                            "style": 0,
+                            "reserved": 0,
+                            "tooltip": "",
+                            "open_sound": "",
+                            "close_sound": "",
+                            "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                            "uv_rect": {
+                                "left": 0.0625,
+                                "top": 0.6953125,
+                                "right": 0.09765625,
+                                "bottom": 0.73046875
+                            },
+                            "anim_frame": 30.0
+                        },
+                        {
+                            "type": "IMAGE",
+                            "name": "",
+                            "unknown_version_val": 1,
+                            "children": [],
+                            "id": "",
+                            "region": {
+                                "left": 144,
+                                "top": 45,
+                                "right": 162,
+                                "bottom": 63
+                            },
+                            "movable": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                            },
+                            "style": 0,
+                            "reserved": 1,
+                            "tooltip": "",
+                            "open_sound": "",
+                            "close_sound": "",
+                            "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                            "uv_rect": {
+                                "left": 0.220703125,
+                                "top": 0.6953125,
+                                "right": 0.255859375,
+                                "bottom": 0.73046875
+                            },
+                            "anim_frame": 30.0
+                        },
+                        {
+                            "type": "IMAGE",
+                            "name": "",
+                            "unknown_version_val": 1,
+                            "children": [],
+                            "id": "",
+                            "region": {
+                                "left": 144,
+                                "top": 45,
+                                "right": 162,
+                                "bottom": 63
+                            },
+                            "movable": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                            },
+                            "style": 0,
+                            "reserved": 2,
+                            "tooltip": "",
+                            "open_sound": "",
+                            "close_sound": "",
+                            "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                            "uv_rect": {
+                                "left": 0.140625,
+                                "top": 0.6953125,
+                                "right": 0.17578125,
+                                "bottom": 0.73046875
+                            },
+                            "anim_frame": 30.0
+                        },
+                        {
+                            "type": "IMAGE",
+                            "name": "",
+                            "unknown_version_val": 1,
+                            "children": [],
+                            "id": "",
+                            "region": {
+                                "left": 144,
+                                "top": 45,
+                                "right": 162,
+                                "bottom": 63
+                            },
+                            "movable": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                            },
+                            "style": 0,
+                            "reserved": 3,
+                            "tooltip": "",
+                            "open_sound": "",
+                            "close_sound": "",
+                            "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                            "uv_rect": {
+                                "left": 0.0625,
+                                "top": 0.6953125,
+                                "right": 0.09765625,
+                                "bottom": 0.73046875
+                            },
+                            "anim_frame": 30.0
+                        }
+                    ],
+                    "id": "Btn_ZoomOut",
+                    "region": {
+                        "left": 144,
+                        "top": 45,
+                        "right": 162,
+                        "bottom": 63
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 65536,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "click_rect": {
+                        "left": 144,
+                        "top": 45,
+                        "right": 162,
+                        "bottom": 63
+                    },
+                    "sound_on": "",
+                    "sound_click": ""
+                },
+                {
+                    "type": "BUTTON",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [
+                        {
+                            "type": "IMAGE",
+                            "name": "",
+                            "unknown_version_val": 1,
+                            "children": [],
+                            "id": "",
+                            "region": {
+                                "left": 114,
+                                "top": 45,
+                                "right": 133,
+                                "bottom": 63
+                            },
+                            "movable": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                            },
+                            "style": 0,
+                            "reserved": 0,
+                            "tooltip": "",
+                            "open_sound": "",
+                            "close_sound": "",
+                            "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                            "uv_rect": {
+                                "left": 0.0234375,
+                                "top": 0.6953125,
+                                "right": 0.060546875,
+                                "bottom": 0.73046875
+                            },
+                            "anim_frame": 30.0
+                        },
+                        {
+                            "type": "IMAGE",
+                            "name": "",
+                            "unknown_version_val": 1,
+                            "children": [],
+                            "id": "",
+                            "region": {
+                                "left": 114,
+                                "top": 45,
+                                "right": 133,
+                                "bottom": 63
+                            },
+                            "movable": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                            },
+                            "style": 0,
+                            "reserved": 1,
+                            "tooltip": "",
+                            "open_sound": "",
+                            "close_sound": "",
+                            "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                            "uv_rect": {
+                                "left": 0.1796875,
+                                "top": 0.6953125,
+                                "right": 0.216796875,
+                                "bottom": 0.73046875
+                            },
+                            "anim_frame": 30.0
+                        },
+                        {
+                            "type": "IMAGE",
+                            "name": "",
+                            "unknown_version_val": 1,
+                            "children": [],
+                            "id": "",
+                            "region": {
+                                "left": 114,
+                                "top": 45,
+                                "right": 133,
+                                "bottom": 63
+                            },
+                            "movable": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                            },
+                            "style": 0,
+                            "reserved": 2,
+                            "tooltip": "",
+                            "open_sound": "",
+                            "close_sound": "",
+                            "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                            "uv_rect": {
+                                "left": 0.1015625,
+                                "top": 0.6953125,
+                                "right": 0.138671875,
+                                "bottom": 0.73046875
+                            },
+                            "anim_frame": 30.0
+                        },
+                        {
+                            "type": "IMAGE",
+                            "name": "",
+                            "unknown_version_val": 1,
+                            "children": [],
+                            "id": "",
+                            "region": {
+                                "left": 114,
+                                "top": 45,
+                                "right": 133,
+                                "bottom": 63
+                            },
+                            "movable": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                            },
+                            "style": 0,
+                            "reserved": 3,
+                            "tooltip": "",
+                            "open_sound": "",
+                            "close_sound": "",
+                            "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                            "uv_rect": {
+                                "left": 0.0234375,
+                                "top": 0.6953125,
+                                "right": 0.060546875,
+                                "bottom": 0.73046875
+                            },
+                            "anim_frame": 30.0
+                        }
+                    ],
+                    "id": "Btn_ZoomIn",
+                    "region": {
+                        "left": 114,
+                        "top": 45,
+                        "right": 133,
+                        "bottom": 63
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 65536,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "click_rect": {
+                        "left": 114,
+                        "top": 45,
+                        "right": 133,
+                        "bottom": 63
+                    },
+                    "sound_on": "",
+                    "sound_click": ""
+                }
+            ],
+            "id": "Group_MiniMap",
+            "region": {
+                "left": 0,
+                "top": 42,
+                "right": 270,
+                "bottom": 293
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": ""
+        },
+        {
+            "type": "PROGRESS",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 153,
+                        "top": 4,
+                        "right": 270,
+                        "bottom": 18
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.3046875,
+                        "top": 0.01171875,
+                        "right": 0.53125,
+                        "bottom": 0.03515625
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 154,
+                        "top": 5,
+                        "right": 271,
+                        "bottom": 17
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.49609375,
+                        "top": 0.69140625,
+                        "right": 0.72265625,
+                        "bottom": 0.71484375
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "Progress_HP_drop",
+            "region": {
+                "left": 153,
+                "top": 4,
+                "right": 270,
+                "bottom": 18
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": ""
+        },
+        {
+            "type": "PROGRESS",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 153,
+                        "top": 4,
+                        "right": 270,
+                        "bottom": 16
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.685546875,
+                        "top": 0.873046875,
+                        "right": 0.916015625,
+                        "bottom": 0.896484375
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 153,
+                        "top": 4,
+                        "right": 270,
+                        "bottom": 16
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_el_statebar_us.dxt",
+                    "uv_rect": {
+                        "left": 0.02734375,
+                        "top": 0.970703125,
+                        "right": 0.2578125,
+                        "bottom": 0.994140625
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "Progress_HP_lasting",
+            "region": {
+                "left": 153,
+                "top": 4,
+                "right": 270,
+                "bottom": 16
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": ""
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "Text_Position",
+            "region": {
+                "left": 11,
+                "top": 45,
+                "right": 112,
+                "bottom": 65
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 2097152,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 10,
+            "font_flags": 0,
+            "color": 4294967295,
+            "text": "Position",
+            "line_spacing": 0
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "Text_Version",
+            "region": {
+                "left": 168,
+                "top": 45,
+                "right": 258,
+                "bottom": 65
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 10,
+            "font_flags": 0,
+            "color": 4294967295,
+            "text": "Version",
+            "line_spacing": 0
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "Text_HP",
+            "region": {
+                "left": 161,
+                "top": 13,
+                "right": 262,
+                "bottom": 24
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 76546048,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 8,
+            "font_flags": 0,
+            "color": 4294967295,
+            "text": "1234/1234",
+            "line_spacing": 0
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "Text_ExpP",
+            "region": {
+                "left": 11,
+                "top": 15,
+                "right": 112,
+                "bottom": 26
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 76546048,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 8,
+            "font_flags": 0,
+            "color": 4294967295,
+            "text": "1234/1234",
+            "line_spacing": 0
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "Text_MSP",
+            "region": {
+                "left": 161,
+                "top": 33,
+                "right": 262,
+                "bottom": 44
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 76546048,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 8,
+            "font_flags": 0,
+            "color": 4294967295,
+            "text": "1234/1234",
+            "line_spacing": 0
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "string_fps",
+            "region": {
+                "left": 10,
+                "top": 65,
+                "right": 111,
+                "bottom": 85
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 2097152,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 10,
+            "font_flags": 0,
+            "color": 4294967295,
+            "text": "Frame per Sec",
+            "line_spacing": 0
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "SystemTime",
+            "region": {
+                "left": 138,
+                "top": 65,
+                "right": 295,
+                "bottom": 83
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 10,
+            "font_flags": 0,
+            "color": 4294967295,
+            "text": "",
+            "line_spacing": 0
+        },
+        {
+            "type": "STRING",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [],
+            "id": "SystemTime",
+            "region": {
+                "left": 9,
+                "top": 86,
+                "right": 102,
+                "bottom": 106
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 0,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "font_name": "Arial",
+            "font_height": 10,
+            "font_flags": 0,
+            "color": 4294967295,
+            "text": "System Time",
+            "line_spacing": 0
+        },
+        {
+            "type": "BUTTON",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 279,
+                        "top": 3,
+                        "right": 307,
+                        "bottom": 31
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_message_us.dxt",
+                    "uv_rect": {
+                        "left": 0.396484375,
+                        "top": 0.375,
+                        "right": 0.451171875,
+                        "bottom": 0.4296875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 279,
+                        "top": 3,
+                        "right": 307,
+                        "bottom": 31
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_message_us.dxt",
+                    "uv_rect": {
+                        "left": 0.451171875,
+                        "top": 0.375,
+                        "right": 0.505859375,
+                        "bottom": 0.4296875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 279,
+                        "top": 3,
+                        "right": 307,
+                        "bottom": 31
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 2,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_message_us.dxt",
+                    "uv_rect": {
+                        "left": 0.505859375,
+                        "top": 0.375,
+                        "right": 0.560546875,
+                        "bottom": 0.4296875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 279,
+                        "top": 3,
+                        "right": 307,
+                        "bottom": 31
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 3,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_message_us.dxt",
+                    "uv_rect": {
+                        "left": 0.396484375,
+                        "top": 0.375,
+                        "right": 0.451171875,
+                        "bottom": 0.4296875
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "btn_quest",
+            "region": {
+                "left": 279,
+                "top": 3,
+                "right": 307,
+                "bottom": 31
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 65536,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "click_rect": {
+                "left": 279,
+                "top": 3,
+                "right": 307,
+                "bottom": 31
+            },
+            "sound_on": "",
+            "sound_click": ""
+        },
+        {
+            "type": "BUTTON",
+            "name": "",
+            "unknown_version_val": 1,
+            "children": [
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 310,
+                        "top": 3,
+                        "right": 338,
+                        "bottom": 31
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 0,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_message_us.dxt",
+                    "uv_rect": {
+                        "left": 0.396484375,
+                        "top": 0.48828125,
+                        "right": 0.451171875,
+                        "bottom": 0.54296875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 310,
+                        "top": 3,
+                        "right": 338,
+                        "bottom": 31
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 1,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_message_us.dxt",
+                    "uv_rect": {
+                        "left": 0.451171875,
+                        "top": 0.48828125,
+                        "right": 0.505859375,
+                        "bottom": 0.54296875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 310,
+                        "top": 3,
+                        "right": 338,
+                        "bottom": 31
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 2,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_message_us.dxt",
+                    "uv_rect": {
+                        "left": 0.505859375,
+                        "top": 0.48828125,
+                        "right": 0.560546875,
+                        "bottom": 0.54296875
+                    },
+                    "anim_frame": 30.0
+                },
+                {
+                    "type": "IMAGE",
+                    "name": "",
+                    "unknown_version_val": 1,
+                    "children": [],
+                    "id": "",
+                    "region": {
+                        "left": 310,
+                        "top": 3,
+                        "right": 338,
+                        "bottom": 31
+                    },
+                    "movable": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                    },
+                    "style": 0,
+                    "reserved": 3,
+                    "tooltip": "",
+                    "open_sound": "",
+                    "close_sound": "",
+                    "texture_file": "ui_us\\ui_message_us.dxt",
+                    "uv_rect": {
+                        "left": 0.396484375,
+                        "top": 0.48828125,
+                        "right": 0.451171875,
+                        "bottom": 0.54296875
+                    },
+                    "anim_frame": 30.0
+                }
+            ],
+            "id": "btn_power",
+            "region": {
+                "left": 310,
+                "top": 3,
+                "right": 338,
+                "bottom": 31
+            },
+            "movable": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+            },
+            "style": 65536,
+            "reserved": 0,
+            "tooltip": "",
+            "open_sound": "",
+            "close_sound": "",
+            "click_rect": {
+                "left": 310,
+                "top": 3,
+                "right": 338,
+                "bottom": 31
+            },
+            "sound_on": "",
+            "sound_click": ""
+        }
+    ],
+    "id": "",
+    "region": {
+        "left": 0,
+        "top": 0,
+        "right": 338,
+        "bottom": 65
+    },
+    "movable": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+    },
+    "style": 0,
+    "reserved": 0,
+    "tooltip": "",
+    "open_sound": "",
+    "close_sound": ""
+}
