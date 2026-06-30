@@ -54,9 +54,6 @@ server_config.h
 *.txt
 last-build-states/
 .env
-assets/client/
-!assets/Client/
-!assets/Client/**
 assets/Client/KnightOnLine.exe
 assets/Client/webui_console.log
 
