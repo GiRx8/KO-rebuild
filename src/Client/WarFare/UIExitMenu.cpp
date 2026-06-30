@@ -61,88 +61,92 @@ bool CUIExitMenu::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 	if (pSender == m_pBtn_Chr)
 	{
-		if (CGameProcedure::s_pProcMain == nullptr)
-			return true;
-
-		if (CGameProcedure::s_pProcMain->m_fExitTimer == -1.0f)
-		{
-			/*
-			if (CGameProcedure::s_pProcMain->m_pUIHotKeyDlg != nullptr)
-			{
-				CUIHotKeyDlg::MsgSend_SkillData_Save();
-			}
-			*/
-
-			//CGameProcedure::s_pProcMain->m_bSeekingPartyChatEnabled = false;
-			//CGameProcedure::s_pProcMain->m_bPendingPremiumCafeData = true;
-
-			std::string szMsg = fmt::format_text_resource(IDS_CONNECTING_PLEASE_WAIT);
-			CGameProcedure::MessageBoxPost(szMsg, "", MB_OK);
-			ReturnToCharacterSelection();
-		}
-		else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
-		{
-			std::string szMsg = fmt::format_text_resource(IDS_CANNOT_EXIT_DURING_A_BATTLE);
-			CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
-			CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_CHR_SELECT;
-			SetVisible(false);
-		}
-
-		return true;
+		return ExecuteCharacterSelection();
 	}
 
 	if (pSender == m_pBtn_Option)
 	{
-		if (CGameProcedure::s_pProcMain == nullptr)
-			return true;
-
-		if (CGameProcedure::s_pProcMain->m_fExitTimer == -1.0f)
-		{
-			/*
-			if (CGameProcedure::s_pProcMain->m_pUIHotKeyDlg != nullptr)
-				CUIHotKeyDlg::MsgSend_SkillData_Save();
-			*/
-
-			::ShellExecute(nullptr, "open", "Option.exe", nullptr, nullptr, SW_SHOWNORMAL);
-			PostQuitMessage(0);
-		}
-		else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
-		{
-			std::string szMsg = fmt::format_text_resource(IDS_CANNOT_EXIT_DURING_A_BATTLE);
-			CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
-			CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_QUIT;
-			SetVisible(false);
-		}
+		return ExecuteOption();
 	}
 	else if (pSender == m_pBtn_Exit)
 	{
-		if (CGameProcedure::s_pProcMain == nullptr)
-			return true;
-
-		if (CGameProcedure::s_pProcMain->m_fExitTimer == -1.0f)
-		{
-			/*
-			if (CGameProcedure::s_pProcMain->_.m_pUIHotKeyDlg != nullptr)
-				CUIHotKeyDlg::MsgSend_SkillData_Save();
-			*/
-
-			PostQuitMessage(0);
-		}
-		else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
-		{
-			std::string szMsg = fmt::format_text_resource(IDS_CANNOT_EXIT_DURING_A_BATTLE);
-			CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
-			CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_QUIT;
-
-			SetVisible(false);
-		}
+		return ExecuteQuit();
 	}
 	else if (pSender == m_pBtn_Cancel)
 	{
+		ExecuteCancel();
+	}
+
+	return true;
+}
+
+bool CUIExitMenu::ExecuteCharacterSelection()
+{
+	if (CGameProcedure::s_pProcMain == nullptr)
+		return true;
+
+	if (CGameProcedure::s_pProcMain->m_fExitTimer == -1.0f)
+	{
+		std::string szMsg = fmt::format_text_resource(IDS_CONNECTING_PLEASE_WAIT);
+		CGameProcedure::MessageBoxPost(szMsg, "", MB_OK);
+		ReturnToCharacterSelection();
+	}
+	else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
+	{
+		std::string szMsg = fmt::format_text_resource(IDS_CANNOT_EXIT_DURING_A_BATTLE);
+		CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
+		CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_CHR_SELECT;
 		SetVisible(false);
 	}
 
 	return true;
+}
+
+bool CUIExitMenu::ExecuteOption()
+{
+	if (CGameProcedure::s_pProcMain == nullptr)
+		return true;
+
+	if (CGameProcedure::s_pProcMain->m_fExitTimer == -1.0f)
+	{
+		::ShellExecute(nullptr, "open", "Option.exe", nullptr, nullptr, SW_SHOWNORMAL);
+		PostQuitMessage(0);
+	}
+	else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
+	{
+		std::string szMsg = fmt::format_text_resource(IDS_CANNOT_EXIT_DURING_A_BATTLE);
+		CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
+		CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_QUIT;
+		SetVisible(false);
+	}
+
+	return true;
+}
+
+bool CUIExitMenu::ExecuteQuit()
+{
+	if (CGameProcedure::s_pProcMain == nullptr)
+		return true;
+
+	if (CGameProcedure::s_pProcMain->m_fExitTimer == -1.0f)
+	{
+		PostQuitMessage(0);
+	}
+	else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
+	{
+		std::string szMsg = fmt::format_text_resource(IDS_CANNOT_EXIT_DURING_A_BATTLE);
+		CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
+		CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_QUIT;
+
+		SetVisible(false);
+	}
+
+	return true;
+}
+
+void CUIExitMenu::ExecuteCancel()
+{
+	SetVisible(false);
 }
 
 void CUIExitMenu::ReturnToCharacterSelection()

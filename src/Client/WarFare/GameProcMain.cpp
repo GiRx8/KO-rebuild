@@ -55,6 +55,7 @@
 #include "UIItemUpgrade.h"
 #include "UILevelGuide.h"
 #include "UIMsgBoxOkCancel.h"
+#include "WebUI.h"
 
 #include "SubProcPerTrade.h"
 #include "CountableItemEditDlg.h"
@@ -4879,12 +4880,22 @@ bool CGameProcMain::CommandToggleUIMiniMap()
 
 bool CGameProcMain::CommandToggleCmdList()
 {
-	bool bNeedOpen = !(m_pUICmdList->IsVisible());
+	CWebUI* pWebUI = CWebUI::Instance();
+	bool bNeedOpen = (pWebUI != nullptr) ? !pWebUI->IsCommandPanelVisible() : !(m_pUICmdList->IsVisible());
 
 	if (m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE)
 		return bNeedOpen;
 
-	if (bNeedOpen)
+	if (m_pUICmdList->IsVisible())
+	{
+		m_pUICmdList->SetVisibleWithNoSound(false);
+	}
+
+	if (pWebUI != nullptr)
+	{
+		pWebUI->SetCommandPanelVisible(bNeedOpen);
+	}
+	else if (bNeedOpen)
 	{
 		s_pUIMgr->SetFocusedUI(m_pUICmdList);
 		m_pUICmdList->Open();
@@ -5810,7 +5821,13 @@ void CGameProcMain::MsgRecv_ObjectEvent(Packet& pkt)
 
 void CGameProcMain::RequestExit()
 {
+	CWebUI* pWebUI = CWebUI::Instance();
 	if (m_pUIExitMenu != nullptr)
+		m_pUIExitMenu->SetVisibleWithNoSound(false);
+
+	if (pWebUI != nullptr)
+		pWebUI->SetExitPanelVisible(true);
+	else if (m_pUIExitMenu != nullptr)
 		m_pUIExitMenu->SetVisible(true);
 }
 

@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knight Online UI Mockup Showcase</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            color-scheme: dark;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 28px;
+            font-family: 'Inter', sans-serif;
+            color: #f4eee5;
+            background:
+                radial-gradient(circle at top left, rgba(81, 111, 182, 0.18), transparent 32%),
+                radial-gradient(circle at bottom right, rgba(179, 121, 58, 0.12), transparent 24%),
+                linear-gradient(180deg, #090d15 0%, #0d1320 100%);
+        }
+
+        .page {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .hero,
+        .concept {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+                rgba(255, 255, 255, 0.03);
+            box-shadow:
+                0 24px 60px rgba(0, 0, 0, 0.34),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .hero::before,
+        .concept::before {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            border-radius: inherit;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            pointer-events: none;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 18px;
+            padding: 22px 24px;
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            margin-bottom: 8px;
+            letter-spacing: 0.8px;
+        }
+
+        .hero p {
+            max-width: 880px;
+            color: rgba(255, 255, 255, 0.72);
+            line-height: 1.55;
+            font-size: 14px;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .tag {
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+                rgba(255, 255, 255, 0.04);
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.82);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 8px 18px rgba(0, 0, 0, 0.18);
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(340px, 1fr));
+            gap: 22px;
+        }
+
+        .concept {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 18px;
+        }
+
+        .concept h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        .concept p {
+            color: rgba(255, 255, 255, 0.74);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .viewport {
+            position: relative;
+            height: 700px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background-size: cover;
+            background-position: center;
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+                0 18px 46px rgba(0, 0, 0, 0.36);
+        }
+
+        .viewport::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 28%),
+                radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.06), transparent 28%),
+                radial-gradient(circle at 50% 100%, rgba(0, 0, 0, 0.42), transparent 42%);
+            pointer-events: none;
+        }
+
+        .royal {
+            background-image:
+                linear-gradient(180deg, rgba(8, 9, 13, 0.18), rgba(4, 5, 7, 0.66)),
+                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1400&q=80');
+        }
+
+        .rune {
+            background-image:
+                linear-gradient(180deg, rgba(4, 12, 20, 0.14), rgba(3, 7, 14, 0.7)),
+                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1400&q=80');
+        }
+
+        .fortress {
+            background-image:
+                linear-gradient(180deg, rgba(12, 13, 16, 0.16), rgba(6, 7, 9, 0.72)),
+                url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80');
+        }
+
+        .sanctum {
+            background-image:
+                linear-gradient(180deg, rgba(15, 10, 17, 0.16), rgba(7, 4, 11, 0.72)),
+                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1400&q=80');
+        }
+
+        .relic {
+            background-image:
+                linear-gradient(180deg, rgba(24, 19, 10, 0.14), rgba(12, 8, 4, 0.74)),
+                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1400&q=80');
+        }
+
+        .starforge {
+            background-image:
+                linear-gradient(180deg, rgba(6, 10, 18, 0.12), rgba(3, 6, 14, 0.76)),
+                url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80');
+        }
+
+        .screen {
+            position: absolute;
+            inset: 0;
+            padding: 18px;
+        }
+
+        .screen::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.16) 72%, rgba(0, 0, 0, 0.32));
+            pointer-events: none;
+        }
+
+        .panel {
+            position: absolute;
+            color: var(--panel-text, #fff2de);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .hud {
+            top: 18px;
+            left: 18px;
+            width: 238px;
+            padding: 14px;
+        }
+
+        .hud-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .portrait {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+        }
+
+        .portrait svg,
+        .title-icon svg,
+        .mini-icon svg,
+        .icon-badge svg,
+        .chat-input svg,
+        .action-icon svg,
+        .skill-gem svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+
+        .hud-name {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+
+        .hud-role {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            opacity: 0.76;
+        }
+
+        .bar-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .bar-row {
+            padding: 6px 8px 8px;
+        }
+
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .bar-name {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mini-icon {
+            width: 14px;
+            height: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bar-bg {
+            height: 9px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .bar-fill::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.38), transparent 50%);
+        }
+
+        .radar {
+            top: 18px;
+            right: 18px;
+            width: 136px;
+            height: 136px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .radar-core {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cross-h,
+        .cross-v {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .cross-h {
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+        }
+
+        .cross-v {
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+        }
+
+        .dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .radar-sweep {
+            position: absolute;
+            inset: 8%;
+        }
+
+        .command {
+            top: 150px;
+            right: 18px;
+            width: 174px;
+            height: 316px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .title-row {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding-bottom: 8px;
+        }
+
+        .command-title,
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+            text-align: center;
+        }
+
+        .title-icon {
+            width: 17px;
+            height: 17px;
+        }
+
+        .command-top,
+        .command-bottom {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-height: 0;
+        }
+
+        .command-item,
+        .modal-btn {
+            position: relative;
+            min-height: 34px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 10px;
+            font-size: 10px;
+            line-height: 1.25;
+        }
+
+        .command-item {
+            justify-content: flex-start;
+        }
+
+        .modal-btn {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .command-label,
+        .modal-label {
+            flex: 1;
+        }
+
+        .icon-badge {
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exit-modal {
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 248px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-text {
+            font-size: 10px;
+            line-height: 1.45;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.72);
+            padding: 0 4px;
+        }
+
+        .modal-divider {
+            height: 2px;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chat {
+            left: 18px;
+            bottom: 92px;
+            width: 282px;
+            height: 182px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chat-tabs {
+            display: flex;
+            gap: 6px;
+        }
+
+        .chat-tab {
+            padding: 4px 9px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chat-log {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 10px;
+            line-height: 1.35;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .chat-line span {
+            opacity: 0.48;
+            margin-right: 6px;
+        }
+
+        .chat-input {
+            margin-top: auto;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 10px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .chat-input svg {
+            width: 12px;
+            height: 12px;
+            opacity: 0.8;
+        }
+
+        .bottom-hud {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .action-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .action-cluster,
+        .hotkeys {
+            display: flex;
+            gap: 8px;
+            padding: 8px 10px;
+        }
+
+        .action-btn,
+        .hotkey {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn {
+            width: 46px;
+            height: 46px;
+        }
+
+        .hotkey {
+            width: 40px;
+            height: 40px;
+        }
+
+        .hotkey::after {
+            content: attr(data-slot);
+            position: absolute;
+            right: 5px;
+            bottom: 4px;
+            font-size: 9px;
+            opacity: 0.7;
+        }
+
+        .skill-gem,
+        .action-icon {
+            width: 22px;
+            height: 22px;
+            display: block;
+        }
+
+        .notes {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .notes h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 15px;
+        }
+
+        .notes ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: rgba(255, 255, 255, 0.76);
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .notes li::before {
+            content: '•';
+            margin-right: 8px;
+        }
+
+        .ornament,
+        .frame-notch,
+        .side-rune,
+        .strip-label,
+        .halo-ring,
+        .glyph-row,
+        .chip-node,
+        .dotted-ring {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .royal-theme {
+            --panel-text: #ffe6bb;
+        }
+
+        .royal-theme .panel,
+        .royal-theme .command-item,
+        .royal-theme .modal-btn,
+        .royal-theme .action-btn,
+        .royal-theme .hotkey,
+        .royal-theme .chat-input,
+        .royal-theme .portrait,
+        .royal-theme .chat-tab,
+        .royal-theme .bar-row,
+        .royal-theme .action-cluster,
+        .royal-theme .hotkeys {
+            border-radius: 16px;
+            border: 1px solid rgba(214, 162, 103, 0.28);
+            background:
+                linear-gradient(180deg, rgba(255, 231, 188, 0.09), transparent 24%),
+                linear-gradient(180deg, rgba(71, 39, 13, 0.14), rgba(25, 14, 8, 0.05)),
+                rgba(29, 19, 12, 0.8);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 245, 219, 0.08),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.24),
+                0 12px 24px rgba(0, 0, 0, 0.22);
+            color: var(--panel-text);
+        }
+
+        .royal-theme .panel {
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 233, 184, 0.04),
+                0 16px 34px rgba(0, 0, 0, 0.26),
+                0 0 18px rgba(214, 162, 103, 0.08);
+        }
+
+        .royal-theme .ornament {
+            width: 12px;
+            height: 12px;
+            border: 1px solid rgba(255, 219, 162, 0.62);
+            transform: rotate(45deg);
+            opacity: 0.65;
+        }
+
+        .royal-theme .ornament.tl { top: 10px; left: 10px; }
+        .royal-theme .ornament.tr { top: 10px; right: 10px; }
+        .royal-theme .ornament.bl { bottom: 10px; left: 10px; }
+        .royal-theme .ornament.br { bottom: 10px; right: 10px; }
+        .royal-theme .title-row::after,
+        .royal-theme .modal-divider {
+            content: '';
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(224, 176, 120, 0.82), transparent);
+        }
+
+        .royal-theme .modal-divider {
+            position: relative;
+            left: auto;
+            right: auto;
+            height: 2px;
+            bottom: auto;
+        }
+
+        .royal-theme .command-top {
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(229, 177, 114, 0.2);
+        }
+
+        .royal-theme .bar-bg {
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.28);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+        }
+
+        .royal-theme .radar-core {
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 34%),
+                radial-gradient(circle at center, rgba(0, 0, 0, 0.18), transparent 62%);
+            box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.32);
+        }
+
+        .royal-theme .radar-core::before,
+        .royal-theme .radar-core::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 228, 193, 0.18);
+        }
+
+        .royal-theme .radar-core::before { inset: 18%; }
+        .royal-theme .radar-core::after { inset: 38%; }
+        .royal-theme .radar-sweep { border-radius: 50%; background: conic-gradient(from 220deg, rgba(255, 219, 162, 0.18), transparent 40%); opacity: 0.42; }
+        .royal-theme .dot.enemy { color: #ff9a9a; background: #ff9a9a; }
+        .royal-theme .dot.friend { color: #ffd78e; background: #ffd78e; }
+        .royal-theme .dot.self { color: #ffffff; background: #ffffff; }
+        .royal-theme .bar-fill.hp { background: linear-gradient(90deg, #c84a49, #ff9a73); }
+        .royal-theme .bar-fill.mp { background: linear-gradient(90deg, #3a72d9, #69bcff); }
+        .royal-theme .bar-fill.exp { background: linear-gradient(90deg, #9d691f, #f0c75f); }
+
+        .rune-theme {
+            --panel-text: #cff4ff;
+        }
+
+        .rune-theme .panel,
+        .rune-theme .command-item,
+        .rune-theme .modal-btn,
+        .rune-theme .action-btn,
+        .rune-theme .hotkey,
+        .rune-theme .chat-input,
+        .rune-theme .portrait,
+        .rune-theme .chat-tab,
+        .rune-theme .bar-row,
+        .rune-theme .action-cluster,
+        .rune-theme .hotkeys {
+            background:
+                linear-gradient(180deg, rgba(202, 246, 255, 0.08), rgba(202, 246, 255, 0.01) 28%),
+                rgba(7, 20, 41, 0.78);
+            color: var(--panel-text);
+            border: 1px solid rgba(103, 213, 255, 0.28);
+            clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+            box-shadow:
+                inset 0 0 0 1px rgba(179, 239, 255, 0.06),
+                0 0 0 1px rgba(37, 148, 189, 0.2),
+                0 12px 28px rgba(0, 0, 0, 0.24),
+                0 0 20px rgba(76, 204, 255, 0.12);
+        }
+
+        .rune-theme .panel::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(142, 229, 255, 0.16);
+            clip-path: inherit;
+            opacity: 0.65;
+        }
+
+        .rune-theme .side-rune {
+            top: 50%;
+            right: -6px;
+            width: 16px;
+            height: 72px;
+            transform: translateY(-50%);
+            border-radius: 999px;
+            background:
+                linear-gradient(180deg, rgba(135, 236, 255, 0.7), rgba(135, 236, 255, 0.02)),
+                rgba(12, 56, 80, 0.66);
+            box-shadow: 0 0 18px rgba(95, 222, 255, 0.25);
+        }
+
+        .rune-theme .title-row::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            bottom: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(130, 229, 255, 0.9), transparent);
+        }
+
+        .rune-theme .modal-divider {
+            background: linear-gradient(90deg, transparent, rgba(120, 225, 255, 0.9), transparent);
+        }
+
+        .rune-theme .command-top {
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(124, 227, 255, 0.22);
+        }
+
+        .rune-theme .bar-bg {
+            clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0 50%);
+            background: rgba(4, 11, 22, 0.52);
+            box-shadow: inset 0 0 0 1px rgba(165, 236, 255, 0.08);
+        }
+
+        .rune-theme .radar-core {
+            clip-path: polygon(50% 0, 88% 12%, 100% 50%, 88% 88%, 50% 100%, 12% 88%, 0 50%, 12% 12%);
+            background:
+                radial-gradient(circle at center, rgba(180, 245, 255, 0.09), transparent 32%),
+                rgba(5, 16, 30, 0.52);
+            box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.34), 0 0 18px rgba(77, 206, 255, 0.16);
+        }
+
+        .rune-theme .radar-core::before,
+        .rune-theme .radar-core::after {
+            content: '';
+            position: absolute;
+            inset: 18%;
+            clip-path: inherit;
+            border: 1px solid rgba(167, 239, 255, 0.16);
+        }
+
+        .rune-theme .radar-core::after {
+            inset: 36%;
+        }
+
+        .rune-theme .radar-sweep {
+            clip-path: inherit;
+            background: conic-gradient(from 180deg, rgba(109, 231, 255, 0.28), transparent 42%);
+            opacity: 0.48;
+        }
+
+        .rune-theme .dot.enemy { color: #ff8db6; background: #ff8db6; }
+        .rune-theme .dot.friend { color: #85ecff; background: #85ecff; }
+        .rune-theme .dot.self { color: #ffffff; background: #ffffff; }
+        .rune-theme .bar-fill.hp { background: linear-gradient(90deg, #ff5b91, #ff9f89); }
+        .rune-theme .bar-fill.mp { background: linear-gradient(90deg, #40cbff, #98ebff); }
+        .rune-theme .bar-fill.exp { background: linear-gradient(90deg, #58d9b5, #93f4d9); }
+
+        .fortress-theme {
+            --panel-text: #e4ecf2;
+        }
+
+        .fortress-theme .panel,
+        .fortress-theme .command-item,
+        .fortress-theme .modal-btn,
+        .fortress-theme .action-btn,
+        .fortress-theme .hotkey,
+        .fortress-theme .chat-input,
+        .fortress-theme .portrait,
+        .fortress-theme .chat-tab,
+        .fortress-theme .bar-row,
+        .fortress-theme .action-cluster,
+        .fortress-theme .hotkeys {
+            border-radius: 6px;
+            border: 1px solid rgba(174, 184, 191, 0.22);
+            background:
+                linear-gradient(180deg, rgba(240, 245, 248, 0.06), rgba(240, 245, 248, 0.01) 18%),
+                linear-gradient(180deg, rgba(55, 61, 67, 0.16), rgba(18, 22, 27, 0.02)),
+                rgba(24, 28, 33, 0.84);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.06),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+                0 10px 22px rgba(0, 0, 0, 0.22);
+            color: var(--panel-text);
+        }
+
+        .fortress-theme .frame-notch {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(204, 216, 224, 0.48);
+        }
+
+        .fortress-theme .frame-notch.tl { top: 7px; left: 7px; border-right: 0; border-bottom: 0; }
+        .fortress-theme .frame-notch.tr { top: 7px; right: 7px; border-left: 0; border-bottom: 0; }
+        .fortress-theme .frame-notch.bl { bottom: 7px; left: 7px; border-right: 0; border-top: 0; }
+        .fortress-theme .frame-notch.br { bottom: 7px; right: 7px; border-left: 0; border-top: 0; }
+
+        .fortress-theme .title-row::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            right: 4px;
+            bottom: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(182, 191, 198, 0.88) 18%, rgba(182, 191, 198, 0.88) 82%, transparent);
+        }
+
+        .fortress-theme .modal-divider {
+            background: linear-gradient(90deg, transparent, rgba(174, 184, 191, 0.9), transparent);
+        }
+
+        .fortress-theme .strip-label {
+            top: -10px;
+            left: 12px;
+            padding: 3px 8px;
+            border: 1px solid rgba(180, 190, 198, 0.24);
+            border-radius: 4px;
+            background: rgba(38, 45, 52, 0.95);
+            font-size: 9px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: rgba(225, 235, 241, 0.84);
+        }
+
+        .fortress-theme .command-top {
+            padding-bottom: 12px;
+            border-bottom: 1px dashed rgba(196, 206, 213, 0.18);
+        }
+
+        .fortress-theme .bar-bg {
+            border-radius: 2px;
+            background: rgba(5, 8, 11, 0.42);
+            box-shadow: inset 0 0 0 1px rgba(196, 206, 213, 0.08);
+        }
+
+        .fortress-theme .radar-core {
+            border-radius: 8px;
+            background:
+                linear-gradient(180deg, rgba(239, 244, 247, 0.04), transparent),
+                rgba(10, 14, 18, 0.48);
+            box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.32);
+        }
+
+        .fortress-theme .radar-core::before,
+        .fortress-theme .radar-core::after {
+            content: '';
+            position: absolute;
+            inset: 16%;
+            border: 1px solid rgba(195, 205, 212, 0.14);
+            border-radius: 4px;
+        }
+
+        .fortress-theme .radar-core::after {
+            inset: 34%;
+        }
+
+        .fortress-theme .radar-sweep {
+            inset: 10%;
+            border-radius: 6px;
+            background: linear-gradient(90deg, rgba(205, 219, 228, 0.18), transparent 42%);
+            opacity: 0.34;
+        }
+
+        .fortress-theme .dot.enemy { color: #ff9b9b; background: #ff9b9b; }
+        .fortress-theme .dot.friend { color: #cfe7ab; background: #cfe7ab; }
+        .fortress-theme .dot.self { color: #ffffff; background: #ffffff; }
+        .fortress-theme .bar-fill.hp { background: linear-gradient(90deg, #bf5353, #dd8787); }
+        .fortress-theme .bar-fill.mp { background: linear-gradient(90deg, #4a76ce, #7ba9e7); }
+        .fortress-theme .bar-fill.exp { background: linear-gradient(90deg, #61885f, #9ad19a); }
+
+        .sanctum-theme {
+            --panel-text: #f6dcff;
+        }
+
+        .sanctum-theme .panel,
+        .sanctum-theme .command-item,
+        .sanctum-theme .modal-btn,
+        .sanctum-theme .action-btn,
+        .sanctum-theme .hotkey,
+        .sanctum-theme .chat-input,
+        .sanctum-theme .portrait,
+        .sanctum-theme .chat-tab,
+        .sanctum-theme .bar-row,
+        .sanctum-theme .action-cluster,
+        .sanctum-theme .hotkeys {
+            border-radius: 20px;
+            border: 1px solid rgba(208, 122, 255, 0.22);
+            background:
+                radial-gradient(circle at top center, rgba(255, 182, 248, 0.08), transparent 46%),
+                linear-gradient(180deg, rgba(52, 16, 67, 0.14), rgba(17, 6, 28, 0.04)),
+                rgba(24, 9, 35, 0.8);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 220, 255, 0.08),
+                0 12px 28px rgba(0, 0, 0, 0.26),
+                0 0 22px rgba(209, 122, 255, 0.1);
+            color: var(--panel-text);
+        }
+
+        .sanctum-theme .halo-ring {
+            inset: -6px;
+            border-radius: inherit;
+            border: 1px solid rgba(224, 154, 255, 0.18);
+            filter: blur(1px);
+        }
+
+        .sanctum-theme .title-row::after {
+            content: '';
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, transparent, rgba(230, 166, 255, 0.94), transparent);
+        }
+
+        .sanctum-theme .modal-divider {
+            border-radius: 999px;
+            background: linear-gradient(90deg, transparent, rgba(230, 166, 255, 0.94), transparent);
+        }
+
+        .sanctum-theme .command-top {
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(230, 166, 255, 0.16);
+        }
+
+        .sanctum-theme .bar-bg {
+            border-radius: 999px;
+            background: rgba(11, 3, 18, 0.44);
+            box-shadow: inset 0 0 0 1px rgba(243, 198, 255, 0.08);
+        }
+
+        .sanctum-theme .radar-core {
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at center, rgba(247, 185, 255, 0.12), transparent 30%),
+                rgba(18, 6, 28, 0.54);
+            box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.36), 0 0 28px rgba(229, 160, 255, 0.12);
+        }
+
+        .sanctum-theme .radar-core::before,
+        .sanctum-theme .radar-core::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(241, 194, 255, 0.14);
+        }
+
+        .sanctum-theme .radar-core::before { inset: 18%; }
+        .sanctum-theme .radar-core::after { inset: 38%; }
+        .sanctum-theme .radar-sweep { border-radius: 50%; background: conic-gradient(from 240deg, rgba(240, 184, 255, 0.22), transparent 44%); opacity: 0.46; }
+        .sanctum-theme .dot.enemy { color: #ff9fc8; background: #ff9fc8; }
+        .sanctum-theme .dot.friend { color: #d39bff; background: #d39bff; }
+        .sanctum-theme .dot.self { color: #ffffff; background: #ffffff; }
+        .sanctum-theme .bar-fill.hp { background: linear-gradient(90deg, #ff6b9e, #ffb17d); }
+        .sanctum-theme .bar-fill.mp { background: linear-gradient(90deg, #8164ff, #d29cff); }
+        .sanctum-theme .bar-fill.exp { background: linear-gradient(90deg, #d66eff, #ffb7f0); }
+
+        .relic-theme {
+            --panel-text: #f5e4bf;
+        }
+
+        .relic-theme .panel,
+        .relic-theme .command-item,
+        .relic-theme .modal-btn,
+        .relic-theme .action-btn,
+        .relic-theme .hotkey,
+        .relic-theme .chat-input,
+        .relic-theme .portrait,
+        .relic-theme .chat-tab,
+        .relic-theme .bar-row,
+        .relic-theme .action-cluster,
+        .relic-theme .hotkeys {
+            border-radius: 10px;
+            border: 1px solid rgba(196, 158, 96, 0.24);
+            background:
+                linear-gradient(180deg, rgba(255, 239, 205, 0.08), rgba(255, 239, 205, 0.01) 26%),
+                linear-gradient(180deg, rgba(77, 57, 24, 0.12), rgba(27, 16, 7, 0.04)),
+                rgba(44, 29, 15, 0.84);
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 233, 184, 0.04),
+                0 12px 24px rgba(0, 0, 0, 0.24);
+            color: var(--panel-text);
+        }
+
+        .relic-theme .panel::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(214, 183, 127, 0.15);
+            border-radius: 6px;
+        }
+
+        .relic-theme .glyph-row {
+            top: -11px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 2px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(205, 170, 112, 0.26);
+            background: rgba(54, 36, 17, 0.92);
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: rgba(255, 228, 173, 0.86);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .relic-theme .title-row::after {
+            content: '';
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 0;
+            height: 1px;
+            background: repeating-linear-gradient(90deg, rgba(214, 183, 127, 0.88) 0 10px, transparent 10px 18px);
+        }
+
+        .relic-theme .modal-divider {
+            background: repeating-linear-gradient(90deg, transparent 0 8px, rgba(214, 183, 127, 0.88) 8px 16px, transparent 16px 24px);
+        }
+
+        .relic-theme .command-top {
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(214, 183, 127, 0.22);
+        }
+
+        .relic-theme .bar-bg {
+            border-radius: 4px;
+            background: rgba(18, 10, 4, 0.44);
+            box-shadow: inset 0 0 0 1px rgba(230, 204, 156, 0.08);
+        }
+
+        .relic-theme .radar-core {
+            border-radius: 14px;
+            background:
+                radial-gradient(circle at center, rgba(255, 235, 196, 0.08), transparent 34%),
+                rgba(23, 15, 8, 0.52);
+            box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.34);
+        }
+
+        .relic-theme .radar-core::before,
+        .relic-theme .radar-core::after {
+            content: '';
+            position: absolute;
+            inset: 14%;
+            border: 1px solid rgba(230, 202, 149, 0.14);
+            border-radius: 10px;
+        }
+
+        .relic-theme .radar-core::after {
+            inset: 32%;
+            border-radius: 7px;
+        }
+
+        .relic-theme .radar-sweep {
+            inset: 10%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, rgba(236, 196, 128, 0.18), transparent 44%);
+            opacity: 0.38;
+        }
+
+        .relic-theme .dot.enemy { color: #ffb0a2; background: #ffb0a2; }
+        .relic-theme .dot.friend { color: #ffd98c; background: #ffd98c; }
+        .relic-theme .dot.self { color: #ffffff; background: #ffffff; }
+        .relic-theme .bar-fill.hp { background: linear-gradient(90deg, #d05e48, #e9a277); }
+        .relic-theme .bar-fill.mp { background: linear-gradient(90deg, #4b83d8, #8dc4ff); }
+        .relic-theme .bar-fill.exp { background: linear-gradient(90deg, #a07a31, #f4d17a); }
+
+        .starforge-theme {
+            --panel-text: #cfeeff;
+        }
+
+        .starforge-theme .panel,
+        .starforge-theme .command-item,
+        .starforge-theme .modal-btn,
+        .starforge-theme .action-btn,
+        .starforge-theme .hotkey,
+        .starforge-theme .chat-input,
+        .starforge-theme .portrait,
+        .starforge-theme .chat-tab,
+        .starforge-theme .bar-row,
+        .starforge-theme .action-cluster,
+        .starforge-theme .hotkeys {
+            border-radius: 14px;
+            border: 1px solid rgba(105, 198, 255, 0.22);
+            background:
+                linear-gradient(180deg, rgba(202, 241, 255, 0.08), rgba(202, 241, 255, 0.01) 24%),
+                linear-gradient(180deg, rgba(13, 43, 76, 0.12), rgba(7, 16, 32, 0.04)),
+                rgba(8, 20, 38, 0.84);
+            box-shadow:
+                inset 0 0 0 1px rgba(181, 234, 255, 0.05),
+                0 0 0 1px rgba(68, 167, 224, 0.18),
+                0 14px 28px rgba(0, 0, 0, 0.24),
+                0 0 24px rgba(68, 183, 255, 0.08);
+            color: var(--panel-text);
+        }
+
+        .starforge-theme .dotted-ring {
+            inset: 7px;
+            border-radius: inherit;
+            border: 1px dashed rgba(136, 220, 255, 0.32);
+            opacity: 0.78;
+        }
+
+        .starforge-theme .chip-node {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(128, 220, 255, 0.94);
+            box-shadow: 0 0 14px rgba(128, 220, 255, 0.46);
+        }
+
+        .starforge-theme .chip-node.tl { top: 10px; left: 10px; }
+        .starforge-theme .chip-node.tr { top: 10px; right: 10px; }
+        .starforge-theme .chip-node.bl { bottom: 10px; left: 10px; }
+        .starforge-theme .chip-node.br { bottom: 10px; right: 10px; }
+
+        .starforge-theme .title-row::after {
+            content: '';
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(124, 220, 255, 0.94) 18%, rgba(124, 220, 255, 0.24) 50%, rgba(124, 220, 255, 0.94) 82%, transparent);
+        }
+
+        .starforge-theme .modal-divider {
+            border-radius: 999px;
+            background: linear-gradient(90deg, transparent, rgba(124, 220, 255, 0.94), transparent);
+        }
+
+        .starforge-theme .command-top {
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(124, 220, 255, 0.22);
+        }
+
+        .starforge-theme .bar-bg {
+            border-radius: 999px;
+            background: rgba(4, 10, 18, 0.5);
+            box-shadow: inset 0 0 0 1px rgba(166, 230, 255, 0.08);
+        }
+
+        .starforge-theme .radar-core {
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at center, rgba(183, 235, 255, 0.1), transparent 30%),
+                rgba(6, 14, 28, 0.56);
+            box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.36), 0 0 24px rgba(82, 198, 255, 0.12);
+        }
+
+        .starforge-theme .radar-core::before,
+        .starforge-theme .radar-core::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 1px dashed rgba(170, 233, 255, 0.16);
+        }
+
+        .starforge-theme .radar-core::before { inset: 18%; }
+        .starforge-theme .radar-core::after { inset: 38%; }
+        .starforge-theme .radar-sweep { border-radius: 50%; background: conic-gradient(from 205deg, rgba(120, 225, 255, 0.22), transparent 40%); opacity: 0.5; }
+        .starforge-theme .dot.enemy { color: #ff8ead; background: #ff8ead; }
+        .starforge-theme .dot.friend { color: #7de7ff; background: #7de7ff; }
+        .starforge-theme .dot.self { color: #ffffff; background: #ffffff; }
+        .starforge-theme .bar-fill.hp { background: linear-gradient(90deg, #ff6689, #ffb07c); }
+        .starforge-theme .bar-fill.mp { background: linear-gradient(90deg, #4ec9ff, #9ef0ff); }
+        .starforge-theme .bar-fill.exp { background: linear-gradient(90deg, #68e1cb, #a2ffe3); }
+
+        @media (max-width: 1480px) {
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section class="hero">
+            <div>
+                <h1>Mockups on the Current Ultralight Layout</h1>
+                <p>
+                    These mockups still keep your current UI placement and general widget sizing, but each one now has a different
+                    panel language, silhouette, framing system, and control treatment. The goal is to compare genuinely different
+                    looks rather than recolors of the same concept.
+                </p>
+            </div>
+            <div class="hero-tags">
+                <div class="tag">Ornate Fantasy</div>
+                <div class="tag">Runic Crystal</div>
+                <div class="tag">Industrial Tactical</div>
+                <div class="tag">Mystic Sanctum</div>
+            </div>
+        </section>
+
+        <section class="concept-grid">
+            <article class="concept">
+                <div>
+                    <h2>Royal Citadel</h2>
+                    <p>Rounded bronze framing, decorative corners, crest-like panel treatment, and classic fantasy depth.</p>
+                </div>
+                <div class="viewport royal royal-theme">
+                    <div class="screen">
+                        <div class="hud panel">
+                            <span class="ornament tl"></span><span class="ornament tr"></span><span class="ornament bl"></span><span class="ornament br"></span>
+                            <div class="hud-header">
+                                <div class="portrait"><svg viewBox="0 0 24 24"><path d="M12 2l3.2 4.3 5.3 1.7-3.3 4.1.1 5.4L12 15.9 6.7 17.5l.1-5.4L3.5 8l5.3-1.7L12 2z"/></svg></div>
+                                <div><div class="hud-name">Asterion</div><div class="hud-role">Lv. 72 Warrior / El Morad</div></div>
+                            </div>
+                            <div class="bar-stack">
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.6-7 11-7 11z"/></svg></span>HP</span><span>4812 / 5250</span></div><div class="bar-bg"><div class="bar-fill hp" style="width:91%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M13 2 6 13h4l-1 9 9-13h-5l0-7z"/></svg></span>MP</span><span>1280 / 1660</span></div><div class="bar-bg"><div class="bar-fill mp" style="width:77%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.8H21l-5.5 4 2.1 6.7L12 15.6 6.4 19.5l2.1-6.7L3 8.8h6.8L12 2z"/></svg></span>EXP</span><span>68%</span></div><div class="bar-bg"><div class="bar-fill exp" style="width:68%;"></div></div></div>
+                            </div>
+                        </div>
+
+                        <div class="radar panel">
+                            <span class="ornament tl"></span><span class="ornament tr"></span><span class="ornament bl"></span><span class="ornament br"></span>
+                            <div class="radar-core">
+                                <div class="radar-sweep"></div>
+                                <div class="cross-h"></div><div class="cross-v"></div>
+                                <div class="dot self" style="left:48%;top:48%;"></div>
+                                <div class="dot enemy" style="left:62%;top:26%;"></div>
+                                <div class="dot enemy" style="left:24%;top:61%;"></div>
+                                <div class="dot friend" style="left:70%;top:58%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="command panel">
+                            <span class="ornament tl"></span><span class="ornament tr"></span><span class="ornament bl"></span><span class="ornament br"></span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span><div class="command-title">Command List</div></div>
+                            <div class="command-top">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14z"/></svg></span><span class="command-label">Private</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M3 7h18v10H3V7z"/></svg></span><span class="command-label">Trade</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span><span class="command-label">Party</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V7l7-4z"/></svg></span><span class="command-label">Clan</span></div>
+                            </div>
+                            <div class="command-bottom">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg></span><span class="command-label">Whisper</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l8 7h-2v9H6v-9H4l8-7z"/></svg></span><span class="command-label">Town</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="m12 17.3-5.9 3.1 1.1-6.6L2.3 9l6.6-1L12 2l3.1 6 6.6 1-4.9 4.8 1.1 6.6z"/></svg></span><span class="command-label">Recommend</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5V4z"/></svg></span><span class="command-label">Save</span></div>
+                            </div>
+                        </div>
+
+                        <div class="exit-modal panel">
+                            <span class="ornament tl"></span><span class="ornament tr"></span><span class="ornament bl"></span><span class="ornament br"></span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span><div class="modal-title">Exit Menu</div></div>
+                            <div class="modal-text">Ornamental and premium, but still your same centered exit flow.</div>
+                            <div class="modal-divider"></div>
+                            <div class="modal-actions">
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M11 4H4v7h2V7.4l5.3 5.3 1.4-1.4L7.4 6H11V4z"/></svg></span><span class="modal-label">Return to Character Selection</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M19.4 13a6.8 6.8 0 0 0 .1-1 6.8 6.8 0 0 0-.1-1l2-1.5-1.7-3-2.3.9a7 7 0 0 0-1.5-.9l-.4-2.5h-3.5l-.4 2.5a7 7 0 0 0-1.5.9l-2.3-.9-1.7 3 2 1.5a6.8 6.8 0 0 0-.1 1 6.8 6.8 0 0 0 .1 1l-2 1.5 1.7 3 2.3-.9a7 7 0 0 0 1.5.9l.4 2.5h3.5l.4-2.5a7 7 0 0 0 1.5-.9l2.3.9 1.7-3-2-1.5z"/></svg></span><span class="modal-label">Open Options and Exit</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M10 3h10v18H10v-2h8V5h-8V3zM4 12l4-4v3h7v2H8v3l-4-4z"/></svg></span><span class="modal-label">Exit Game</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7l-1.4-1.4L9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3z"/></svg></span><span class="modal-label">Cancel</span></div>
+                            </div>
+                        </div>
+
+                        <div class="chat panel">
+                            <span class="ornament tl"></span><span class="ornament tr"></span><span class="ornament bl"></span><span class="ornament br"></span>
+                            <div class="chat-tabs"><div class="chat-tab">Chat</div><div class="chat-tab">System</div></div>
+                            <div class="chat-log">
+                                <div class="chat-line"><span>[12:20]</span>Party ready near bowl.</div>
+                                <div class="chat-line"><span>[12:21]</span>You received 12,450 experience.</div>
+                                <div class="chat-line"><span>[12:21]</span>Loot: Bronze Earring.</div>
+                            </div>
+                            <div class="chat-input"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg><span>Press Enter to chat...</span></div>
+                        </div>
+
+                        <div class="bottom-hud">
+                            <div class="action-row">
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 12H7L6 7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M13 2 6 13h4l-1 9 9-13h-5l0-7z"/></svg></span></div>
+                                </div>
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 5V2l4 4-4 4V7a5 5 0 1 0 5 5h2a7 7 0 1 1-7-7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span></div>
+                                </div>
+                            </div>
+                            <div class="hotkeys">
+                                <div class="hotkey" data-slot="1"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="m12 2 4 10h6l-8 10 2-8H8l4-12z"/></svg></span></div>
+                                <div class="hotkey" data-slot="2"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 5 5v6c0 5 3.4 9.5 7 11 3.6-1.5 7-6 7-11V5l-7-3z"/></svg></span></div>
+                                <div class="hotkey" data-slot="3"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M13 2 6 13h4l-1 9 9-13h-5l0-7z"/></svg></span></div>
+                                <div class="hotkey" data-slot="4"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M10 2h4v5l3 3-5 12-5-12 3-3z"/></svg></span></div>
+                                <div class="hotkey" data-slot="5"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M4 20 19 5l1 1-15 15H4z"/></svg></span></div>
+                                <div class="hotkey" data-slot="6"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="m12 2 2.2 6.8H21l-5.5 4 2.1 6.7L12 15.6 6.4 19.5l2.1-6.7L3 8.8h6.8z"/></svg></span></div>
+                                <div class="hotkey" data-slot="7"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M5 6h14l-1 12H6L5 6z"/></svg></span></div>
+                                <div class="hotkey" data-slot="8"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 4 14h5l-1 8 8-12h-5z"/></svg></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notes">
+                    <h3>What changes</h3>
+                    <ul>
+                        <li>Most classic fantasy and decorative of the set.</li>
+                        <li>Rounded frames and crest-like corners give it a more “KO remaster” feel.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="concept">
+                <div>
+                    <h2>Rune Observatory</h2>
+                    <p>Clipped crystal panels, side runes, sharper silhouettes, and a more magical-tech Ultralight feel.</p>
+                </div>
+                <div class="viewport rune rune-theme">
+                    <div class="screen">
+                        <div class="hud panel">
+                            <span class="side-rune"></span>
+                            <div class="hud-header">
+                                <div class="portrait"><svg viewBox="0 0 24 24"><path d="m12 2 6 6-6 14L6 8l6-6z"/></svg></div>
+                                <div><div class="hud-name">Selene</div><div class="hud-role">Lv. 70 Mage / Karus</div></div>
+                            </div>
+                            <div class="bar-stack">
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.6-7 11-7 11z"/></svg></span>HP</span><span>3120 / 3380</span></div><div class="bar-bg"><div class="bar-fill hp" style="width:92%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="m12 2 6 6-6 14L6 8l6-6z"/></svg></span>MP</span><span>4260 / 4980</span></div><div class="bar-bg"><div class="bar-fill mp" style="width:86%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.8H21l-5.5 4 2.1 6.7L12 15.6 6.4 19.5l2.1-6.7L3 8.8h6.8z"/></svg></span>EXP</span><span>73%</span></div><div class="bar-bg"><div class="bar-fill exp" style="width:73%;"></div></div></div>
+                            </div>
+                        </div>
+
+                        <div class="radar panel">
+                            <span class="side-rune"></span>
+                            <div class="radar-core">
+                                <div class="radar-sweep"></div>
+                                <div class="cross-h"></div><div class="cross-v"></div>
+                                <div class="dot self" style="left:48%;top:48%;"></div>
+                                <div class="dot enemy" style="left:25%;top:36%;"></div>
+                                <div class="dot enemy" style="left:72%;top:54%;"></div>
+                                <div class="dot friend" style="left:42%;top:72%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="command panel">
+                            <span class="side-rune"></span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span><div class="command-title">Command List</div></div>
+                            <div class="command-top">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14z"/></svg></span><span class="command-label">Private</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M3 7h18v10H3V7z"/></svg></span><span class="command-label">Trade</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span><span class="command-label">Party</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V7l7-4z"/></svg></span><span class="command-label">Clan</span></div>
+                            </div>
+                            <div class="command-bottom">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg></span><span class="command-label">Whisper</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l8 7h-2v9H6v-9H4l8-7z"/></svg></span><span class="command-label">Town</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3 5 12h4v9l7-10h-4V3z"/></svg></span><span class="command-label">Greeting</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="m12 17.3-5.9 3.1 1.1-6.6L2.3 9l6.6-1L12 2l3.1 6 6.6 1-4.9 4.8 1.1 6.6z"/></svg></span><span class="command-label">Recommend</span></div>
+                            </div>
+                        </div>
+
+                        <div class="exit-modal panel">
+                            <span class="side-rune"></span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span><div class="modal-title">Exit Menu</div></div>
+                            <div class="modal-text">Sharper, arcane, and luminous—this one changes panel silhouette the most.</div>
+                            <div class="modal-divider"></div>
+                            <div class="modal-actions">
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M11 4H4v7h2V7.4l5.3 5.3 1.4-1.4L7.4 6H11V4z"/></svg></span><span class="modal-label">Return to Character Selection</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M19.4 13a6.8 6.8 0 0 0 .1-1 6.8 6.8 0 0 0-.1-1l2-1.5-1.7-3-2.3.9a7 7 0 0 0-1.5-.9l-.4-2.5h-3.5l-.4 2.5a7 7 0 0 0-1.5.9l-2.3-.9-1.7 3 2 1.5a6.8 6.8 0 0 0-.1 1 6.8 6.8 0 0 0 .1 1l-2 1.5 1.7 3 2.3-.9a7 7 0 0 0 1.5.9l.4 2.5h3.5l.4-2.5a7 7 0 0 0 1.5-.9l2.3.9 1.7-3-2-1.5z"/></svg></span><span class="modal-label">Open Options and Exit</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M10 3h10v18H10v-2h8V5h-8V3zM4 12l4-4v3h7v2H8v3l-4-4z"/></svg></span><span class="modal-label">Exit Game</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7l-1.4-1.4L9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3z"/></svg></span><span class="modal-label">Cancel</span></div>
+                            </div>
+                        </div>
+
+                        <div class="chat panel">
+                            <span class="side-rune"></span>
+                            <div class="chat-tabs"><div class="chat-tab">Chat</div><div class="chat-tab">System</div></div>
+                            <div class="chat-log">
+                                <div class="chat-line"><span>[12:22]</span>Mana Shield ready in 2.5s.</div>
+                                <div class="chat-line"><span>[12:22]</span>Teleport stone available.</div>
+                                <div class="chat-line"><span>[12:23]</span>Received item: Elemental Crystal.</div>
+                            </div>
+                            <div class="chat-input"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg><span>Press Enter to chat...</span></div>
+                        </div>
+
+                        <div class="bottom-hud">
+                            <div class="action-row">
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 12H7L6 7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="m12 2 6 6-6 14L6 8l6-6z"/></svg></span></div>
+                                </div>
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 5V2l4 4-4 4V7a5 5 0 1 0 5 5h2a7 7 0 1 1-7-7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span></div>
+                                </div>
+                            </div>
+                            <div class="hotkeys">
+                                <div class="hotkey" data-slot="1"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 7 12h4l-1 10 7-12h-4l1-8z"/></svg></span></div>
+                                <div class="hotkey" data-slot="2"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="m12 2 6 6-6 14L6 8l6-6z"/></svg></span></div>
+                                <div class="hotkey" data-slot="3"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M13 2 6 13h4l-1 9 9-13h-5l0-7z"/></svg></span></div>
+                                <div class="hotkey" data-slot="4"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="m12 2 5 3v6c0 4.2-2.2 7.8-5 9-2.8-1.2-5-4.8-5-9V5z"/></svg></span></div>
+                                <div class="hotkey" data-slot="5"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 4 12h5l-1 10 8-12h-5z"/></svg></span></div>
+                                <div class="hotkey" data-slot="6"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M10 2h4v5l3 3-5 12-5-12 3-3z"/></svg></span></div>
+                                <div class="hotkey" data-slot="7"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M5 6h14l-1 12H6L5 6z"/></svg></span></div>
+                                <div class="hotkey" data-slot="8"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="m12 17.3-5.9 3.1 1.1-6.6L2.3 9l6.6-1L12 2l3.1 6 6.6 1-4.9 4.8 1.1 6.6z"/></svg></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notes">
+                    <h3>What changes</h3>
+                    <ul>
+                        <li>Most angular and stylized of the set.</li>
+                        <li>Feels like a magical-tech overlay rather than a metal fantasy frame.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="concept">
+                <div>
+                    <h2>Siege Console</h2>
+                    <p>Boxy steel shapes, bracket corners, strip labels, and tactical utility styling for PvP readability.</p>
+                </div>
+                <div class="viewport fortress fortress-theme">
+                    <div class="screen">
+                        <div class="hud panel">
+                            <span class="strip-label">Status</span>
+                            <span class="frame-notch tl"></span><span class="frame-notch tr"></span><span class="frame-notch bl"></span><span class="frame-notch br"></span>
+                            <div class="hud-header">
+                                <div class="portrait"><svg viewBox="0 0 24 24"><path d="M12 2 4 7v5c0 5 3.4 9.4 8 10 4.6-.6 8-5 8-10V7z"/></svg></div>
+                                <div><div class="hud-name">Valen</div><div class="hud-role">Party Leader / CZ Frontline</div></div>
+                            </div>
+                            <div class="bar-stack">
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.6-7 11-7 11z"/></svg></span>HP</span><span>3895 / 4410</span></div><div class="bar-bg"><div class="bar-fill hp" style="width:88%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M13 2 6 13h4l-1 9 9-13h-5l0-7z"/></svg></span>MP</span><span>1980 / 2550</span></div><div class="bar-bg"><div class="bar-fill mp" style="width:77%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.8H21l-5.5 4 2.1 6.7L12 15.6 6.4 19.5l2.1-6.7L3 8.8h6.8z"/></svg></span>EXP</span><span>65%</span></div><div class="bar-bg"><div class="bar-fill exp" style="width:65%;"></div></div></div>
+                            </div>
+                        </div>
+
+                        <div class="radar panel">
+                            <span class="strip-label">Radar</span>
+                            <span class="frame-notch tl"></span><span class="frame-notch tr"></span><span class="frame-notch bl"></span><span class="frame-notch br"></span>
+                            <div class="radar-core">
+                                <div class="radar-sweep"></div>
+                                <div class="cross-h"></div><div class="cross-v"></div>
+                                <div class="dot self" style="left:48%;top:48%;"></div>
+                                <div class="dot enemy" style="left:58%;top:24%;"></div>
+                                <div class="dot enemy" style="left:20%;top:57%;"></div>
+                                <div class="dot friend" style="left:70%;top:53%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="command panel">
+                            <span class="strip-label">Command</span>
+                            <span class="frame-notch tl"></span><span class="frame-notch tr"></span><span class="frame-notch bl"></span><span class="frame-notch br"></span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span><div class="command-title">Command List</div></div>
+                            <div class="command-top">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14z"/></svg></span><span class="command-label">Private</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M3 7h18v10H3V7z"/></svg></span><span class="command-label">Trade</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span><span class="command-label">Party</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V7l7-4z"/></svg></span><span class="command-label">Clan</span></div>
+                            </div>
+                            <div class="command-bottom">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg></span><span class="command-label">Whisper</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l8 7h-2v9H6v-9H4l8-7z"/></svg></span><span class="command-label">Town</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5V4z"/></svg></span><span class="command-label">Save</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 2 4 12h4v10l8-12h-4z"/></svg></span><span class="command-label">Individual Battle</span></div>
+                            </div>
+                        </div>
+
+                        <div class="exit-modal panel">
+                            <span class="strip-label">System</span>
+                            <span class="frame-notch tl"></span><span class="frame-notch tr"></span><span class="frame-notch bl"></span><span class="frame-notch br"></span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span><div class="modal-title">Exit Menu</div></div>
+                            <div class="modal-text">This one is less ornamental and more command-center oriented.</div>
+                            <div class="modal-divider"></div>
+                            <div class="modal-actions">
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M11 4H4v7h2V7.4l5.3 5.3 1.4-1.4L7.4 6H11V4z"/></svg></span><span class="modal-label">Return to Character Selection</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M19.4 13a6.8 6.8 0 0 0 .1-1 6.8 6.8 0 0 0-.1-1l2-1.5-1.7-3-2.3.9a7 7 0 0 0-1.5-.9l-.4-2.5h-3.5l-.4 2.5a7 7 0 0 0-1.5.9l-2.3-.9-1.7 3 2 1.5a6.8 6.8 0 0 0-.1 1 6.8 6.8 0 0 0 .1 1l-2 1.5 1.7 3 2.3-.9a7 7 0 0 0 1.5.9l.4 2.5h3.5l.4-2.5a7 7 0 0 0 1.5-.9l2.3.9 1.7-3-2-1.5z"/></svg></span><span class="modal-label">Open Options and Exit</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M10 3h10v18H10v-2h8V5h-8V3zM4 12l4-4v3h7v2H8v3l-4-4z"/></svg></span><span class="modal-label">Exit Game</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7l-1.4-1.4L9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3z"/></svg></span><span class="modal-label">Cancel</span></div>
+                            </div>
+                        </div>
+
+                        <div class="chat panel">
+                            <span class="strip-label">Comm</span>
+                            <span class="frame-notch tl"></span><span class="frame-notch tr"></span><span class="frame-notch bl"></span><span class="frame-notch br"></span>
+                            <div class="chat-tabs"><div class="chat-tab">Chat</div><div class="chat-tab">System</div></div>
+                            <div class="chat-log">
+                                <div class="chat-line"><span>[12:24]</span>West lane pressure rising.</div>
+                                <div class="chat-line"><span>[12:24]</span>Priest cooldown window in 9 sec.</div>
+                                <div class="chat-line"><span>[12:25]</span>Fallback marker placed near bowl.</div>
+                            </div>
+                            <div class="chat-input"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg><span>Press Enter to chat...</span></div>
+                        </div>
+
+                        <div class="bottom-hud">
+                            <div class="action-row">
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 12H7L6 7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 2 4 12h5l-1 10 8-12h-5z"/></svg></span></div>
+                                </div>
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 5V2l4 4-4 4V7a5 5 0 1 0 5 5h2a7 7 0 1 1-7-7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span></div>
+                                </div>
+                            </div>
+                            <div class="hotkeys">
+                                <div class="hotkey" data-slot="1"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M4 20 19 5l1 1-15 15H4z"/></svg></span></div>
+                                <div class="hotkey" data-slot="2"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 5 5v6c0 5 3.4 9.5 7 11 3.6-1.5 7-6 7-11V5z"/></svg></span></div>
+                                <div class="hotkey" data-slot="3"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M4 12h16l-3 4H7z"/></svg></span></div>
+                                <div class="hotkey" data-slot="4"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M10 2h4v5l3 3-5 12-5-12 3-3z"/></svg></span></div>
+                                <div class="hotkey" data-slot="5"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 4 12h5l-1 10 8-12h-5z"/></svg></span></div>
+                                <div class="hotkey" data-slot="6"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M3 12h18v2H3zm5-5h8v2H8z"/></svg></span></div>
+                                <div class="hotkey" data-slot="7"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M5 6h14l-1 12H6L5 6z"/></svg></span></div>
+                                <div class="hotkey" data-slot="8"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.8H21l-5.5 4 2.1 6.7L12 15.6 6.4 19.5l2.1-6.7L3 8.8h6.8z"/></svg></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notes">
+                    <h3>What changes</h3>
+                    <ul>
+                        <li>Different silhouette language: square, bracketed, and tactical.</li>
+                        <li>Feels more like a siege HUD or command terminal than a fantasy frame.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="concept">
+                <div>
+                    <h2>Moon Sanctum</h2>
+                    <p>Softer curves, halo framing, floating luminous accents, and a more mystical ceremonial look.</p>
+                </div>
+                <div class="viewport sanctum sanctum-theme">
+                    <div class="screen">
+                        <div class="hud panel">
+                            <span class="halo-ring"></span>
+                            <div class="hud-header">
+                                <div class="portrait"><svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 1 0 8 8A8 8 0 0 1 12 2z"/></svg></div>
+                                <div><div class="hud-name">Lyra</div><div class="hud-role">Lv. 71 Priest / El Morad</div></div>
+                            </div>
+                            <div class="bar-stack">
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.6-7 11-7 11z"/></svg></span>HP</span><span>3560 / 3920</span></div><div class="bar-bg"><div class="bar-fill hp" style="width:90%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M13 2 6 13h4l-1 9 9-13h-5l0-7z"/></svg></span>MP</span><span>4010 / 4620</span></div><div class="bar-bg"><div class="bar-fill mp" style="width:87%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.8H21l-5.5 4 2.1 6.7L12 15.6 6.4 19.5l2.1-6.7L3 8.8h6.8z"/></svg></span>EXP</span><span>71%</span></div><div class="bar-bg"><div class="bar-fill exp" style="width:71%;"></div></div></div>
+                            </div>
+                        </div>
+
+                        <div class="radar panel">
+                            <span class="halo-ring"></span>
+                            <div class="radar-core">
+                                <div class="radar-sweep"></div>
+                                <div class="cross-h"></div><div class="cross-v"></div>
+                                <div class="dot self" style="left:48%;top:48%;"></div>
+                                <div class="dot enemy" style="left:63%;top:30%;"></div>
+                                <div class="dot enemy" style="left:26%;top:60%;"></div>
+                                <div class="dot friend" style="left:70%;top:62%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="command panel">
+                            <span class="halo-ring"></span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span><div class="command-title">Command List</div></div>
+                            <div class="command-top">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14z"/></svg></span><span class="command-label">Private</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M3 7h18v10H3V7z"/></svg></span><span class="command-label">Trade</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span><span class="command-label">Party</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V7l7-4z"/></svg></span><span class="command-label">Clan</span></div>
+                            </div>
+                            <div class="command-bottom">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg></span><span class="command-label">Whisper</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l8 7h-2v9H6v-9H4l8-7z"/></svg></span><span class="command-label">Town</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l4 6-4 12-4-12 4-6z"/></svg></span><span class="command-label">Blessing</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="m12 17.3-5.9 3.1 1.1-6.6L2.3 9l6.6-1L12 2l3.1 6 6.6 1-4.9 4.8 1.1 6.6z"/></svg></span><span class="command-label">Recommend</span></div>
+                            </div>
+                        </div>
+
+                        <div class="exit-modal panel">
+                            <span class="halo-ring"></span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span><div class="modal-title">Exit Menu</div></div>
+                            <div class="modal-text">A softer mystical skin with halo framing and floating luminous edges.</div>
+                            <div class="modal-divider"></div>
+                            <div class="modal-actions">
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M11 4H4v7h2V7.4l5.3 5.3 1.4-1.4L7.4 6H11V4z"/></svg></span><span class="modal-label">Return to Character Selection</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M19.4 13a6.8 6.8 0 0 0 .1-1 6.8 6.8 0 0 0-.1-1l2-1.5-1.7-3-2.3.9a7 7 0 0 0-1.5-.9l-.4-2.5h-3.5l-.4 2.5a7 7 0 0 0-1.5.9l-2.3-.9-1.7 3 2 1.5a6.8 6.8 0 0 0-.1 1 6.8 6.8 0 0 0 .1 1l-2 1.5 1.7 3 2.3-.9a7 7 0 0 0 1.5.9l.4 2.5h3.5l.4-2.5a7 7 0 0 0 1.5-.9l2.3.9 1.7-3-2-1.5z"/></svg></span><span class="modal-label">Open Options and Exit</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M10 3h10v18H10v-2h8V5h-8V3zM4 12l4-4v3h7v2H8v3l-4-4z"/></svg></span><span class="modal-label">Exit Game</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7l-1.4-1.4L9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3z"/></svg></span><span class="modal-label">Cancel</span></div>
+                            </div>
+                        </div>
+
+                        <div class="chat panel">
+                            <span class="halo-ring"></span>
+                            <div class="chat-tabs"><div class="chat-tab">Chat</div><div class="chat-tab">System</div></div>
+                            <div class="chat-log">
+                                <div class="chat-line"><span>[12:28]</span>Sanctuary buff refreshed.</div>
+                                <div class="chat-line"><span>[12:28]</span>Party heal ready in 4 sec.</div>
+                                <div class="chat-line"><span>[12:29]</span>Moon gem effect restored.</div>
+                            </div>
+                            <div class="chat-input"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg><span>Press Enter to chat...</span></div>
+                        </div>
+
+                        <div class="bottom-hud">
+                            <div class="action-row">
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 12H7L6 7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 3l4 6-4 12-4-12z"/></svg></span></div>
+                                </div>
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 5V2l4 4-4 4V7a5 5 0 1 0 5 5h2a7 7 0 1 1-7-7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span></div>
+                                </div>
+                            </div>
+                            <div class="hotkeys">
+                                <div class="hotkey" data-slot="1"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 7 12h4l-1 10 7-12h-4z"/></svg></span></div>
+                                <div class="hotkey" data-slot="2"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 1 0 8 8A8 8 0 0 1 12 2z"/></svg></span></div>
+                                <div class="hotkey" data-slot="3"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="m12 2 6 6-6 14L6 8z"/></svg></span></div>
+                                <div class="hotkey" data-slot="4"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M10 2h4v5l3 3-5 12-5-12 3-3z"/></svg></span></div>
+                                <div class="hotkey" data-slot="5"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 3l4 6-4 12-4-12z"/></svg></span></div>
+                                <div class="hotkey" data-slot="6"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="m12 2 2.2 6.8H21l-5.5 4 2.1 6.7L12 15.6 6.4 19.5l2.1-6.7L3 8.8h6.8z"/></svg></span></div>
+                                <div class="hotkey" data-slot="7"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M5 6h14l-1 12H6L5 6z"/></svg></span></div>
+                                <div class="hotkey" data-slot="8"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 4 14h5l-1 8 8-12h-5z"/></svg></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notes">
+                    <h3>What changes</h3>
+                    <ul>
+                        <li>Different feel again: softer, ceremonial, and glow-led rather than metallic.</li>
+                        <li>Useful if you want something more mystical and premium than the current plain layout.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="concept">
+                <div>
+                    <h2>Relic Archive</h2>
+                    <p>Symbol-heavy parchment-metal framing, repeating glyph dividers, and a more artifact / codex inspired treatment.</p>
+                </div>
+                <div class="viewport relic relic-theme">
+                    <div class="screen">
+                        <div class="hud panel">
+                            <span class="glyph-row">✦ ✧ ✦</span>
+                            <div class="hud-header">
+                                <div class="portrait"><svg viewBox="0 0 24 24"><path d="M12 2l5 4v6c0 4.4-2.2 8-5 10-2.8-2-5-5.6-5-10V6l5-4z"/></svg></div>
+                                <div><div class="hud-name">Cassian</div><div class="hud-role">Lv. 69 Rogue / El Morad</div></div>
+                            </div>
+                            <div class="bar-stack">
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.6-7 11-7 11z"/></svg></span>HP</span><span>3340 / 3710</span></div><div class="bar-bg"><div class="bar-fill hp" style="width:90%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M13 2 6 13h4l-1 9 9-13h-5l0-7z"/></svg></span>MP</span><span>1710 / 2140</span></div><div class="bar-bg"><div class="bar-fill mp" style="width:80%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.8H21l-5.5 4 2.1 6.7L12 15.6 6.4 19.5l2.1-6.7L3 8.8h6.8z"/></svg></span>EXP</span><span>62%</span></div><div class="bar-bg"><div class="bar-fill exp" style="width:62%;"></div></div></div>
+                            </div>
+                        </div>
+
+                        <div class="radar panel">
+                            <span class="glyph-row">☉ ☍ ☉</span>
+                            <div class="radar-core">
+                                <div class="radar-sweep"></div>
+                                <div class="cross-h"></div><div class="cross-v"></div>
+                                <div class="dot self" style="left:48%;top:48%;"></div>
+                                <div class="dot enemy" style="left:61%;top:28%;"></div>
+                                <div class="dot enemy" style="left:24%;top:66%;"></div>
+                                <div class="dot friend" style="left:69%;top:56%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="command panel">
+                            <span class="glyph-row">✧ Archive Commands ✧</span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span><div class="command-title">Command List</div></div>
+                            <div class="command-top">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14z"/></svg></span><span class="command-label">Private</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M3 7h18v10H3V7z"/></svg></span><span class="command-label">Trade</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span><span class="command-label">Party</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V7l7-4z"/></svg></span><span class="command-label">Clan</span></div>
+                            </div>
+                            <div class="command-bottom">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg></span><span class="command-label">Whisper</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l8 7h-2v9H6v-9H4l8-7z"/></svg></span><span class="command-label">Town</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 2l5 4-5 5-5-5 5-4z"/></svg></span><span class="command-label">Mark</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5V4z"/></svg></span><span class="command-label">Save</span></div>
+                            </div>
+                        </div>
+
+                        <div class="exit-modal panel">
+                            <span class="glyph-row">✦ System Seal ✦</span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span><div class="modal-title">Exit Menu</div></div>
+                            <div class="modal-text">A more historical / relic-driven direction with symbolic borders and seal-like dividers.</div>
+                            <div class="modal-divider"></div>
+                            <div class="modal-actions">
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M11 4H4v7h2V7.4l5.3 5.3 1.4-1.4L7.4 6H11V4z"/></svg></span><span class="modal-label">Return to Character Selection</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M19.4 13a6.8 6.8 0 0 0 .1-1 6.8 6.8 0 0 0-.1-1l2-1.5-1.7-3-2.3.9a7 7 0 0 0-1.5-.9l-.4-2.5h-3.5l-.4 2.5a7 7 0 0 0-1.5.9l-2.3-.9-1.7 3 2 1.5a6.8 6.8 0 0 0-.1 1 6.8 6.8 0 0 0 .1 1l-2 1.5 1.7 3 2.3-.9a7 7 0 0 0 1.5.9l.4 2.5h3.5l.4-2.5a7 7 0 0 0 1.5-.9l2.3.9 1.7-3-2-1.5z"/></svg></span><span class="modal-label">Open Options and Exit</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M10 3h10v18H10v-2h8V5h-8V3zM4 12l4-4v3h7v2H8v3l-4-4z"/></svg></span><span class="modal-label">Exit Game</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7l-1.4-1.4L9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3z"/></svg></span><span class="modal-label">Cancel</span></div>
+                            </div>
+                        </div>
+
+                        <div class="chat panel">
+                            <span class="glyph-row">✧ Chronicle ✧</span>
+                            <div class="chat-tabs"><div class="chat-tab">Chat</div><div class="chat-tab">System</div></div>
+                            <div class="chat-log">
+                                <div class="chat-line"><span>[12:34]</span>Archive sigil attuned.</div>
+                                <div class="chat-line"><span>[12:35]</span>Relic marker stored at bowl.</div>
+                                <div class="chat-line"><span>[12:35]</span>Clan seal record updated.</div>
+                            </div>
+                            <div class="chat-input"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg><span>Press Enter to chat...</span></div>
+                        </div>
+
+                        <div class="bottom-hud">
+                            <div class="action-row">
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 12H7L6 7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 2l5 4-5 5-5-5 5-4z"/></svg></span></div>
+                                </div>
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 5V2l4 4-4 4V7a5 5 0 1 0 5 5h2a7 7 0 1 1-7-7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span></div>
+                                </div>
+                            </div>
+                            <div class="hotkeys">
+                                <div class="hotkey" data-slot="1"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 7 12h4l-1 10 7-12h-4z"/></svg></span></div>
+                                <div class="hotkey" data-slot="2"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2l5 4v6c0 4.4-2.2 8-5 10-2.8-2-5-5.6-5-10V6z"/></svg></span></div>
+                                <div class="hotkey" data-slot="3"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2l5 4-5 5-5-5z"/></svg></span></div>
+                                <div class="hotkey" data-slot="4"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M10 2h4v5l3 3-5 12-5-12 3-3z"/></svg></span></div>
+                                <div class="hotkey" data-slot="5"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M4 20 19 5l1 1-15 15H4z"/></svg></span></div>
+                                <div class="hotkey" data-slot="6"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="m12 2 2.2 6.8H21l-5.5 4 2.1 6.7L12 15.6 6.4 19.5l2.1-6.7L3 8.8h6.8z"/></svg></span></div>
+                                <div class="hotkey" data-slot="7"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M5 6h14l-1 12H6L5 6z"/></svg></span></div>
+                                <div class="hotkey" data-slot="8"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 4 14h5l-1 8 8-12h-5z"/></svg></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notes">
+                    <h3>What changes</h3>
+                    <ul>
+                        <li>Pushes symbolic borders and divider language much harder than the others.</li>
+                        <li>Feels closer to a relic codex or historical artifact skin.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="concept">
+                <div>
+                    <h2>Starforge Grid</h2>
+                    <p>Dashed circuitry borders, glowing nodes, and a more engineered astral-control aesthetic.</p>
+                </div>
+                <div class="viewport starforge starforge-theme">
+                    <div class="screen">
+                        <div class="hud panel">
+                            <span class="dotted-ring"></span><span class="chip-node tl"></span><span class="chip-node tr"></span><span class="chip-node bl"></span><span class="chip-node br"></span>
+                            <div class="hud-header">
+                                <div class="portrait"><svg viewBox="0 0 24 24"><path d="M12 2 8 8l4 14 4-14-4-6z"/></svg></div>
+                                <div><div class="hud-name">Orin</div><div class="hud-role">Lv. 73 Mage / Frontier</div></div>
+                            </div>
+                            <div class="bar-stack">
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.6-7 11-7 11z"/></svg></span>HP</span><span>2980 / 3260</span></div><div class="bar-bg"><div class="bar-fill hp" style="width:91%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M13 2 6 13h4l-1 9 9-13h-5l0-7z"/></svg></span>MP</span><span>4890 / 5410</span></div><div class="bar-bg"><div class="bar-fill mp" style="width:90%;"></div></div></div>
+                                <div class="bar-row"><div class="bar-label"><span class="bar-name"><span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.8H21l-5.5 4 2.1 6.7L12 15.6 6.4 19.5l2.1-6.7L3 8.8h6.8z"/></svg></span>EXP</span><span>76%</span></div><div class="bar-bg"><div class="bar-fill exp" style="width:76%;"></div></div></div>
+                            </div>
+                        </div>
+
+                        <div class="radar panel">
+                            <span class="dotted-ring"></span><span class="chip-node tl"></span><span class="chip-node tr"></span><span class="chip-node bl"></span><span class="chip-node br"></span>
+                            <div class="radar-core">
+                                <div class="radar-sweep"></div>
+                                <div class="cross-h"></div><div class="cross-v"></div>
+                                <div class="dot self" style="left:48%;top:48%;"></div>
+                                <div class="dot enemy" style="left:67%;top:25%;"></div>
+                                <div class="dot enemy" style="left:22%;top:60%;"></div>
+                                <div class="dot friend" style="left:72%;top:59%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="command panel">
+                            <span class="dotted-ring"></span><span class="chip-node tl"></span><span class="chip-node tr"></span><span class="chip-node bl"></span><span class="chip-node br"></span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span><div class="command-title">Command List</div></div>
+                            <div class="command-top">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14z"/></svg></span><span class="command-label">Private</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M3 7h18v10H3V7z"/></svg></span><span class="command-label">Trade</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span><span class="command-label">Party</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V7l7-4z"/></svg></span><span class="command-label">Clan</span></div>
+                            </div>
+                            <div class="command-bottom">
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg></span><span class="command-label">Whisper</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 3l8 7h-2v9H6v-9H4l8-7z"/></svg></span><span class="command-label">Town</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="m12 2 4 6-4 14-4-14 4-6z"/></svg></span><span class="command-label">Warp Mark</span></div>
+                                <div class="command-item"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5V4z"/></svg></span><span class="command-label">Save</span></div>
+                            </div>
+                        </div>
+
+                        <div class="exit-modal panel">
+                            <span class="dotted-ring"></span><span class="chip-node tl"></span><span class="chip-node tr"></span><span class="chip-node bl"></span><span class="chip-node br"></span>
+                            <div class="title-row"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span><div class="modal-title">Exit Menu</div></div>
+                            <div class="modal-text">A cleaner astral-tech direction with chip nodes, segmented borders, and more engineered panel logic.</div>
+                            <div class="modal-divider"></div>
+                            <div class="modal-actions">
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M11 4H4v7h2V7.4l5.3 5.3 1.4-1.4L7.4 6H11V4z"/></svg></span><span class="modal-label">Return to Character Selection</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M19.4 13a6.8 6.8 0 0 0 .1-1 6.8 6.8 0 0 0-.1-1l2-1.5-1.7-3-2.3.9a7 7 0 0 0-1.5-.9l-.4-2.5h-3.5l-.4 2.5a7 7 0 0 0-1.5.9l-2.3-.9-1.7 3 2 1.5a6.8 6.8 0 0 0-.1 1 6.8 6.8 0 0 0 .1 1l-2 1.5 1.7 3 2.3-.9a7 7 0 0 0 1.5.9l.4 2.5h3.5l.4-2.5a7 7 0 0 0 1.5-.9l2.3.9 1.7-3-2-1.5z"/></svg></span><span class="modal-label">Open Options and Exit</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M10 3h10v18H10v-2h8V5h-8V3zM4 12l4-4v3h7v2H8v3l-4-4z"/></svg></span><span class="modal-label">Exit Game</span></div>
+                                <div class="modal-btn"><span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7l-1.4-1.4L9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3z"/></svg></span><span class="modal-label">Cancel</span></div>
+                            </div>
+                        </div>
+
+                        <div class="chat panel">
+                            <span class="dotted-ring"></span><span class="chip-node tl"></span><span class="chip-node tr"></span><span class="chip-node bl"></span><span class="chip-node br"></span>
+                            <div class="chat-tabs"><div class="chat-tab">Chat</div><div class="chat-tab">System</div></div>
+                            <div class="chat-log">
+                                <div class="chat-line"><span>[12:40]</span>Starforge channel synchronized.</div>
+                                <div class="chat-line"><span>[12:40]</span>Warp lattice stable.</div>
+                                <div class="chat-line"><span>[12:41]</span>Party beacon refreshed.</div>
+                            </div>
+                            <div class="chat-input"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H7l-3 3V5z"/></svg><span>Press Enter to chat...</span></div>
+                        </div>
+
+                        <div class="bottom-hud">
+                            <div class="action-row">
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 12H7L6 7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 2 8 8l4 14 4-14-4-6z"/></svg></span></div>
+                                </div>
+                                <div class="action-cluster">
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M7 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 5V2l4 4-4 4V7a5 5 0 1 0 5 5h2a7 7 0 1 1-7-7z"/></svg></span></div>
+                                    <div class="action-btn"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M19.1 13a7.7 7.7 0 0 0 .1-1 7.7 7.7 0 0 0-.1-1l2.1-1.6-2-3.5-2.5 1a8.4 8.4 0 0 0-1.7-1l-.4-2.7h-4l-.4 2.7a8.4 8.4 0 0 0-1.7 1l-2.5-1-2 3.5L4.9 11a7.7 7.7 0 0 0-.1 1 7.7 7.7 0 0 0 .1 1l-2.1 1.6 2 3.5 2.5-1a8.4 8.4 0 0 0 1.7 1l.4 2.7h4l.4-2.7a8.4 8.4 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6z"/></svg></span></div>
+                                </div>
+                            </div>
+                            <div class="hotkeys">
+                                <div class="hotkey" data-slot="1"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 7 12h4l-1 10 7-12h-4z"/></svg></span></div>
+                                <div class="hotkey" data-slot="2"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 8 8l4 14 4-14z"/></svg></span></div>
+                                <div class="hotkey" data-slot="3"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="m12 2 4 6-4 14-4-14z"/></svg></span></div>
+                                <div class="hotkey" data-slot="4"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M10 2h4v5l3 3-5 12-5-12 3-3z"/></svg></span></div>
+                                <div class="hotkey" data-slot="5"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 4 12h5l-1 10 8-12h-5z"/></svg></span></div>
+                                <div class="hotkey" data-slot="6"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="m12 2 2.2 6.8H21l-5.5 4 2.1 6.7L12 15.6 6.4 19.5l2.1-6.7L3 8.8h6.8z"/></svg></span></div>
+                                <div class="hotkey" data-slot="7"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M5 6h14l-1 12H6L5 6z"/></svg></span></div>
+                                <div class="hotkey" data-slot="8"><span class="skill-gem"><svg viewBox="0 0 24 24"><path d="M12 2 4 14h5l-1 8 8-12h-5z"/></svg></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notes">
+                    <h3>What changes</h3>
+                    <ul>
+                        <li>Leans into segmented borders, node markers, and cleaner astral-tech symbolism.</li>
+                        <li>Feels more like a star-map control interface than a fantasy plate or relic frame.</li>
+                    </ul>
+                </div>
+            </article>
+        </section>
+    </div>
+</body>
+</html>

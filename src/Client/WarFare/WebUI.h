@@ -39,11 +39,19 @@ public:
 	bool IsUIPixelActive(int x, int y);
 	void AddGameMessage(int type, const std::string& msg, uint32_t color);
 	void Evaluate(const std::string& js);
+	void SetCommandPanelVisible(bool bVisible);
+	bool IsCommandPanelVisible() const { return m_bCommandPanelVisible; }
+	void SetExitPanelVisible(bool bVisible);
+	bool IsExitPanelVisible() const { return m_bExitPanelVisible; }
 
 	ultralight::View* GetView() { return m_pView.get(); }
 
 private:
+	bool m_bCommandPanelVisible = false;
+	bool m_bExitPanelVisible = false;
 	void UpdateTexture();
+	void SyncCommandPanel();
+	void SyncExitPanel();
 	static std::string ConvertToUTF8(const std::string& str);
 	static std::string ConvertAndGetIconPath(struct __IconItemSkill* pSkill);
 	static std::string ConvertTextureToPng(class CN3Texture* pN3Tex);

@@ -55,6 +55,12 @@ server_config.h
 last-build-states/
 .env
 assets/client/
+!assets/Client/
+assets/Client/*
+!assets/Client/ui/
+assets/Client/ui/*
+!assets/Client/ui/main.html
+!assets/Client/ui/mockup_showcase.html
 
 # Do not ignore CMakeLists.txt
 !CMakeLists.txt

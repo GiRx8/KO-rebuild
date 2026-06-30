@@ -19,6 +19,7 @@
 #include "PlayerOther.h"
 #include "PlayerOtherMgr.h"
 #include "PacketDef.h"
+#include "text_resources.h"
 #include <spdlog/fmt/fmt.h>
 #include <filesystem>
 #include <d3dx9.h>
@@ -26,7 +27,130 @@
 #include <AppCore/Platform.h>
 #include <iostream>
 
+extern std::string g_szCmdMsg[CMD_COUNT];
+
 CWebUI* CWebUI::s_pInstance = nullptr;
+
+namespace
+{
+struct WebCommandCategory
+{
+	int id;
+	e_ChatCmd baseCommand;
+	int firstResourceId;
+	int lastResourceId;
+};
+
+constexpr WebCommandCategory kWebCommandCategories[] = {
+	{ 0, CMD_WHISPER, IDS_CMD_WHISPER, IDS_CMD_INDIVIDUAL_BATTLE },
+	{ 1, CMD_TRADE, IDS_CMD_TRADE, IDS_CMD_MERCHANT },
+	{ 2, CMD_PARTY, IDS_CMD_PARTY, IDS_CMD_PERMITPARTY },
+	{ 3, CMD_JOINCLAN, IDS_CMD_JOINCLAN, IDS_CMD_CLAN_BATTLE },
+	{ 4, CMD_CONFEDERACY, IDS_CMD_CONFEDERACY, IDS_CMD_DECLARATION },
+	{ 5, CMD_HIDE, IDS_CMD_HIDE, IDS_CMD_DESTROY },
+	{ 6, CMD_ROYALORDER, IDS_CMD_ROYALORDER, IDS_CMD_REWARD },
+	{ 7, CMD_VISIBLE, IDS_CMD_VISIBLE, IDS_CMD_PLC },
+};
+
+std::string EscapeJsonString(const std::string& value)
+{
+	std::string escaped;
+	escaped.reserve(value.size() + 16);
+
+	for (unsigned char c : value)
+	{
+		switch (c)
+		{
+			case '\\': escaped += "\\\\"; break;
+			case '"': escaped += "\\\""; break;
+			case '\b': escaped += "\\b"; break;
+			case '\f': escaped += "\\f"; break;
+			case '\n': escaped += "\\n"; break;
+			case '\r': escaped += "\\r"; break;
+			case '\t': escaped += "\\t"; break;
+			default:
+				if (c < 0x20)
+					escaped += fmt::format("\\u{:04x}", static_cast<unsigned int>(c));
+				else
+					escaped += static_cast<char>(c);
+				break;
+		}
+	}
+
+	return escaped;
+}
+
+bool TryResolveCommandListCommand(int categoryId, int commandIndex, e_ChatCmd& outCommand)
+{
+	for (const WebCommandCategory& category : kWebCommandCategories)
+	{
+		if (category.id != categoryId)
+			continue;
+
+		const int commandCount = category.lastResourceId - category.firstResourceId + 1;
+		if (commandIndex < 0 || commandIndex >= commandCount)
+			return false;
+
+		outCommand = static_cast<e_ChatCmd>(category.baseCommand + commandIndex);
+		return true;
+	}
+
+	return false;
+}
+
+std::string BuildCommandPanelJson()
+{
+	std::string json = "[";
+	bool firstCategory = true;
+	const bool includeGM = CGameBase::s_pPlayer != nullptr
+		&& CGameBase::s_pPlayer->m_InfoBase.iAuthority == AUTHORITY_MANAGER;
+
+	for (const WebCommandCategory& category : kWebCommandCategories)
+	{
+		if (category.id == 7 && !includeGM)
+			continue;
+
+		if (!firstCategory)
+			json += ",";
+		firstCategory = false;
+
+		const int categoryResourceId = IDS_PRIVATE_CMD_CAT + category.id;
+		const std::string categoryName = fmt::format_text_resource(categoryResourceId);
+		const std::string categoryTooltip = fmt::format_text_resource(categoryResourceId + 100);
+
+		json += fmt::format(
+			"{{\"id\":{},\"name\":\"{}\",\"tooltip\":\"{}\",\"commands\":[",
+			category.id,
+			EscapeJsonString(categoryName),
+			EscapeJsonString(categoryTooltip));
+
+		bool firstCommand = true;
+		for (int resourceId = category.firstResourceId, commandValue = category.baseCommand;
+			 resourceId <= category.lastResourceId;
+			 ++resourceId, ++commandValue)
+		{
+			if (!firstCommand)
+				json += ",";
+			firstCommand = false;
+
+			const e_ChatCmd command = static_cast<e_ChatCmd>(commandValue);
+			const std::string& commandName = g_szCmdMsg[command];
+			const std::string commandTooltip = fmt::format_text_resource(resourceId + 100, commandName);
+
+			json += fmt::format(
+				"{{\"name\":\"{}\",\"tooltip\":\"{}\",\"requiresArg\":{}}}",
+				EscapeJsonString(commandName),
+				EscapeJsonString(commandTooltip),
+				command == CMD_WHISPER ? "true" : "false");
+		}
+
+		json += "]}";
+	}
+
+	json += "]";
+	return json;
+}
+} // namespace
 
 CWebUI* CWebUI::Instance()
 {
@@ -111,6 +235,8 @@ void CWebUI::Shutdown()
 	}
 
 	m_bInitialized = false;
+	m_bCommandPanelVisible = false;
+	m_bExitPanelVisible = false;
 }
 
 void CWebUI::Update()
@@ -651,6 +777,44 @@ void CWebUI::LoadHTML(const std::string& html)
 	m_pView->LoadHTML(html.c_str());
 }
 
+void CWebUI::SetCommandPanelVisible(bool bVisible)
+{
+	m_bCommandPanelVisible = bVisible;
+	SyncCommandPanel();
+}
+
+void CWebUI::SyncCommandPanel()
+{
+	if (!m_bInitialized || !m_pView)
+		return;
+
+	const std::string js = fmt::format(
+		"if (window.setCommandPanelData) {{ window.setCommandPanelData({}); }}"
+		"if (window.setCommandPanelVisible) {{ window.setCommandPanelVisible({}); }}",
+		BuildCommandPanelJson(),
+		m_bCommandPanelVisible ? "true" : "false");
+
+	m_pView->EvaluateScript(js.c_str());
+}
+
+void CWebUI::SetExitPanelVisible(bool bVisible)
+{
+	m_bExitPanelVisible = bVisible;
+	SyncExitPanel();
+}
+
+void CWebUI::SyncExitPanel()
+{
+	if (!m_bInitialized || !m_pView)
+		return;
+
+	const std::string js = fmt::format(
+		"if (window.setExitPanelVisible) {{ window.setExitPanelVisible({}); }}",
+		m_bExitPanelVisible ? "true" : "false");
+
+	m_pView->EvaluateScript(js.c_str());
+}
+
 bool CWebUI::IsUIPixelActive(int x, int y)
 {
 	CGameProcMain* pProcMain = CGameProcedure::s_pProcMain;
@@ -1043,6 +1207,14 @@ void CWebUI::OnChangeTitle(ultralight::View* caller, const ultralight::String& t
 			{
 				pProcMain->CommandToggleCmdList();
 			}
+			else if (command == "cmdlist_focus_whisper")
+			{
+				if (m_pView)
+				{
+					m_pView->Focus();
+					m_pView->EvaluateScript("if (window.focusCommandInput) { window.focusCommandInput(); }");
+				}
+			}
 			else if (command == "invite")
 			{
 				CPlayerOther* pUPC = CGameProcedure::s_pOPMgr->UPCGetByID(CGameBase::s_pPlayer->m_iIDTarget, true);
@@ -1084,11 +1256,58 @@ void CWebUI::OnChangeTitle(ultralight::View* caller, const ultralight::String& t
 					pProcMain->m_pUIChatDlg->KillFocus();
 				}
 			}
+			else if (command.rfind("cmdlist_whisper:", 0) == 0)
+			{
+				std::string whisperTarget = UrlDecode(command.substr(16));
+				if (!whisperTarget.empty())
+				{
+					pProcMain->ParseChattingCommand("/" + g_szCmdMsg[CMD_WHISPER] + " " + whisperTarget);
+				}
+			}
+			else if (command.rfind("cmdlist_execute:", 0) == 0)
+			{
+				int categoryId = 0;
+				int commandIndex = 0;
+				if (sscanf(command.c_str(), "cmdlist_execute:%d:%d", &categoryId, &commandIndex) == 2)
+				{
+					e_ChatCmd resolvedCommand = CMD_UNKNOWN;
+					if (TryResolveCommandListCommand(categoryId, commandIndex, resolvedCommand)
+						&& resolvedCommand != CMD_WHISPER)
+					{
+						pProcMain->ParseChattingCommand("/" + g_szCmdMsg[resolvedCommand]);
+					}
+				}
+			}
 			else if (command == "option")
 			{
+				pProcMain->RequestExit();
+			}
+			else if (command == "exitmenu_cancel")
+			{
+				SetExitPanelVisible(false);
+			}
+			else if (command == "exitmenu_character")
+			{
+				SetExitPanelVisible(false);
 				if (pProcMain->m_pUIExitMenu)
 				{
-					pProcMain->m_pUIExitMenu->SetVisible(true);
+					pProcMain->m_pUIExitMenu->ExecuteCharacterSelection();
+				}
+			}
+			else if (command == "exitmenu_option")
+			{
+				SetExitPanelVisible(false);
+				if (pProcMain->m_pUIExitMenu)
+				{
+					pProcMain->m_pUIExitMenu->ExecuteOption();
+				}
+			}
+			else if (command == "exitmenu_exit")
+			{
+				SetExitPanelVisible(false);
+				if (pProcMain->m_pUIExitMenu)
+				{
+					pProcMain->m_pUIExitMenu->ExecuteQuit();
 				}
 			}
 			else if (command.rfind("inv_rclick:", 0) == 0)
@@ -1322,5 +1541,3 @@ void CWebUI::OnAddConsoleMessage(ultralight::View* caller,
 	}
 	std::cerr << fmt::format("[WebUI Console] {}:{}: {}\n", src, line_number, msg) << std::endl;
 }
-
-

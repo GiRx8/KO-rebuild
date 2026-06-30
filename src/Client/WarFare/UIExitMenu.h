@@ -14,6 +14,10 @@ public:
 	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg) override;
 	void ReturnToCharacterSelection();
 	bool Load(File& file) override;
+	bool ExecuteCharacterSelection();
+	bool ExecuteOption();
+	bool ExecuteQuit();
+	void ExecuteCancel();
 
 protected:
 	CN3UIButton* m_pBtn_Chr;
