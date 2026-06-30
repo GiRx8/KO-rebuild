@@ -1,0 +1,40 @@
+---
+# GHA workflow to check well-formedness of sources, docs and auxiliary files
+name: "Lint"
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+jobs:
+  # source code format checked before builds by ci-{linux,windows}.yml
+
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: avto-dev/markdown-lint@v1
+      with:
+        args: '**/*.md'
+    - uses: docker://oskarstark/doctor-rst
+      with:
+        args: --short --error-format=github
+      env:
+        DOCS_DIR: 'doc/'
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: hadolint/hadolint-action@v2.0.0
+      with:
+        dockerfile: Dockerfile
+
+  vagrant:
+    runs-on: macos-12
+    steps:
+    - uses: actions/checkout@v3
+    - run: vagrant version
+    - run: vagrant validate

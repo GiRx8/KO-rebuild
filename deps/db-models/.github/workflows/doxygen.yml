@@ -1,0 +1,21 @@
+name: Doxygenize Action
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Doxygenize
+        uses: langroodi/doxygenize@v1.7.1
+        with:
+          doxygenconf: './Doxyfile'
+          htmloutput: './docs'
+          ghpagesbranch: 'doxygen_out'
+          ghpagesdir: './docs/'
+          darkmode: 'true'

@@ -1,0 +1,36 @@
+[submodule "interprocess"]
+	path = interprocess
+	url = https://github.com/boostorg/interprocess
+	shallow = true
+[submodule "config"]
+	path = config
+	url = https://github.com/boostorg/config
+	shallow = true
+[submodule "assert"]
+	path = assert
+	url = https://github.com/boostorg/assert
+	shallow = true
+[submodule "type_traits"]
+	path = type_traits
+	url = https://github.com/boostorg/type_traits
+	shallow = true
+[submodule "move"]
+	path = move
+	url = https://github.com/boostorg/move
+	shallow = true
+[submodule "intrusive"]
+	path = intrusive
+	url = https://github.com/boostorg/intrusive
+	shallow = true
+[submodule "container"]
+	path = container
+	url = https://github.com/boostorg/container
+	shallow = true
+[submodule "winapi"]
+	path = winapi
+	url = https://github.com/boostorg/winapi
+	shallow = true
+[submodule "predef"]
+	path = predef
+	url = https://github.com/boostorg/predef
+	shallow = true

@@ -1,0 +1,5 @@
+InheritParentConfig: true
+
+Checks: >
+  -performance-unnecessary-copy-initialization,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic

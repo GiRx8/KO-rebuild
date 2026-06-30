@@ -1,0 +1,27 @@
+[
+  {
+    "Name": "Servers",
+    "Projects": [
+      {
+        "Path": "src\\Server\\AIServer\\AIServer.vcxproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\Server\\Ebenezer\\Ebenezer.vcxproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\Server\\Aujard\\Aujard.vcxproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\Server\\ItemManager\\ItemManager.vcxproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\Server\\VersionManager\\VersionManager.vcxproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
