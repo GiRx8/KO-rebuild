@@ -56,11 +56,8 @@ last-build-states/
 .env
 assets/client/
 !assets/Client/
-assets/Client/*
-!assets/Client/ui/
-assets/Client/ui/*
-!assets/Client/ui/main.html
-!assets/Client/ui/mockup_showcase.html
+!assets/Client/**
+assets/Client/KnightOnLine.exe
 
 # Do not ignore CMakeLists.txt
 !CMakeLists.txt
